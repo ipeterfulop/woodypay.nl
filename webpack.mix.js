@@ -22,8 +22,8 @@ mix.sass('resources/sass/app.scss', 'public/css/app.css', {}, [tailwindcss('app.
         postCss: [tailwindcss('app.tailwind.config.js')]
     });
 
-mix.sass('resources/sass/admin.scss', 'public/css/admin.css', {}, [tailwindcss('admin.tailwind.config.js')])
-    .options({
-        processCssUrls: false,
-        postCss: [tailwindcss('admin.tailwind.config.js')]
-    });
+// mix.sass('resources/sass/admin.scss', 'public/css/admin.css', {}, [tailwindcss('admin.tailwind.config.js')])
+//     .options({
+//         processCssUrls: false,
+//         postCss: [tailwindcss('admin.tailwind.config.js')]
+//     });

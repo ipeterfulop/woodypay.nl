@@ -1,3 +1,40 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+body {
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+@screen lg {
+  font-size: 20px;
+}
+
+a.button,
+button {
+  border-radius: 2rem;
+  font-size: 18px;
+  @apply cursor-pointer flex items-center justify-center text-center py-3 px-4;
+}
+
+a.button:hover,
+button:hover {
+  @apply bg-opacity-75;
+}
+
+h1 {
+  @apply text-3xl font-light tracking-tight;
+}
+
+@screen md {
+  h1 {
+    @apply text-5xl;
+  }
+}
+@screen lg {
+  h1 {
+    @apply text-7xl;
+  }
+}

@@ -31168,6 +31168,59 @@ video {
           animation: bounce 1s infinite;
 }
 
+body {
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+@media (min-width: 1024px) {
+  font-size: 20px;
+}
+
+a.button,
+button {
+  border-radius: 2rem;
+  font-size: 18px;
+}
+
+a.button, button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+}
+
+a.button:hover, button:hover {
+  --tw-bg-opacity: 0.75;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  letter-spacing: -0.025em;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
