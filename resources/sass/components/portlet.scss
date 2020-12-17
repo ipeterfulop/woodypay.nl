@@ -1,0 +1,19 @@
+.portlet {
+    @apply w-full overflow-hidden flex flex-col items-center justify-center text-gray-900 mt-4 mb-4;
+}
+.portlet-heading {
+    min-height: 3rem;
+    @apply w-full px-4 py-5 border-b border-gray-200 font-semibold flex flex-row items-center justify-between;
+}
+.portlet-body {
+    @apply w-full p-4 bg-white;
+}
+
+@screen sm {
+    .portlet {
+        @apply rounded-lg shadow;
+    }
+    .portlet-heading {
+        @apply px-6;
+    }
+}

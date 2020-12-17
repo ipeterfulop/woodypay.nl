@@ -1,0 +1,57 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'components/portlet';
+@import 'components/tailwindui-forms';
+@import 'components/tailwindui-compatibility';
+@import 'components/table';
+
+@import '../../node_modules/quill/dist/quill.core';
+@import '../../node_modules/quill/dist/quill.snow';
+
+.vuecrud-title-td {
+  max-width: 25%;
+  white-space: normal !important;
+}
+select {
+  height: auto !important;
+}
+.table svg {
+  max-height: 1rem;
+  height: 1rem;
+}
+.dropdown-button-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown-button-dropdown,
+.dropdown-button-dropdown button {
+  white-space: nowrap;
+  margin: 1px;
+}
+.form-control > div[fieldname] {
+  height: 85%;
+}
+.vuecrud-value-td {
+  max-width: 20rem;
+  overflow-x:auto;
+}
+.model-manager-filters-list {
+  flex-wrap: wrap;
+}
+.vuecrud-response_code_label-td {
+  max-width: 20em;
+  white-space: normal !important;
+}
+.vue-datepicker-inputgroup-append {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.vuecrud-accountantcompany_label-td,
+.vuecrud-name-td {
+  white-space: normal !important;
+}
+select {
+  margin-top: 4px;
+  -webkit-appearance: menulist-button !important;
+}

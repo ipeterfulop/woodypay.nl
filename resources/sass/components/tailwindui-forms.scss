@@ -1,0 +1,96 @@
+.menu-button {
+    @apply outline-none p-1 shadow-none text-gray-900;
+}
+
+button {
+    @apply shadow-lg pt-2 pb-2 pl-3 pr-3 rounded-sm font-semibold text-gray-900;
+    transition: transform 50ms linear;
+}
+button:hover {
+    @apply shadow-md;
+}
+button:focus {
+    @apply outline-none;
+}
+button:active {
+    @apply outline-none ring;
+    transform: translate(1px, 1px);
+}
+.btn {
+    @apply bg-gray-400;
+}
+
+.success-button {
+    @apply bg-blue-500 text-gray-200;
+}
+.form-group {
+    @apply flex justify-between flex-col p-2;
+}
+.form-group label {
+    @apply font-semibold;
+}
+input.form-control,
+select.form-control,
+input.form-input,
+select.form-input {
+    webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border-color: #d2d6dc;
+    border-width: 1px;
+    border-radius: .375rem;
+    padding-top: .5rem;
+    padding-right: .75rem;
+    padding-bottom: .5rem;
+    padding-left: .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    @apply block w-full transition duration-150 ease-in-out text-gray-900;
+}
+
+@screen sm {
+    input.form-control,
+    select.form-control,
+    input.form-input,
+    select.form-input {
+        @apply text-sm leading-5;
+    }
+
+}
+input.form-control.is-invalid,
+select.form-control.is-invalid {
+    @apply border-2 border-red-400;
+}
+select.form-control:focus,
+input.form-control:focus {
+    @apply shadow-lg;
+}
+.form-control:hover {
+    @apply shadow-inner;
+}
+a,
+a:visited,
+a:active {
+    text-decoration: none;
+    @apply flex items-center;
+    transition: background-color 200ms ease-in-out;
+}
+a:hover {
+    @apply text-gray-900 bg-blue-100;
+}
+.alert {
+    @apply block w-full p-2 m-0 mt-3 mb-3 text-center;
+}
+.alert-success {
+    @apply bg-green-600 text-white;
+}
+.alert-error {
+    @apply bg-red-400 text-white;
+}
+dt {
+    @apply font-bold;
+}
+.validation-error-label-message {
+    @apply text-red-500 font-thin ml-3;
+}
