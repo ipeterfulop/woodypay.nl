@@ -42,11 +42,14 @@ class PublicMainController extends Controller
                 'slides' => collect([
                     (object)[
                         'id' => 1,
-                        'blocktype_id' => 1,
+                        'blocktype_id' => 8,
                         'title' => 'Első slidehero címe',
                         'content' => 'Első slidehero szövege',
                         'button_label' => 'Nyomj meg',
                         'button_url' => '#',
+                        'image_url' => 'images/2.jpg',
+                        'testimonial_name' => 'Oláh Tamás',
+                        'testimonial_position' => 'slave',
                         'styledefinitions' => new BlockStyledefinition([
                             'background-color' => 'black',
                             'color' => 'white',
@@ -60,11 +63,14 @@ class PublicMainController extends Controller
                     ],
                     (object)[
                         'id' => 1,
-                        'blocktype_id' => 1,
+                        'blocktype_id' => 8,
                         'title' => 'Második slidehero címe',
                         'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis vehicula augue non volutpat. Sed nisi dolor, auctor vitae velit ut, rutrum ultrices leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sit amet quam feugiat, ultrices purus in, sagittis urna. Maecenas facilisis eget turpis at finibus. Nunc sagittis sodales libero vel ullamcorper. Donec erat sem, placerat vel mauris quis, posuere viverra augue. Etiam tempus nec nulla a tincidunt. Maecenas sollicitudin arcu tortor, id aliquam metus eleifend id. Etiam iaculis semper interdum. Maecenas eu urna id dui ultricies aliquet sit amet sed diam. Phasellus venenatis ut lacus sit amet lacinia. Suspendisse ex sapien, hendrerit eu purus vel, elementum sodales nisl. Fusce in odio nisl. Suspendisse vestibulum suscipit arcu at scelerisque. Donec id diam sed diam aliquet blandit.',
                         'button_label' => 'Nyomj meg',
                         'button_url' => '#',
+                        'image_url' => 'images/x.jpg',
+                        'testimonial_name' => 'Darth Vader',
+                        'testimonial_position' => 'slaveowner',
                         'styledefinitions' => new BlockStyledefinition([
                             'background-color' => 'black',
                             'color' => 'red',
