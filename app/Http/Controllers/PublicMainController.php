@@ -11,24 +11,24 @@ class PublicMainController extends Controller
     public function index()
     {
         $blocks = [
-//            (object)[
-//                'id' => 1,
-//                'blocktype_id' => 1,
-//                'title' => 'Első hero címe',
-//                'content' => 'Első hero szövege',
-//                'button_label' => 'Nyomj meg',
-//                'button_url' => '#',
-//                'styledefinitions' => new BlockStyledefinition([
-//                    'background-color' => 'lightblue',
-//                    'color' => 'red',
-//                    'font-size' => '2rem'
-//                ]),
-//                'button_styledefinitions' => new BlockStyledefinition([
-//                    'background-color' => 'darkblue',
-//                    'color' => 'white',
-//                    'font-size' => '1.5rem',
-//                ])
-//            ],
+            (object)[
+                'id' => 1,
+                'blocktype_id' => 1,
+                'title' => 'Első hero címe',
+                'content' => 'Első hero szövege',
+                'button_label' => 'Nyomj meg',
+                'button_url' => '#',
+                'styledefinitions' => new BlockStyledefinition([
+                    'background-color' => 'lightblue',
+                    'color' => 'red',
+                    'font-size' => '2rem'
+                ]),
+                'button_styledefinitions' => new BlockStyledefinition([
+                    'background-color' => 'darkblue',
+                    'color' => 'white',
+                    'font-size' => '1.5rem',
+                ])
+            ],
             (object)[
                 'id' => 10,
                 'blocktype_id' => 7,
