@@ -23,12 +23,15 @@
     <div x-data="{showMenu: false}">
         @if((!isset($showHeader)) || ($showHeader))
             <div class="bg-gray-100 w-full flex flex-row items-center justify-end z-40 fixed top-0 left-0">
-                <button @click="showMenu = !showMenu">{!! config('heroicons.solid.menu') !!}</button>
+                <button @click="showMenu = !showMenu" class="focus:outline-none hover:opacity-75 text-3xl">{!! config('heroicons.solid.menu') !!}</button>
             </div>
         @endif
         <main class="py-4">
             @yield('content')
         </main>
+        <footer>
+
+        </footer>
         <div id="menu" class="w-0 h-screen z-50 fixed bg-gray-700 bg-opacity-50 right-0 top-0 shadow-xl flex flex-col overflow-hidden transition-opacity duration-100 ease-in-out"
              x-bind:class="{'w-screen opacity-1': showMenu, 'opacity-0': !showMenu}"
              @click.self="showMenu = false"
