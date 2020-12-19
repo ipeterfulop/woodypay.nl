@@ -10,6 +10,8 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
 {
     use HasFactory;
 
+    const SUBJECTTYPE_ID = 4;
+
     protected $table = 'blocktypes';
 
     protected $fillable = [
@@ -19,7 +21,7 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
 
     public static function getSubjecttypeId()
     {
-        // TODO: Implement getSubjecttypeId() method.
+        return self::SUBJECTTYPE_ID;
     }
 
     public static function getTranslatedProperties(): array

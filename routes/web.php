@@ -33,6 +33,8 @@ Route::middleware(['auth', 'can:access-admin'])->group(function() {
         \App\Models\Administrator::setVueCRUDRoutes();
         \App\Models\Member::setVueCRUDRoutes();
         \App\Models\Useraction::setVueCRUDRoutes();
+        \App\Models\Page::setVueCRUDRoutes();
+        \App\Models\Block::setVueCRUDRoutes();
     });
 });
 Route::middleware(['auth'])->group(function() {
@@ -47,3 +49,5 @@ Route::middleware(['auth', 'signed'])->group(function() {
 });
 
 Route::get('/', [PublicMainController::class, 'index'])->name('public_index');
+
+\App\Models\Page::setRoutes();

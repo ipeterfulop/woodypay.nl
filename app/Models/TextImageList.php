@@ -10,7 +10,7 @@ class TextImageList extends TranslatableModel
 {
     use HasFactory;
 
-    const SUBJECTTYPE_ID = 2;
+    const SUBJECTTYPE_ID = 3;
 
     public static function getSubjecttypeId()
     {

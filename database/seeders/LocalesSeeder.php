@@ -16,11 +16,11 @@ class LocalesSeeder extends Seeder
     {
         $dataset = [
             [
-                'id' => 'hu',
-                'name' => 'Magyar',
+                'id' => 'en',
+                'name' => 'Angol',
                 'is_main' => 1,
-                'decimal_separator' => ',',
-            ]
+                'decimal_separator' => '.',
+            ],
         ];
 
         foreach ($dataset as $row) {

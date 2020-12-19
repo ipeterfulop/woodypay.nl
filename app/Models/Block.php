@@ -3,15 +3,23 @@
 namespace App\Models;
 
 use Datalytix\Translations\TranslatableModel;
+use Datalytix\VueCRUD\Traits\VueCRUDManageable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use ReflectionClass;
 
 class Block extends TranslatableModel
 {
-    use HasFactory;
+    use HasFactory, VueCRUDManageable;
+    const SUBJECT_SLUG = 'block';
+    const SUBJECT_NAME = 'Block';
+    const SUBJECT_NAME_PLURAL = 'Blocks';
 
     protected $fillable = ['blocktype_id'];
+
+    protected $with = ['blocktype'];
+
+    protected $appends = ['block_type_label'];
 
     const SUBJECTTYPE_ID = 1;
 
@@ -31,6 +39,11 @@ class Block extends TranslatableModel
         return 'tag_' . $reflect->getShortName();
     }
 
+    public function blocktype()
+    {
+        return $this->belongsTo(BlockType::class);
+    }
+
     public static function createWithTranslations($data)
     {
         $model = null;
@@ -46,5 +59,38 @@ class Block extends TranslatableModel
         return $model;
     }
 
+    public function getBlockTypeLabelAttribute()
+    {
+        return $this->blocktype->name;
+    }
+
+    public static function getVueCRUDIndexColumns()
+    {
+        return [
+            'block_type_label' => 'Type'
+        ];
+    }
+
+    public static function getVueCRUDSortingIndexColumns()
+    {
+        return [];
+    }
+
+    public function getVueCRUDDetailsFields()
+    {
+        return [];
+    }
+
+    public static function getVueCRUDIndexFilters()
+    {
+
+    }
+
+    public static function modifyModellistButtons($buttons)
+    {
+        unset($buttons['details']);
+
+        return $buttons;
+    }
 }
 

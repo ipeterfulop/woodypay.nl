@@ -9,11 +9,6 @@ class SimpleTextImageBlock extends Block
 {
     use HasFactory;
 
-    public static function getSubjecttypeId()
-    {
-        // TODO: Implement getSubjecttypeId() method.
-    }
-
     public static function getTranslatedProperties(): array
     {
         return [
@@ -23,9 +18,5 @@ class SimpleTextImageBlock extends Block
             'button_url',
             'topic_image',
         ];
-    }
-
-    static function getBlockTypeTag(): string
-    {
     }
 }

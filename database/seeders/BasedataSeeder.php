@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\BlockPage;
 use Illuminate\Database\Seeder;
 
 class BasedataSeeder extends Seeder
@@ -17,5 +18,8 @@ class BasedataSeeder extends Seeder
         $this->call(UsersSeeder::class);
         $this->call(LocalesSeeder::class);
         $this->call(TranslationsSeeder::class);
+        $this->call(SubjecttypesSeeder::class);
+        $this->call(BlockTypesSeeder::class);
+        $this->call(PagesSeeder::class);
     }
 }
