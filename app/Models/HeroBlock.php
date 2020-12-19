@@ -10,6 +10,17 @@ class HeroBlock extends Block
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'text_color',
+        'background_color',
+        'background_image',
+        'background_image_positioning_id',
+        'background_gradient',
+        'button_background_color',
+        'button_text_color',
+    ];
+
     public static function getTranslatedProperties(): array
     {
         return [
@@ -19,5 +30,4 @@ class HeroBlock extends Block
             'button_url',
         ];
     }
-
 }

@@ -21,7 +21,7 @@ class CreateTranslationsTable extends Migration
 
         Schema::create('translations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('translationsubjecttype_id')->nullable()->default(null);
+            $table->unsignedBigInteger('subjecttype_id')->nullable()->default(null);
             $table->unsignedBigInteger('subject_id')->nullable()->default(null);
             $table->char('locale_id', 2);
             $table->text('translation');
@@ -30,7 +30,7 @@ class CreateTranslationsTable extends Migration
             $table->timestamps();
         });
         Schema::table('translations', function (Blueprint $table) {
-            $table->foreign('translationsubjecttype_id')->references('id')->on('translationsubjecttypes');
+            $table->foreign('subjecttype_id')->references('id')->on('translationsubjecttypes');
             $table->foreign('locale_id')->references('id')->on('locales');
         });
     }

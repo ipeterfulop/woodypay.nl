@@ -9,7 +9,7 @@ class Translation extends \Datalytix\Translations\Translation implements ITransl
     protected $fillable = [
         'id',
         'subject_id',
-        'translationsubjecttype_id',
+        'subjecttype_id',
         'locale_id',
         'translation',
         'key',
@@ -23,10 +23,10 @@ class Translation extends \Datalytix\Translations\Translation implements ITransl
             ->when($filterData !== null, function ($query) use ($filterData) {
                 if ($filterData != -1) {
                     if ($filterData == 0) {
-                        return $query->where('translationsubjecttype_id', '=', null);
+                        return $query->where('subjecttype_id', '=', null);
                     }
 
-                    return $query->where('translationsubjecttype_id', '=', $filterData);
+                    return $query->where('subjecttype_id', '=', $filterData);
                 } else {
                     return $query;
                 }
@@ -66,7 +66,7 @@ class Translation extends \Datalytix\Translations\Translation implements ITransl
             'key'       => $key,
             'locale_id' => $locale,
             'subject_id' => $subjectId,
-            'translationsubjecttype_id' => $subjecttypeId
+            'subjecttype_id' => $subjecttypeId
         ], [
             'key'         => $key,
             'locale_id'   => $locale,
@@ -87,7 +87,7 @@ class Translation extends \Datalytix\Translations\Translation implements ITransl
 
     public function scopeForModel($query, $model, $localeId = null)
     {
-        return $query->where('translationsubjecttype_id', '=', $model::getSubjecttypeId())
+        return $query->where('subjecttype_id', '=', $model::getSubjecttypeId())
             ->when(!is_null($localeId), function($query) use ($localeId) {
                 return $query->where('locale_id', '=', $localeId);
             });
