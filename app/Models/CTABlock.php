@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SimpleTextImageBlock extends Block
+class CTABlock extends Block
 {
     use HasFactory;
 
@@ -16,11 +16,6 @@ class SimpleTextImageBlock extends Block
             'content',
             'button_label',
             'button_url',
-            'topic_image',
         ];
-    }
-
-    static function getBlockTypeTag(): string
-    {
     }
 }
