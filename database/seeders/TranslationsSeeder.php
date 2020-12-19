@@ -298,7 +298,7 @@ class TranslationsSeeder extends Seeder
                 Translation::updateOrCreate([
                     'locale_id' => $row['locale_id'],
                     'key' => $row['key'],
-                    'translationsubjecttype_id' => isset($row['translationsubjecttype_id']) ? $row['translationsubjecttype_id'] : null,
+                    'subjecttype_id' => isset($row['subjecttype_id']) ? $row['subjecttype_id'] : null,
                     'subject_id' => isset($row['subject_id']) ? $row['subject_id'] : null,
                     'field' => isset($row['field']) ? $row['field'] : null,
                 ], $row);

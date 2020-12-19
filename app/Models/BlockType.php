@@ -10,6 +10,13 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
 {
     use HasFactory;
 
+    protected $table = 'blocktypes';
+
+    protected $fillable = [
+        'id',
+        'tag'
+    ];
+
     public static function getSubjecttypeId()
     {
         // TODO: Implement getSubjecttypeId() method.
@@ -22,6 +29,6 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
 
     public static function findByTag(string $tag)
     {
-        // TODO: Implement findByTag() method.
+        return self::where('tag', '=', $tag)->first();
     }
 }

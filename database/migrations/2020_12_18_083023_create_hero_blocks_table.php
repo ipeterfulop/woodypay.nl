@@ -22,8 +22,8 @@ class CreateHeroBlocksTable extends Migration
                 $table->string('background_image', 25)->nullable()->default(null);
                 $table->string('background_gradient')->nullable()->default(null);
                 $table->foreignId('background_image_positioning_id')
-                      ->constrained('positionings')
                       ->nullable()
+                      ->constrained('positionings')
                       ->default(null);
                 $table->string('button_background_color', 25)->nullable()->default(null);
                 $table->string('button_text_color', 25)->nullable()->default(null);
