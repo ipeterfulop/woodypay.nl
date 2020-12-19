@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Datalytix\Translations\TranslatableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HeroBlock extends Block
+class TextImageListBlock extends Block
 {
     use HasFactory;
 
@@ -15,9 +14,6 @@ class HeroBlock extends Block
         return [
             'title',
             'content',
-            'button_label',
-            'button_url',
         ];
     }
-
 }
