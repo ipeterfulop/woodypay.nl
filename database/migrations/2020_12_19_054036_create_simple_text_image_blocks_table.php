@@ -21,6 +21,7 @@ class CreateSimpleTextImageBlocksTable extends Migration
                 $table->string('background_color', 6)->nullable()->default(null);
                 $table->string('button_background_color', 6)->nullable()->default(null);
                 $table->string('button_text_color', 6)->nullable()->default(null);
+                $table->string('topic_image_border_color', 6)->nullable()->default(null);
                 $table->unsignedBigInteger('topic_image_horizontal_positioning_id')
                       ->nullable()
                       ->default(null);
