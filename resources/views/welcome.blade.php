@@ -11,6 +11,10 @@
             width: 100%;
             max-width: 970px;
         }
+        .slider-slide > div {
+            height: 100%;
+            flex-grow: 1;
+        }
     </style>
     @foreach($blocks as $block)
         <a name="#block-{{ $block->id }}"></a>
