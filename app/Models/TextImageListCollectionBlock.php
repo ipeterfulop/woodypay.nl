@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Datalytix\Translations\TranslatableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TextImageList extends TranslatableModel
+class TextImageListCollectionBlock extends Block
 {
     use HasFactory;
 
-    const SUBJECTTYPE_ID = 3;
+    const SUBJECTTYPE_ID = 8;
 
     public static function getSubjecttypeId()
     {

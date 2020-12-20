@@ -50,4 +50,4 @@ Route::middleware(['auth', 'signed'])->group(function() {
 
 Route::get('/', [PublicMainController::class, 'index'])->name('public_index');
 
-\App\Models\Page::setRoutes();
+// \App\Models\Page::setRoutes();
