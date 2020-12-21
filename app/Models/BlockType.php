@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Datalytix\KeyValue\canBeTurnedIntoKeyValueCollection;
 use Datalytix\Translations\TranslatableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BlockType extends TranslatableModel implements IRetrievableByTag
 {
-    use HasFactory;
+    use HasFactory, canBeTurnedIntoKeyValueCollection;
 
     const SUBJECTTYPE_ID = 4;
 
@@ -32,5 +33,10 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
     public static function findByTag(string $tag)
     {
         return self::where('tag', '=', $tag)->first();
+    }
+
+    public function getClassNameFromTag()
+    {
+        return str_ireplace('tag_', '', $this->tag);
     }
 }

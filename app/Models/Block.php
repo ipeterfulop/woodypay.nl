@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Datalytix\Translations\TranslatableModel;
+use Datalytix\VueCRUD\Indexfilters\SelectVueCRUDIndexfilter;
 use Datalytix\VueCRUD\Traits\VueCRUDManageable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -83,7 +84,11 @@ class Block extends TranslatableModel
 
     public static function getVueCRUDIndexFilters()
     {
+        $result = [];
+        $result['page_id'] = new SelectVueCRUDIndexfilter('page_id', 'Page', 0);
+        $result['page_id']->setValueSet(Page::all()->pluck('name', 'id')->all(), 0, 'Select page...');
 
+        return $result;
     }
 
     public static function modifyModellistButtons($buttons)
@@ -91,6 +96,12 @@ class Block extends TranslatableModel
         unset($buttons['details']);
 
         return $buttons;
+    }
+
+    public function scopeWithPosition($query)
+    {
+        return $query->select('blocks.*', \DB::raw('bp.position as position'), \DB::raw('bp.page_id as page_id'))
+            ->leftJoinSub(BlockPage::query(), 'bp', 'bp.block_id', '=', 'blocks.id');
     }
 }
 
