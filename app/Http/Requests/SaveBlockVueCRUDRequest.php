@@ -35,8 +35,7 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
             $pageId = $dataset['page_id'];
             unset($dataset['page_id']);
             \DB::transaction(function() use ($dataset, $class, &$subject, $position, $pageId) {
-                $subject = $class::createWithTranslations($this->getDataset());
-                dd($subject);
+                $subject = $class::createWithTranslations($dataset);
                 BlockPage::create([
                     'page_id' => $pageId,
                     'block_id' => $subject->id,
@@ -45,7 +44,8 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
             });
 
         } else {
-            $subject->update($this->getDataset());
+            $subClass = $class::find($subject->id);
+            $subClass->updateWithTranslations($dataset);
         }
 
         return $subject;
@@ -63,7 +63,7 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
         ];
         $this->blockType = BlockType::find($result['blocktype_id']);
         foreach($this->getBlockFields() as $field) {
-            $result[$field] = $this->input($field);
+            $result[$field] = $this->input($this->blockType->id.'_'.$field);
         }
 
         return $result;

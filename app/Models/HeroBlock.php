@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
+use App\Helpers\DescendantBlock;
 use Datalytix\Translations\TranslatableModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HeroBlock extends Block
+class HeroBlock extends DescendantBlock
 {
     use HasFactory;
+
+    protected $table = 'hero_blocks';
+
+    public $incrementing = false;
 
     protected $fillable = [
         'id',

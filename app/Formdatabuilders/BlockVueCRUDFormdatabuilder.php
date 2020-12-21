@@ -182,4 +182,17 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $this->addStepLabel(1, __('First, select a block type'));
         $this->addStepLabel(2, __('Set the block\'s properties'));
     }
+
+    public function getFormfieldValue($field)
+    {
+        $pieces = explode('_', $field, 2);
+        if (!is_numeric($pieces[0])) {
+            return false;
+        }
+        if ($this->subject == null) {
+            return null;
+        }
+
+        return $this->subject->{$pieces[1]};
+    }
 }

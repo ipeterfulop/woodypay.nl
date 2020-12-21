@@ -18,6 +18,8 @@ class Block extends TranslatableModel
     const SUBJECT_NAME = 'Block';
     const SUBJECT_NAME_PLURAL = 'Blocks';
 
+    protected $table = 'blocks';
+
     protected $fillable = [
         'blocktype_id',
         'text_color',
@@ -60,25 +62,9 @@ class Block extends TranslatableModel
         return $this->belongsTo(BlockType::class, 'blocktype_id');
     }
 
-    public static function createWithTranslations($data)
-    {
-        $model = null;
-        \DB::transaction(function() use ($data, &$model){
-            $typeId = BlockType::findByTag(static::getBlockTypeTag())->id;
-            $blockData = collect($data)->only((new Block())->getFillable())->except(['id'])->all();
-            $blockData['blocktype_id'] = $typeId;
-            $subData = collect($data)->except(array_keys($blockData))->all();
-            $block = Block::create($blockData);
-            $subData['id'] = $block->id;
-            $model = parent::createWithTranslations($subData);
-        });
-
-        return $model;
-    }
-
     public function getBlockTypeLabelAttribute()
     {
-        return $this->blocktype->name;
+        return optional($this->blocktype)->name;
     }
 
     public static function getVueCRUDIndexColumns()
@@ -114,16 +100,9 @@ class Block extends TranslatableModel
         return $buttons;
     }
 
-    public function scopeWithPosition($query)
-    {
-        return $query->select($this->getTable().'.*', \DB::raw('bp.position as position'), \DB::raw('bp.page_id as page_id'))
-            ->leftJoinSub(BlockPage::query(), 'bp', 'bp.block_id', '=', $this->getTable().'.id');
-    }
-
     public static function getRestrictingFields()
     {
         return ['page_id'];
     }
-
 }
 

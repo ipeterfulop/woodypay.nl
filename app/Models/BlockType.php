@@ -35,8 +35,10 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
         return self::where('tag', '=', $tag)->first();
     }
 
-    public function getClassNameFromTag()
+    public function getClassNameFromTag($full = false)
     {
-        return str_ireplace('tag_', '', $this->tag);
+        return $full
+            ? '\\App\\Models\\'.str_ireplace('tag_', '', $this->tag)
+            : str_ireplace('tag_', '', $this->tag);
     }
 }
