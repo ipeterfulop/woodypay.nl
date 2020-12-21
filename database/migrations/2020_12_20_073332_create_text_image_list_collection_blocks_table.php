@@ -16,13 +16,12 @@ class CreateTextImageListCollectionBlocksTable extends Migration
         Schema::create(
             'text_image_list_collection_blocks',
             function (Blueprint $table) {
-                $table->id();
-                $table->string('text_color', 25)->nullable()->default(null);
-                $table->string('background_color', 25)->nullable()->default(null);
-                $table->string('background_gradient')->nullable()->default(null);
+                $table->foreignId('id')->constrained('blocks')->primary();
+
                 $table->string('text_color_selected_list', 25)->nullable()->default(null);
                 $table->string('background_color_selected_list', 25)->nullable()->default(null);
                 $table->string('background_gradient_selected_list')->nullable()->default(null);
+
                 $table->timestamps();
             }
         );

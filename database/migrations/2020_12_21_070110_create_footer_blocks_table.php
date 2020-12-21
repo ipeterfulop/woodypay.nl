@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSimpleTextImageBlocksTable extends Migration
+class CreateFooterBlocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,25 +14,22 @@ class CreateSimpleTextImageBlocksTable extends Migration
     public function up()
     {
         Schema::create(
-            'simple_text_image_blocks',
+            'footer_blocks',
             function (Blueprint $table) {
                 $table->foreignId('id')->constrained('blocks')->primary();
 
-                $table->string('topic_image_border_color', 6)->nullable()->default(null);
-                $table->unsignedBigInteger('topic_image_horizontal_positioning_id')
-                      ->nullable()
-                      ->default(null);
+                $table->unsignedBigInteger('social_icons_text_image_list_id');
 
                 $table->timestamps();
             }
         );
 
         Schema::table(
-            'simple_text_image_blocks',
+            'footer_blocks',
             function (Blueprint $table) {
-                $table->foreign('topic_image_horizontal_positioning_id', 'FK_simple_text_image_blocks_01')
+                $table->foreign('social_icons_text_image_list_id', 'FK_footer_blocks_01')
                       ->references('id')
-                      ->on('positionings');
+                      ->on('text_image_lists');
             }
         );
     }
@@ -44,6 +41,6 @@ class CreateSimpleTextImageBlocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('simple_text_image_blocks');
+        Schema::dropIfExists('footer_blocks');
     }
 }

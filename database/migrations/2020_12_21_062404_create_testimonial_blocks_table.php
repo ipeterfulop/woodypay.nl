@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHeroBlocksTable extends Migration
+class CreateTestimonialBlocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,11 @@ class CreateHeroBlocksTable extends Migration
     public function up()
     {
         Schema::create(
-            'hero_blocks',
+            'testimonial_blocks',
             function (Blueprint $table) {
                 $table->foreignId('id')->constrained('blocks')->primary();
 
-                $table->string('background_image', 25)->nullable()->default(null);
-                $table->foreignId('background_image_positioning_id')
-                      ->nullable()
-                      ->constrained('positionings')
-                      ->default(null);
+                $table->string('person_photo')->nullable()->default(null);
 
                 $table->timestamps();
             }
@@ -36,6 +32,6 @@ class CreateHeroBlocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hero_blocks');
+        Schema::dropIfExists('testimonial_blocks');
     }
 }
