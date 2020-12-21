@@ -7,12 +7,12 @@ use Datalytix\Translations\TranslatableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Spacings extends TranslatableModel
+class Spacing extends TranslatableModel
 {
     use canBeTurnedIntoKeyValueCollection;
     use HasFactory;
 
-    const SUBJECTTYPE_ID = 4;
+    const SUBJECTTYPE_ID = 10;
 
     public static function getSubjecttypeId()
     {
