@@ -25,6 +25,9 @@ class BlockVueCRUDController extends VueCRUDControllerBase implements ICRUDContr
 
     public function store(SaveBlockVueCRUDRequest $request)
     {
+        if (request()->input('currentStep') == 1) {
+            return response('OK');
+        }
         $subject = $request->save();
         $this->setSuccessfulAddPopupMessageInSession();
 
@@ -47,6 +50,11 @@ class BlockVueCRUDController extends VueCRUDControllerBase implements ICRUDContr
         $provider = new BlockVueCRUDDataprovider();
 
         return $provider->getElementsAndCounts();
+    }
+
+    public function getSubject($id)
+    {
+        return Block::withPosition()->find($id);
     }
 
 }

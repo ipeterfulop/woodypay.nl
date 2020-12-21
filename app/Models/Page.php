@@ -24,11 +24,19 @@ class Page extends TranslatableModel
     protected $appends = [
         'urls_label',
         'vuecrud_delete_allowed',
+        'blocks_label',
     ];
 
     public function getVuecrudDeleteAllowedAttribute()
     {
         return $this->tag == null;
+    }
+
+    public function getBlocksLabelAttribute()
+    {
+        return '<a href="'.route('vuecrud_block_index', ['page_id' => $this->id]).'">'
+            .__('Manage blocks')
+            .'</a>';
     }
 
     public function blocks()
@@ -61,8 +69,9 @@ class Page extends TranslatableModel
     public static function getVueCRUDIndexColumns()
     {
         return [
-            'name' => 'Name',
-            'urls_label' => 'URLs',
+            'name' => __('Name'),
+            'urls_label' => __('URLs'),
+            'blocks_label' => __('Manage blocks'),
         ];
     }
 
@@ -112,5 +121,9 @@ class Page extends TranslatableModel
         return '/'.$locale.$url;
     }
 
+    public static function getKeyValueCollection()
+    {
+        return self::all()->pluck('name', 'id');
+    }
 
 }
