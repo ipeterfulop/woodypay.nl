@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 
 class PagesSeeder extends Seeder
 {
+    const START_PAGE = 1;
     /**
      * Run the database seeds.
      *
@@ -15,7 +16,7 @@ class PagesSeeder extends Seeder
     public function run()
     {
         $dataset = [
-            ['id' => 1, 'name_en' => 'Main page', 'url' => '/', 'tag' => 'main'],
+            ['id' => self::START_PAGE, 'name_en' => 'Main page', 'url' => '/', 'tag' => 'main'],
             ['id' => 2, 'name_en' => 'Privacy policy', 'url' => '/privacy', 'tag' => 'privacy'],
         ];
 

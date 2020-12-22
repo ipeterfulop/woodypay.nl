@@ -17,7 +17,13 @@ class LocalesSeeder extends Seeder
         $dataset = [
             [
                 'id' => 'en',
-                'name' => 'Angol',
+                'name' => 'English',
+                'is_main' => 1,
+                'decimal_separator' => '.',
+            ],
+            [
+                'id' => 'nl',
+                'name' => 'Dutch',
                 'is_main' => 1,
                 'decimal_separator' => '.',
             ],

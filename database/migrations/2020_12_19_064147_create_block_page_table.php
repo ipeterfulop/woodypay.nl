@@ -19,7 +19,8 @@ class CreateBlockPageTable extends Migration
                 $table->id();
                 $table->foreignId('page_id')->constrained('pages');
                 $table->foreignId('block_id')->constrained('blocks');
-                $table->unsignedInteger('position')->default(1);
+                $table->unsignedInteger('position')->nullable()->default(1);
+                $table->unsignedInteger('visible')->default(0);
                 $table->timestamps();
             }
         );
