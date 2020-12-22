@@ -33,23 +33,53 @@
                          v-on:drop="moveToEnd($event)"
                     ><span></span></div>
                 </div>
-
+                <div class="w-1/2 flex flex-col">
+                    <div v-if="mode == 'base'" class="flex flex-col">
+                        <button class="" v-on:click="mode = 'add'" v-html="translate('New item')"></button>
+                    </div>
+                    <edit-form v-if="mode == 'edit'"
+                            v-bind:data-url="editFormProps.currentEditUrl"
+                            v-bind:save-url="editFormProps.currentUpdateUrl"
+                            v-bind:ajax-operations-url="editFormProps.currentAjaxOperationsUrl"
+                            v-on:submit-success="finishEditing"
+                            v-on:editing-canceled="setEditorToBase"
+                            redirect-to-response-on-success="false"
+                            v-bind:buttons="editFormProps.buttons"
+                            v-bind:class-overrides="editFormProps.classOverrides"
+                    ></edit-form>
+                    <edit-form v-if="mode == 'add'"
+                            v-bind:data-url="editFormProps.currentEditUrl"
+                            v-bind:save-url="editFormProps.currentStoreUrl"
+                            v-bind:ajax-operations-url="editFormProps.currentAjaxOperationsUrl"
+                            v-on:submit-success="finishAdding"
+                            v-on:editing-canceled="setEditorToBase"
+                            redirect-to-response-on-success="false"
+                            v-bind:buttons="editFormProps.buttons"
+                            v-bind:class-overrides="editFormProps.classOverrides"
+                    ></edit-form>
+                </div>
             </div>
         </template>
     </div>
 </template>
 
 <script>
+    import {translateMixin} from "./mixins/translateMixin";
+
     export default {
+        mixins: [translateMixin],
         props: {
             operationsUrl: {type: String},
-            title: {type: String}
+            title: {type: String},
+            editFormProps: {type: Object}
         },
         data: function () {
             return {
                 loading: true,
+                mode: 'add',
                 items: [],
                 moving: false,
+                subjectData: () => {return {}}
             }
         },
         mounted() {
@@ -120,6 +150,16 @@
                 this.items.push(item);
                 this.emitValue();
             },
+
+            finishEditing: function() {
+
+            },
+            finishAdding: function() {
+
+            },
+            setEditorToBase: function() {
+
+            }
 
         },
         computed: {},
