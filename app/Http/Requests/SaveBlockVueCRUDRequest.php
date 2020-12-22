@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\BlockStyledefinition;
 use App\Formdatabuilders\BlockVueCRUDFormdatabuilder;
+use App\Helpers\BackgroundColorType;
 use App\Models\Block;
 use App\Models\BlockPage;
 use App\Models\BlockType;
@@ -58,15 +60,30 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
             'blocktype_id' => $this->input('blocktype_id'),
             'text_color' => $this->input('text_color'),
             'background_color' => $this->input('background_color'),
-            'background_gradient' => $this->input('background_gradient'),
             'button_background_color' => $this->input('button_background_color'),
+            'should_open_button_url_in_new_window' => $this->input('should_open_button_url_in_new_window'),
         ];
+        if ($this->input('backgroundtype') == BackgroundColorType::GRADIENT_ID) {
+            $result['background_gradient'] = BlockStyledefinition::getCSSGradientBackgroundDefinition(
+                $this->input('background_color'),
+                $this->input('second_background_color')
+            );
+        }
         $this->blockType = BlockType::find($result['blocktype_id']);
         foreach($this->getBlockFields() as $field) {
-            $result[$field] = $this->input($this->blockType->id.'_'.$field);
+            $result[$field] = $this->getParsedInputValue($this->blockType->id.'_'.$field);
         }
 
         return $result;
+    }
+
+    protected function getParsedInputValue($field)
+    {
+        if (\Str::endsWith($field, 'image')) {
+            return basename($this->input($field));
+        }
+
+        return $this->input($field);
     }
 
     protected function getBlockFields()

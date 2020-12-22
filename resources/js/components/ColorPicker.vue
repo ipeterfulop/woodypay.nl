@@ -50,12 +50,12 @@
         methods: {
             parseValue: function(value) {
                 if ((value != 'auto') && (value != null) && (value != '')) {
-                    if (new RegExp(/#.{6}/).test(value)) {
+                    if (new RegExp(/#.{6,8}/).test(value)) {
                         return {
                             r: parseInt(value.substr(1, 2), 16),
                             g: parseInt(value.substr(3, 2), 16),
                             b: parseInt(value.substr(5, 2), 16),
-                            a: 1,
+                            a: value.length > 7 ? parseInt(value.substr(7, 2), 16) / 255 : 1,
                             v: '',
                         }
                     }
@@ -118,9 +118,9 @@
                     return 'auto';
                 }
                 return '#'
-                    +this.colorData.r.toString(16)
-                    +this.colorData.g.toString(16)
-                    +this.colorData.b.toString(16);
+                    +this.colorData.r.toString(16).padStart(2, '0')
+                    +this.colorData.g.toString(16).padStart(2, '0')
+                    +this.colorData.b.toString(16).padStart(2, '0');
             },
             valueToEmit: function() {
                 if (this.mode == 'rgba') {
@@ -132,7 +132,9 @@
         },
         watch: {
             internalValue: function() {
-                this.colorData = this.parseValue(this.internalValue);
+                let colorData = this.parseValue(this.internalValue);
+                colorData.a = this.colorData.a;
+                this.colorData = colorData;
                 this.$emit('input', this.valueToEmit);
             },
             rgbaString: function() {

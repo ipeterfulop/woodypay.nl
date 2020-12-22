@@ -2,12 +2,23 @@
 
 namespace App\Models;
 
+use App\Helpers\DescendantBlock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SimpleTextImageBlock extends Block
+class SimpleTextImageBlock extends DescendantBlock
 {
     use HasFactory;
+
+    protected $table = 'simple_text_image_blocks';
+
+    public $incrementing = false;
+
+    protected $fillable = [
+        'id',
+        'topic_image_border_color',
+        'topic_image_horizontal_positioning_id',
+    ];
 
     public static function getTranslatedProperties(): array
     {

@@ -23,7 +23,7 @@ class SubjecttypesSeeder extends Seeder
             ['id' => 2, 'name' => Page::class],
             ['id' => 3, 'name' => TextImageList::class],
             ['id' => 4, 'name' => BlockType::class],
-            ['id' => 9, 'name' => Positioning::class],
+            ['id' => 5, 'name' => Positioning::class],
             ['id' => 10, 'name' => Spacing::class],
         ];
 

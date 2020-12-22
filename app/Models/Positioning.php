@@ -14,6 +14,12 @@ class Positioning extends TranslatableModel
 
     const SUBJECTTYPE_ID = 5;
 
+    protected $fillable = [
+        'code',
+        'is_horizontal',
+        'is_vertical',
+    ];
+
     public static function getSubjecttypeId()
     {
         return static::SUBJECTTYPE_ID;
@@ -23,4 +29,29 @@ class Positioning extends TranslatableModel
     {
         return ['name'];
     }
+
+    public static function getBackgroundPositioningOptions()
+    {
+        return self::where('is_horizontal', '=', 1)
+            ->where('is_vertical', '=', 1)
+            ->get()
+            ->pluck('name', 'id');
+    }
+
+    public static function getHorizontalPositioningOptions()
+    {
+        return self::where('is_horizontal', '=', 1)
+            ->where('is_vertical', '=', 0)
+            ->get()
+            ->pluck('name', 'id');
+    }
+
+    public static function getVerticalPositioningOptions()
+    {
+        return self::where('is_horizontal', '=', 0)
+            ->where('is_vertical', '=', 1)
+            ->get()
+            ->pluck('name', 'id');
+    }
+
 }
