@@ -33,25 +33,32 @@ class Positioning extends TranslatableModel
     public static function getBackgroundPositioningOptions()
     {
         return self::where('is_horizontal', '=', 1)
-            ->where('is_vertical', '=', 1)
-            ->get()
-            ->pluck('name', 'id');
+                   ->where('is_vertical', '=', 1)
+                   ->get()
+                   ->pluck('name', 'id');
     }
 
     public static function getHorizontalPositioningOptions()
     {
         return self::where('is_horizontal', '=', 1)
-            ->where('is_vertical', '=', 0)
-            ->get()
-            ->pluck('name', 'id');
+                   ->where('is_vertical', '=', 0)
+                   ->get()
+                   ->pluck('name', 'id');
     }
 
     public static function getVerticalPositioningOptions()
     {
         return self::where('is_horizontal', '=', 0)
-            ->where('is_vertical', '=', 1)
-            ->get()
-            ->pluck('name', 'id');
+                   ->where('is_vertical', '=', 1)
+                   ->get()
+                   ->pluck('name', 'id');
+    }
+
+    public static function findByCode($code)
+    {
+        return self::where('code', '=', $code)
+                   ->get()
+                   ->first();
     }
 
 }
