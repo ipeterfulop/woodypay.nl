@@ -79,11 +79,4 @@ abstract class DescendantBlock extends Block
     {
         return BlockVueCRUDFormdatabuilder::class;
     }
-
-    public function scopeWithPosition($query)
-    {
-        return $query->select($this->getTable().'.*', \DB::raw('bp.position as position'), \DB::raw('bp.page_id as page_id'))
-            ->leftJoinSub(BlockPage::query(), 'bp', 'bp.block_id', '=', $this->getTable().'.id');
-    }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\BlockPage;
 use Illuminate\Database\Seeder;
 
 class BasedataSeeder extends Seeder
@@ -21,5 +20,6 @@ class BasedataSeeder extends Seeder
         $this->call(SubjecttypesSeeder::class);
         $this->call(BlockTypesSeeder::class);
         $this->call(PagesSeeder::class);
+        $this->call(PositioningsSeeder::class);
     }
 }

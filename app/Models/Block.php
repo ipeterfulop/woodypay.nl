@@ -104,5 +104,19 @@ class Block extends TranslatableModel
     {
         return ['page_id'];
     }
+
+    public function scopeWithPosition($query)
+    {
+        return $query->select($this->getTable().'.*', \DB::raw('bp.position as position'), \DB::raw('bp.page_id as page_id'))
+            ->leftJoinSub(BlockPage::query(), 'bp', 'bp.block_id', '=', $this->getTable().'.id');
+    }
+
+    public static function getVueCRUDOptionalAjaxFunctions()
+    {
+        return [
+            'storePublicPicture',
+            'removePublicPicture',
+        ];
+    }
 }
 

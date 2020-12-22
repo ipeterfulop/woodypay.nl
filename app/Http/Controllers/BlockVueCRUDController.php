@@ -80,4 +80,14 @@ class BlockVueCRUDController extends VueCRUDControllerBase implements ICRUDContr
 
         abort(419);
     }
+
+    public function storePublicPicture()
+    {
+        return $this->storePublicAttachment();
+    }
+
+    public function removePublicPicture()
+    {
+        return parent::removePublicAttachment();
+    }
 }
