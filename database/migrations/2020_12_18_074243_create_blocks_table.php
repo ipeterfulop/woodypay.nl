@@ -25,6 +25,8 @@ class CreateBlocksTable extends Migration
 
                 $table->string('button_background_color', 25)->nullable()->default(null);
                 $table->string('button_text_color', 25)->nullable()->default(null);
+                $table->string('button_hover_background_color', 25)->nullable()->default(null);
+                $table->string('button_hover_text_color', 25)->nullable()->default(null);
                 $table->unsignedTinyInteger('should_open_button_url_in_new_window')->default(0);
 
                 $table->timestamps();
