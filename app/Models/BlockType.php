@@ -17,7 +17,8 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
 
     protected $fillable = [
         'id',
-        'tag'
+        'tag',
+        'item_class',
     ];
 
     public static function getSubjecttypeId()

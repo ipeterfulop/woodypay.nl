@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\BlockType;
 use App\Models\HeroBlock;
 use App\Models\SimpleTextImageBlock;
+use App\Models\TextImageList;
 use App\Models\TextImageListBlock;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +21,7 @@ class BlockTypesSeeder extends Seeder
         $dataset = [
             ['id' => 1, 'name_en' => 'Hero block', 'tag' => HeroBlock::getBlockTypeTag()],
             ['id' => 2, 'name_en' => 'Text + image block', 'tag' => SimpleTextImageBlock::getBlockTypeTag()],
-            ['id' => 3, 'name_en' => 'Text + image list block', 'tag' => TextImageListBlock::getBlockTypeTag()],
+            ['id' => 3, 'name_en' => 'Text + image list block', 'tag' => TextImageListBlock::getBlockTypeTag(), 'item_class' => TextImageList::class],
         ];
 
         foreach ($dataset as $row) {

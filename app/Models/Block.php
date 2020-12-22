@@ -38,6 +38,7 @@ class Block extends TranslatableModel
     protected $appends = [
         'block_type_label',
         'visibility_select',
+        'items_link',
     ];
 
     const SUBJECTTYPE_ID = 1;
@@ -155,6 +156,14 @@ class Block extends TranslatableModel
     public function getBlockCSSName()
     {
         return 'bl-'.$this->id.'-';
+    }
+
+    public function getItemsLinkAttribute()
+    {
+        if ($this->blocktype->allows_items == 0) {
+            return '';
+        }
+
     }
 }
 
