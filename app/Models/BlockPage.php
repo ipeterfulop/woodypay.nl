@@ -12,7 +12,12 @@ class BlockPage extends Model
 
     protected $table = 'block_page';
 
-    protected $fillable = ['page_id', 'block_id', 'position'];
+    protected $fillable = [
+        'page_id',
+        'block_id',
+        'position',
+        'visibility',
+    ];
 
     /**
      * @return array

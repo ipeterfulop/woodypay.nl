@@ -16,7 +16,7 @@
             flex-grow: 1;
         }
     </style>
-    @foreach($page->blocks as $block)
+    @foreach($blocks as $block)
         <a name="#block-{{ $block->id }}"></a>
         <div class="block-container block-{{ $block->blocktype_id }}-container">
             @includeIf('blocks.'.$block->blocktype_id, ['block' => $block])

@@ -100,12 +100,22 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $result['button_background_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Button background color')
             ->setStep(2)
-            ->setContainerClass('w-1/2')
+            ->setContainerClass('w-1/4')
             ->setPresets(static::getApplicationColorPresets());
         $result['button_text_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Button text color')
             ->setStep(2)
-            ->setContainerClass('w-1/2')
+            ->setContainerClass('w-1/4')
+            ->setPresets(static::getApplicationColorPresets());
+        $result['button_hover_background_color'] = (new ColorVueCRUDFormfield())
+            ->setLabel('Button background color (hover)')
+            ->setStep(2)
+            ->setContainerClass('w-1/4')
+            ->setPresets(static::getApplicationColorPresets());
+        $result['button_hover_text_color'] = (new ColorVueCRUDFormfield())
+            ->setLabel('Button text color (hover)')
+            ->setStep(2)
+            ->setContainerClass('w-1/4')
             ->setPresets(static::getApplicationColorPresets());
 
         return $result;
@@ -226,7 +236,7 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         if ($this->subject == null) {
             return null;
         }
-
+        \Log::info($pieces[1]);
         return $this->subject->{$pieces[1]};
     }
 

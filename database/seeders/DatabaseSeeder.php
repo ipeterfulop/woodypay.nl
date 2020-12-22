@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
                 'blocktype_id'                         => $blocktypeId,
                 'text_color'                           => 'rgba(232, 226, 225, 1)',
                 'background_color'                     => 'rgba(27, 34, 48, 1)',
-                'background_gradient'                  => 'linear(to bottom, (58, 70, 101, 0.4), rgba(27, 34, 48, 0.4))',
+                'background_gradient'                  => 'linear-gradient(to bottom, rgba(58, 70, 101, 0.4), rgba(27, 34, 48, 0.4))',
                 'button_background_color'              => 'rgba(232, 226, 225, 1)',
                 'button_text_color'                    => 'rgba(232, 226, 225, 1)',
                 'button_hover_background_color'        => 'rgba(58, 70, 101, 1)',

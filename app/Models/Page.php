@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Visibility;
 use App\Http\Controllers\PagesController;
 use Datalytix\Translations\TranslatableModel;
 use Datalytix\VueCRUD\Traits\VueCRUDManageable;
@@ -44,11 +45,11 @@ class Page extends TranslatableModel
         return $this->hasManyThrough(
             Block::class,
             BlockPage::class,
-            'block_id',
+            'page_id',
             'id',
             'id',
-            'page_id'
-        );
+            'block_id'
+        )->withPosition()->orderBy('position', 'asc');
     }
 
     public static function getSubjecttypeId()
@@ -126,4 +127,18 @@ class Page extends TranslatableModel
         return self::all()->pluck('name', 'id');
     }
 
+    public function getBlocks()
+    {
+        $result = [];
+        $visibility = \Auth::check() && \Auth::user()->isAdmin()
+            ? Visibility::ADMIN_ID
+            : Visibility::EVERYONE_ID;
+        foreach ($this->blocks as $block) {
+            if ($block->visibility >= $visibility) {
+                $result[] = Block::findDescendant($block->id);
+            }
+        }
+
+        return collect($result);
+    }
 }

@@ -59,10 +59,7 @@ class BlockVueCRUDController extends VueCRUDControllerBase implements ICRUDContr
 
     public function getDescendantSubject($id)
     {
-        $block = Block::find($id);
-        $class = $block->blocktype->getClassNameFromTag(true);
-
-        return $class::find($block->id);
+        return Block::findDescendant($id);
     }
 
     public function delete($subject)

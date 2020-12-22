@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Formdatabuilders\BlockVueCRUDFormdatabuilder;
+use App\Helpers\Visibility;
 use Datalytix\Translations\TranslatableModel;
 use Datalytix\VueCRUD\Indexfilters\SelectVueCRUDIndexfilter;
 use Datalytix\VueCRUD\Traits\hasPosition;
@@ -27,12 +28,17 @@ class Block extends TranslatableModel
         'background_gradient',
         'button_background_color',
         'button_text_color',
+        'button_hover_background_color',
+        'button_hover_text_color',
         'should_open_button_url_in_new_window',
     ];
 
     protected $with = ['blocktype'];
 
-    protected $appends = ['block_type_label'];
+    protected $appends = [
+        'block_type_label',
+        'visibility_select',
+    ];
 
     const SUBJECTTYPE_ID = 1;
 
@@ -70,7 +76,8 @@ class Block extends TranslatableModel
     public static function getVueCRUDIndexColumns()
     {
         return [
-            'block_type_label' => 'Type'
+            'block_type_label' => 'Type',
+            'visibility_select' => 'Visibility',
         ];
     }
 
@@ -107,7 +114,7 @@ class Block extends TranslatableModel
 
     public function scopeWithPosition($query)
     {
-        return $query->select($this->getTable().'.*', \DB::raw('bp.position as position'), \DB::raw('bp.page_id as page_id'))
+        return $query->select($this->getTable().'.*', \DB::raw('bp.position as position'), \DB::raw('bp.page_id as page_id'), \DB::raw('bp.visibility as visibility'))
             ->leftJoinSub(BlockPage::query(), 'bp', 'bp.block_id', '=', $this->getTable().'.id');
     }
 
@@ -117,6 +124,37 @@ class Block extends TranslatableModel
             'storePublicPicture',
             'removePublicPicture',
         ];
+    }
+
+
+    public function getVisibilitySelectAttribute()
+    {
+        return 'component::' . json_encode(
+                [
+                    'component'      => 'ajax-select',
+                    'componentProps' => [
+                        'subject' => $this->id,
+                        'url' => route('block_visibility_endpoint'),
+                        'value' => $this->visibility,
+                        'action' => 'update',
+                        'componentId' => 'vis-'.$this->id,
+                        'valueset' => Visibility::getKeyValueCollection(),
+                    ],
+                ]
+            );
+    }
+
+    public static function findDescendant($id)
+    {
+        $block = Block::find($id);
+        $class = $block->blocktype->getClassNameFromTag(true);
+
+        return $class::withAllTranslations()->find($block->id);
+    }
+
+    public function getBlockCSSName()
+    {
+        return 'bl-'.$this->id.'-';
     }
 }
 

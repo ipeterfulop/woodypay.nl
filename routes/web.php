@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminMainController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BlockVisibilityController;
 use App\Http\Controllers\PublicMainController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,8 @@ Route::middleware(['auth', 'can:access-admin'])->group(function() {
         \App\Models\Useraction::setVueCRUDRoutes();
         \App\Models\Page::setVueCRUDRoutes();
         \App\Models\Block::setVueCRUDRoutes();
+
+        Route::post('/blocks/visibility', [BlockVisibilityController::class, 'update'])->name('block_visibility_endpoint');
     });
 });
 Route::middleware(['auth'])->group(function() {
@@ -50,4 +53,4 @@ Route::middleware(['auth', 'signed'])->group(function() {
 
 Route::get('/', [PublicMainController::class, 'index'])->name('public_index');
 
-// \App\Models\Page::setRoutes();
+\App\Models\Page::setRoutes();

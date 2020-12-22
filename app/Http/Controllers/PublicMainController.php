@@ -13,7 +13,7 @@ class PublicMainController extends Controller
     {
         $locale = Locale::getMainLocale();
 
-        //return redirect()
+        return redirect('/'.$locale->id);
     }
 
     public function profile()

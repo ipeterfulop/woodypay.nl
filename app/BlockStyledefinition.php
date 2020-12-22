@@ -4,6 +4,9 @@
 namespace App;
 
 
+use App\Models\Block;
+use App\Models\Positioning;
+
 class BlockStyledefinition
 {
     public $arrayOfStyleDefinitions;
@@ -69,5 +72,43 @@ class BlockStyledefinition
         }
 
         return $result;
+    }
+
+    public static function getCSSClasses(Block $block)
+    {
+        $blockClassname = $block->getBlockCSSName();
+        $result = [];
+        $result[$blockClassname] = self::removeEmptyDefinitions([
+            'color' => $block->text_color,
+            'background-color' => $block->background_color,
+            'background' => $block->background_gradient,
+            'background-image' => $block->background_image == null ? null : 'url("'.$block->background_image.'")',
+            'background-position' => $block->background_image_positioning_id == null ? 'center' : Positioning::find($block->background_image_positioning_id)->code,
+        ]);
+        $result[$blockClassname.' a.button'] = self::removeEmptyDefinitions([
+            'color' => $block->button_text_color,
+            'background-color' => $block->button_background_color,
+        ]);
+        $result[$blockClassname.' a.button:hover'] = self::removeEmptyDefinitions([
+            'color' => $block->button_hover_text_color,
+            'background-color' => $block->button_hover_background_color,
+        ]);
+        $resultString = '';
+        foreach ($result as $name => $items) {
+            $resultString .= '.'.$name.' {';
+            foreach($items as $field => $value) {
+                $resultString.=$field.': '.$value.';';
+            }
+            $resultString .= '}';
+        }
+
+        return $resultString;
+    }
+
+    protected static function removeEmptyDefinitions(array $definitions)
+    {
+        return collect($definitions)->filter(function($item) {
+            return $item !== null && $item != 'auto';
+        });
     }
 }

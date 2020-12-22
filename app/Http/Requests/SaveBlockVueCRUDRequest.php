@@ -61,6 +61,9 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
             'text_color' => $this->input('text_color'),
             'background_color' => $this->input('background_color'),
             'button_background_color' => $this->input('button_background_color'),
+            'button_text_color' => $this->input('button_text_color'),
+            'button_hover_background_color' => $this->input('button_hover_background_color'),
+            'button_hover_text_color' => $this->input('button_hover_text_color'),
             'should_open_button_url_in_new_window' => $this->input('should_open_button_url_in_new_window'),
         ];
         if ($this->input('backgroundtype') == BackgroundColorType::GRADIENT_ID) {
