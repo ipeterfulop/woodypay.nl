@@ -23,6 +23,11 @@
     <div x-data="{showMenu: false}">
         @if((!isset($showHeader)) || ($showHeader))
             <div class="bg-gray-100 w-full flex flex-row items-center justify-end z-40 fixed top-0 left-0">
+                <div class="mr-6">
+                    @foreach(\App\Models\Locale::all() as $locale)
+                        <a class="mr-2 font-bold" href="/{{$locale->id}}/">{{ mb_strtoupper($locale->id) }}</a>
+                    @endforeach
+                </div>
                 <button @click="showMenu = !showMenu" class="focus:outline-none hover:opacity-75 text-3xl">{!! config('heroicons.solid.menu') !!}</button>
             </div>
         @endif
