@@ -9,6 +9,10 @@ class FooterBlock extends Block
 {
     use HasFactory;
 
+    protected $table = 'footer_blocks';
+
+    public $incrementing = false;
+
     public static function getTranslatedProperties(): array
     {
         return [

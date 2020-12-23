@@ -91,31 +91,33 @@ class DatabaseSeeder extends Seeder
                 : null;
             $translatedField = substr($field, 0, strrpos($field, '_'));
             if (!is_null(Locale::find($locale))) {
-                $translationDataSet = [
-                    'id'             => null,
-                    'subjecttype_id' => $subjecttypeId,
-                    'subject_id'     => $subjectId,
-                    'locale_id'      => $locale,
-                    'translation'    => $dataSet[$field],
-                    'key'            => $subjectId . '-' . $subjecttypeId . '-' . $translatedField,
-                    'field'          => $translatedField,
-                    'created_at'     => Carbon::now(),
-                    'updated_at'     => Carbon::now(),
-                ];
+                if (!is_null($dataSet[$field])) {
+                    $translationDataSet = [
+                        'id'             => null,
+                        'subjecttype_id' => $subjecttypeId,
+                        'subject_id'     => $subjectId,
+                        'locale_id'      => $locale,
+                        'translation'    => $dataSet[$field],
+                        'key'            => $subjectId . '-' . $subjecttypeId . '-' . $translatedField,
+                        'field'          => $translatedField,
+                        'created_at'     => Carbon::now(),
+                        'updated_at'     => Carbon::now(),
+                    ];
 
-                $translation = Translation::where('subject_id', $subjectId)
-                                          ->where('subjecttype_id', $subjecttypeId)
-                                          ->where('locale_id', $locale)
-                                          ->where('field', $translatedField)
-                                          ->get()
-                                          ->first();
+                    $translation = Translation::where('subject_id', $subjectId)
+                                              ->where('subjecttype_id', $subjecttypeId)
+                                              ->where('locale_id', $locale)
+                                              ->where('field', $translatedField)
+                                              ->get()
+                                              ->first();
 
-                if (!is_null($translation)) {
-                    $translationDataSet['id'] = $translation->id;
-                    DB::table('translations')->where('id', $translation->id)->update($translationDataSet);
-                } else {
-                    $translationDataSet['id'] = $subjectId + (++$index);
-                    DB::table('translations')->insert($translationDataSet);
+                    if (!is_null($translation)) {
+                        $translationDataSet['id'] = $translation->id;
+                        DB::table('translations')->where('id', $translation->id)->update($translationDataSet);
+                    } else {
+                        $translationDataSet['id'] = $subjectId + (++$index);
+                        DB::table('translations')->insert($translationDataSet);
+                    }
                 }
             }
         }
