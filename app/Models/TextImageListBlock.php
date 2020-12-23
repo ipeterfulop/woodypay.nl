@@ -12,8 +12,7 @@ class TextImageListBlock extends Block
     public static function getTranslatedProperties(): array
     {
         return [
-            'title',
-            'content',
+
         ];
     }
 }

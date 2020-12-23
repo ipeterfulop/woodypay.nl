@@ -8,6 +8,7 @@ use App\Models\CTABlock;
 use App\Models\HeroBlock;
 use App\Models\Positioning;
 use App\Models\SimpleTextImageBlock;
+use App\Models\TextImageListBlock;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +16,7 @@ class StartPageBlockSeeder extends Seeder
 {
     const HERO_BLOCK_ID = 10000;
     const TEXT_IMAGE_BLOCK_ID = 20000;
+    const TEXT_IMAGE_LIST_BLOCK_ID = 30000;
     const CTA_BLOCK_ID = 70000;
 
 
@@ -33,6 +35,7 @@ class StartPageBlockSeeder extends Seeder
         $position = 0;
         $this->addOrCreateHeroBlock(self::HERO_BLOCK_ID, ++$position);
         $this->addOrCreateSimpleTextImageBlock(self::TEXT_IMAGE_BLOCK_ID, ++$position);
+        $this->addOrCreateTextImageListBlock(self::TEXT_IMAGE_LIST_BLOCK_ID, ++$position);
         $this->addOrCreateCTABlock(self::CTA_BLOCK_ID, ++$position);
     }
 
@@ -134,7 +137,6 @@ class StartPageBlockSeeder extends Seeder
     private function addOrCreateCTABlock(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(CTABlock::getBlockTypeTag()))->id;
-        $blockId = 70000;
         $dataSet = DatabaseSeeder::getDefaultBlockDataSet($blocktypeId, $blockId, true);
 
         $dataSet[DatabaseSeeder::BLOCK]['background_color'] = null;
@@ -146,6 +148,31 @@ class StartPageBlockSeeder extends Seeder
         $dataSet[DatabaseSeeder::TRANSLATION]['title_nl'] = 'Ik ben de titel van dit call-to-action (CTA) -blok';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_label_nl'] = 'Druk op de CTA-knop.';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_url_nl'] = 'https://www.telegraaf.nl/';
+
+        DB::transaction(
+            function () use ($dataSet, $position) {
+                DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
+                DatabaseSeeder::addOrUpdateExtendedBlock(
+                    'cta_blocks',
+                    $dataSet[DatabaseSeeder::EXTENDED_BLOCK],
+                    $dataSet[DatabaseSeeder::TRANSLATION],
+                    CTABlock::getSubjecttypeId()
+                );
+                DatabaseSeeder::assignBlockToPage(
+                    $dataSet[DatabaseSeeder::BLOCK]['id'],
+                    PagesSeeder::START_PAGE,
+                    $position
+                );
+            }
+        );
+    }
+
+    private function addOrCreateTextImageListBlock(int $blockId, int $position)
+    {
+        $blocktypeId = (BlockType::findByTag(TextImageListBlock::getBlockTypeTag()))->id;
+        $dataSet = DatabaseSeeder::getDefaultBlockDataSet($blocktypeId, $blockId, false);
+
+        $dataSet[DatabaseSeeder::BLOCK]['background_color'] = null;
 
         DB::transaction(
             function () use ($dataSet, $position) {
