@@ -20,4 +20,16 @@ class TextImageListCollectionBlock extends Block
     {
         return ['title', 'content'];
     }
+
+    public function lists()
+    {
+        return $this->hasManyThrough(
+            TextImageList::class,
+            TextImageCollectionList::class,
+            'text_image_list_id',
+            'id',
+            'id',
+            'text_image_list_collection_block_id',
+        );
+    }
 }
