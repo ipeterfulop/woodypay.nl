@@ -392,7 +392,7 @@
                         </div>
                         <div class="portlet-body">
                             <edit-form
-                                    v-bind:data-url="createUrl"
+                                    v-bind:data-url="createUrlWithFilters"
                                     v-bind:save-url="storeUrl"
                                     v-bind:ajax-operations-url="ajaxOperationsUrl"
                                     v-on:submit-success="confirmCreationSuccess"
@@ -677,6 +677,15 @@
                     return this.elements[this.currentElementIndex];
                 }
                 return null;
+            },
+            createUrlWithFilters: function() {
+                let urlparts = window.location.href.split('?');
+                let suffix = '';
+                if (urlparts.length > 1) {
+                    suffix = '?'+urlparts[1]
+                }
+
+                return this.createUrl+suffix;
             }
         },
         methods: {

@@ -39,4 +39,14 @@ class TextImageListBlock extends DescendantBlock implements IHasItemsContainer
     {
         return $this->list;
     }
+
+    public static function getItemsRouteName()
+    {
+        return 'vuecrud_textimageitem_index';
+    }
+
+    public static function getItemsForeignKey()
+    {
+        return 'text_image_list_id';
+    }
 }

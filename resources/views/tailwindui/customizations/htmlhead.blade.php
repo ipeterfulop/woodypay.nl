@@ -7,4 +7,7 @@
     .form-group label {
         margin-top: 2rem;
     }
+    .hidden-important {
+        visibility: hidden !important;
+    }
 </style>

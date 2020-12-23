@@ -39,20 +39,14 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
     protected static function getFields()
     {
         $result = [];
-        if (request()->has('page_id')) {
-            $result['page_id'] = (new StaticVueCRUDFormfield())
-                ->setDefault(request()->get('page_id'))
-                ->setStaticValue('')
-                ->setOnlyWhenCreating(true)
-                ->setContainerClass('col-12 hidden');
-        } else {
-            $result['page_id'] = (new SelectVueCRUDFormfield())
-                ->setLabel('Page')
-                ->setMandatory(true)
-                ->setContainerClass('col-12')
-                ->setOnlyWhenCreating(true)
-                ->setValuesetClass(Page::class);
-        }
+        $result['page_id'] = (new SelectVueCRUDFormfield())
+            ->setLabel('Page')
+            ->setMandatory(true)
+            ->setContainerClass('col-12')
+            ->setDefault(request()->get('page_id'))
+            ->setOnlyWhenCreating(true)
+            ->setValuesetClass(Page::class);
+
         $result['blocktype_id'] = (new SelectVueCRUDFormfield())
             ->setStep(1)
             ->setMandatory(true)

@@ -39,6 +39,11 @@ class TextImageItemVueCRUDController extends VueCRUDControllerBase implements IC
         return $this->getModificationResponse($subject);
     }
 
+    public function getSubject($id)
+    {
+        return TextImageItem::withAllTranslations()->find($id);
+    }
+
     function getElements()
     {
         // returns the result of the getElementsAndCounts method
