@@ -18,7 +18,7 @@ class CreateSimpleTextImageBlocksTable extends Migration
             function (Blueprint $table) {
                 $table->foreignId('id')->constrained('blocks')->primary();
 
-                $table->string('topic_image_border_color', 6)->nullable()->default(null);
+                $table->string('topic_image_border_color', 25)->nullable()->default(null);
                 $table->unsignedBigInteger('topic_image_horizontal_positioning_id')
                       ->nullable()
                       ->default(null);
