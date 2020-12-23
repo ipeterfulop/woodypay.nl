@@ -19,12 +19,22 @@ class CreateCTABlocksTable extends Migration
                 $table->foreignId('id')->constrained('blocks')->primary();
 
                 $table->string('background_image', 25)->nullable()->default(null);
-                $table->foreignId('spacing_id')->constrained('spacings')->nullable()->default(null);
+                $table->unsignedBigInteger('spacing_id')->nullable()->default(null);
 
                 $table->timestamps();
             }
         );
+
+        Schema::table(
+            'cta_blocks',
+            function (Blueprint $table) {
+                $table->foreign('spacing_id')
+                      ->references('id')
+                      ->on('spacings');
+            }
+        );
     }
+
 
     /**
      * Reverse the migrations.
