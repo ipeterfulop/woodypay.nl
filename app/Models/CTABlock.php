@@ -29,4 +29,10 @@ class CTABlock extends DescendantBlock
             'button_url',
         ];
     }
+
+    public function spacing()
+    {
+        return $this->belongsTo(Spacing::class);
+    }
+
 }

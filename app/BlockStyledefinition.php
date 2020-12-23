@@ -84,6 +84,8 @@ class BlockStyledefinition
             'background' => $block->background_gradient,
             'background-image' => $block->background_image == null ? null : 'url("/images'.$block->background_image.'")',
             'background-position' => $block->background_image_positioning_id == null ? 'center' : Positioning::find($block->background_image_positioning_id)->code,
+            'padding-top' => $block->spacing_id == null ? null : $block->spacing->size_in_rems.'rem',
+            'padding-bottom' => $block->spacing_id == null ? null : $block->spacing->size_in_rems.'rem',
         ]);
         $result[$blockClassname.' a.button'] = self::removeEmptyDefinitions([
             'color' => $block->button_text_color,

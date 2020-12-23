@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Spacing extends TranslatableModel
 {
+    use canBeTurnedIntoKeyValueCollection;
+
     const SUBJECTTYPE_ID = 10;
 
     protected $fillable = [

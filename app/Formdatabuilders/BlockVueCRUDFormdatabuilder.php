@@ -12,6 +12,7 @@ use App\Models\IHasItemsContainer;
 use App\Models\Locale;
 use App\Models\Page;
 use App\Models\Positioning;
+use App\Models\Spacing;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\ColorVueCRUDFormfield;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\ImagePickerVueCRUDFormfield;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\RichttextQuillVueCRUDFormfield;
@@ -168,6 +169,12 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
     protected static function addFieldsForCTABlock()
     {
         $fields = [];
+        $fields['spacing_id'] = (new SelectVueCRUDFormfield())
+            ->setLabel('Spacing')
+            ->setContainerClass('w-full')
+            ->setMandatory(true)
+            ->setValuesetClass(Spacing::class);
+
         $fields['background_image'] = (new ImagePickerVueCRUDFormfield())
             ->setLabel('Background image')
             ->setContainerClass('w-full');
@@ -178,7 +185,6 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Content ('.$locale->uppercase_id.')')
-                ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('button_label')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button label ('.$locale->uppercase_id.')')

@@ -237,5 +237,12 @@ class Block extends TranslatableModel
         return $result;
     }
 
+    public function getLayoutName()
+    {
+        if ($this->blocktype->layout_class == null) {
+            return $this->blocktype_id;
+        }
+        return $this->layout;
+    }
 }
 
