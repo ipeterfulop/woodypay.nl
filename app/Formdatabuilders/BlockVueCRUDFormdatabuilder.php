@@ -197,6 +197,16 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         return $fields;
     }
 
+    protected static function addFieldsForTextImageListBlock()
+    {
+        $fields = [];
+        $fields['topic_image'] = (new ImagePickerVueCRUDFormfield())
+            ->setLabel('Background image')
+            ->setContainerClass('w-full');
+
+        return $fields;
+    }
+
     protected static function addFieldsForSimpleTextImageBlock()
     {
         $fields = [];
@@ -228,19 +238,6 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('topic_image')] = (new ImagePickerVueCRUDFormfield())
                 ->setLabel('Image ('.$locale->uppercase_id.')')
-                ->setContainerClass('w-full');
-
-        }
-        return $fields;
-    }
-
-    protected static function addFieldsForTextImageListBlock()
-    {
-        $fields = [];
-        foreach (Locale::all() as $locale) {
-            $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
-                ->setLabel('Title ('.$locale->uppercase_id.')')
-                ->setMandatory(true)
                 ->setContainerClass('w-full');
 
         }

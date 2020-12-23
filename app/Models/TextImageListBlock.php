@@ -9,4 +9,16 @@ use Illuminate\Database\Eloquent\Model;
 class TextImageListBlock extends DescendantBlock
 {
     use HasFactory;
+
+    protected $table = 'text_image_list_blocks';
+
+    public $incrementing = false;
+
+    protected $fillable = [
+        'id',
+        'topic_image',
+        'list_id'
+    ];
+
+
 }
