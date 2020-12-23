@@ -97,7 +97,6 @@ class StartPageBlockSeeder extends Seeder
             'right center'
         )->id;
 
-
         $dataSet[DatabaseSeeder::TRANSLATION]['title_en'] = 'I am the title of a block with image and formatted text';
         $dataSet[DatabaseSeeder::TRANSLATION]['content_en'] = 'I only consist of a few words like lorem and ipsum.'
             . 'Sollicitudin Tellus Inceptos Etiam, Sollicitudin Tellus Inceptos Etiam.';
