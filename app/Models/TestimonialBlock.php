@@ -26,6 +26,7 @@ class TestimonialBlock extends DescendantBlock
             'person_first_name',
             'person_last_name',
             'person_position',
+            'person_photo',
             'button_label',
             'button_url',
         ];

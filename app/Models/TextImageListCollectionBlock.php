@@ -9,7 +9,9 @@ class TextImageListCollectionBlock extends Block
 {
     use HasFactory;
 
-    const SUBJECTTYPE_ID = 8;
+    protected $table = 'text_image_list_collection_blocks';
+
+    public $incrementing = false;
 
     public static function getSubjecttypeId()
     {

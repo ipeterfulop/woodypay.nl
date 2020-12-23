@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\BlockLayouts\TextImageListLayout;
 use App\Models\BlockType;
 use App\Models\CTABlock;
+use App\Models\FooterBlock;
 use App\Models\HeroBlock;
 use App\Models\SimpleTextImageBlock;
 use App\Models\TestimonialBlock;
@@ -32,7 +33,8 @@ class BlockTypesSeeder extends Seeder
                 'item_class' => TextImageList::class,
                 'layout_class' => TextImageListLayout::class,
             ],
-            ['id' => 8, 'name_en' => 'Testimonial block', 'tag' => TestimonialBlock::getBlockTypeTag()],
+            ['id' => 5, 'name_en' => 'Testimonial block', 'tag' => TestimonialBlock::getBlockTypeTag()],
+            ['id' => 6, 'name_en' => 'Footer block', 'tag' => FooterBlock::getBlockTypeTag()],
         ];
 
         foreach ($dataset as $row) {

@@ -18,7 +18,9 @@ class CreateFooterBlocksTable extends Migration
             function (Blueprint $table) {
                 $table->foreignId('id')->constrained('blocks')->primary();
 
-                $table->unsignedBigInteger('social_icons_text_image_list_id');
+                $table->unsignedBigInteger('social_icons_text_image_list_id')
+                      ->nullable()
+                      ->default(null);
 
                 $table->timestamps();
             }
