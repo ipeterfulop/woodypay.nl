@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\BlockLayouts\TextImageListLayout;
 use App\Models\BlockPage;
 use App\Models\BlockType;
 use App\Models\CTABlock;
 use App\Models\HeroBlock;
 use App\Models\Positioning;
 use App\Models\SimpleTextImageBlock;
+use App\Models\TextImageList;
 use App\Models\TextImageListBlock;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +18,9 @@ class StartPageBlockSeeder extends Seeder
 {
     const HERO_BLOCK_ID = 10000;
     const TEXT_IMAGE_BLOCK_ID = 20000;
-    const TEXT_IMAGE_LIST_BLOCK_ID = 30000;
-    const CTA_BLOCK_ID = 70000;
+    const TEXT_IMAGE_LIST_COLLAPSIBLE_BLOCK_ID = 80000;
+    const TEXT_IMAGE_LIST_FEATURELIST_BLOCK_ID = 90000;
+    const CTA_BLOCK_ID = 30000;
 
 
     /**
@@ -35,7 +38,14 @@ class StartPageBlockSeeder extends Seeder
         $position = 0;
         $this->addOrCreateHeroBlock(self::HERO_BLOCK_ID, ++$position);
         $this->addOrCreateSimpleTextImageBlock(self::TEXT_IMAGE_BLOCK_ID, ++$position);
-        $this->addOrCreateTextImageListBlock(self::TEXT_IMAGE_LIST_BLOCK_ID, ++$position);
+        $this->addOrCreateTextImageListBlockWithCollapsibleLayout(
+            self::TEXT_IMAGE_LIST_COLLAPSIBLE_BLOCK_ID,
+            ++$position
+        );
+        $this->addOrCreateTextImageListBlockWithFeatureListLayout(
+            self::TEXT_IMAGE_LIST_FEATURELIST_BLOCK_ID,
+            ++$position
+        );
         $this->addOrCreateCTABlock(self::CTA_BLOCK_ID, ++$position);
     }
 
@@ -46,7 +56,7 @@ class StartPageBlockSeeder extends Seeder
     private function addOrCreateHeroBlock(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(HeroBlock::getBlockTypeTag()))->id;
-        $dataSet = DatabaseSeeder::getDefaultBlockDataSet($blocktypeId, $blockId, true);
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
 
         $dataSet[DatabaseSeeder::BLOCK]['background_gradient'] = 'linear-gradient(to bottom, '
             . 'rgba(58, 70, 101, 0.4), rgba(27, 34, 48, 0.4))';
@@ -93,7 +103,7 @@ class StartPageBlockSeeder extends Seeder
     {
         $blocktypeId = (BlockType::findByTag(SimpleTextImageBlock::getBlockTypeTag()))->id;
         $blockId = 20000;
-        $dataSet = DatabaseSeeder::getDefaultBlockDataSet($blocktypeId, $blockId, false);
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
 
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['topic_image_border_color'] = '#3A4665';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['topic_image_horizontal_positioning_id'] = Positioning::findByCode(
@@ -137,7 +147,7 @@ class StartPageBlockSeeder extends Seeder
     private function addOrCreateCTABlock(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(CTABlock::getBlockTypeTag()))->id;
-        $dataSet = DatabaseSeeder::getDefaultBlockDataSet($blocktypeId, $blockId, true);
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
 
         $dataSet[DatabaseSeeder::BLOCK]['background_color'] = null;
 
@@ -167,37 +177,33 @@ class StartPageBlockSeeder extends Seeder
         );
     }
 
-    private function addOrCreateTextImageListBlock(int $blockId, int $position)
+    private function addOrCreateTextImageListBlockWithCollapsibleLayout(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(TextImageListBlock::getBlockTypeTag()))->id;
-        $dataSet = DatabaseSeeder::getDefaultBlockDataSet($blocktypeId, $blockId, false);
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
 
-        $dataSet[DatabaseSeeder::BLOCK]['background_color'] = null;
-
-        $faker =  \Faker\Factory::create('en_En');
-
-        $dataSet[DatabaseSeeder::TEXT_IMAGE_LIST][DatabaseSeeder::TEXT_IMAGE_LIST] = [
-            'id' => $blockId*100
-        ];
-        $dataSet[DatabaseSeeder::TEXT_IMAGE_LIST][DatabaseSeeder::TRANSLATION] = [
-            'title_en'       => 'I am a block with a text list and a topic image',
-            'content_en'     => '(Text EN) '.collect($faker->words(15))->join(' '),
-            'topic_image_en' => '/images/assets/sample_image_02.png',
-            'title_nl'       => 'Ik ben een blok met een tekstlijst en een onderwerpafbeelding',
-            'content_nl'     => '(Text NL) '.collect($faker->words(15))->join(' '),
-            'topic_image_nl' => '/images/assets/sample_image_02.png',
-        ];
-
+        $dataSet[DatabaseSeeder::BLOCK]['layout'] = TextImageListLayout::COLLAPSIBLE_ITEM_LIST_ID;
 
         DB::transaction(
             function () use ($dataSet, $position) {
                 DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
+                $addImages = false;
+                $addIcons = false;
+                $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
+                    $dataSet[DatabaseSeeder::BLOCK]['id'],
+                    5,
+                    $addIcons,
+                    $addImages
+                );
+                DatabaseSeeder::addOrUpdateTextImageList($textImageListDataSet);
+                $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['list_id'] = $dataSet[DatabaseSeeder::BLOCK]['id'];
                 DatabaseSeeder::addOrUpdateExtendedBlock(
-                    'cta_blocks',
+                    'text_image_list_blocks',
                     $dataSet[DatabaseSeeder::EXTENDED_BLOCK],
                     $dataSet[DatabaseSeeder::TRANSLATION],
-                    CTABlock::getSubjecttypeId()
+                    TextImageListBlock::getSubjecttypeId()
                 );
+
                 DatabaseSeeder::assignBlockToPage(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
                     PagesSeeder::START_PAGE,
@@ -207,5 +213,40 @@ class StartPageBlockSeeder extends Seeder
         );
     }
 
+    private function addOrCreateTextImageListBlockWithFeatureListLayout(int $blockId, int $position)
+    {
+        $blocktypeId = (BlockType::findByTag(TextImageListBlock::getBlockTypeTag()))->id;
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
+
+        $dataSet[DatabaseSeeder::BLOCK]['layout'] = TextImageListLayout::COLLAPSIBLE_ITEM_LIST_ID;
+
+        DB::transaction(
+            function () use ($dataSet, $position) {
+                DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
+                $addImages = false;
+                $addIcons = true;
+                $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
+                    $dataSet[DatabaseSeeder::BLOCK]['id'],
+                    5,
+                    $addIcons,
+                    $addImages
+                );
+                DatabaseSeeder::addOrUpdateTextImageList($textImageListDataSet);
+                $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['list_id'] = $dataSet[DatabaseSeeder::BLOCK]['id'];
+                DatabaseSeeder::addOrUpdateExtendedBlock(
+                    'text_image_list_blocks',
+                    $dataSet[DatabaseSeeder::EXTENDED_BLOCK],
+                    $dataSet[DatabaseSeeder::TRANSLATION],
+                    TextImageListBlock::getSubjecttypeId()
+                );
+
+                DatabaseSeeder::assignBlockToPage(
+                    $dataSet[DatabaseSeeder::BLOCK]['id'],
+                    PagesSeeder::START_PAGE,
+                    $position
+                );
+            }
+        );
+    }
 
 }

@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\FontAwesomeIconGenerator;
 use App\Models\HeroBlock;
 use App\Models\Locale;
+use App\Models\TextImageItem;
 use App\Models\TextImageList;
 use App\Models\Translation;
 use Carbon\Carbon;
@@ -37,12 +39,13 @@ class DatabaseSeeder extends Seeder
      * @param bool $isDarkTheme
      * @return array[]
      */
-    public static function getDefaultBlockDataSet(int $blocktypeId, int $id = null, bool $isDarkTheme = false): array
+    public static function createDefaultBlockDataSet(int $blocktypeId, int $id = null, bool $isDarkTheme = false): array
     {
         $dataSet = [
             self::BLOCK          => [
                 'id'                                   => $id,
                 'blocktype_id'                         => $blocktypeId,
+                'layout'                               => null,
                 'should_open_button_url_in_new_window' => 1,
                 'created_at'                           => \Carbon\Carbon::now(),
                 'updated_at'                           => \Carbon\Carbon::now(),
@@ -205,16 +208,17 @@ class DatabaseSeeder extends Seeder
             'title_en'       => 'I am a block with a text list and a topic image',
             'content_en'     => '(Text EN) ' . collect($faker->words(15))->join(' '),
             'topic_image_en' => '/images/assets/sample_image_02.png',
+
             'title_nl'       => 'Ik ben een blok met een tekstlijst en een onderwerpafbeelding',
             'content_nl'     => '(Text NL) ' . collect($faker->words(15))->join(' '),
             'topic_image_nl' => '/images/assets/sample_image_02.png',
         ];
 
         $dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM] = [];
-        for ($i = 1; $i < $numberOfItems; $i++) {
-            $dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM][] = [
+        for ($i = 1; $i <= $numberOfItems; $i++) {
+            $itemDataSet = [
                 self::CORE_FIELDS => [
-                    'id'                 => $textImageListId + $i,
+                    'id'                 => 100 * ($textImageListId + $i),
                     'text_image_list_id' => $textImageListId,
                     'position'           => $i,
                 ],
@@ -222,11 +226,20 @@ class DatabaseSeeder extends Seeder
                     'title_en'   => 'I am a list item (' . str_pad($i, 2, '0', STR_PAD_LEFT) . ')',
                     'content_en' => '(Text EN) ' . collect($faker->words(9))->join(' '),
                     'url_en'     => 'https://www.apple.com/en/',
+
                     'title_nl'   => 'Ik ben een lijstitem (' . str_pad($i, 2, '0') . ')',
                     'content_nl' => '(Text EN) ' . collect($faker->words(9))->join(' '),
                     'url_nl'     => 'https://www.apple.com/nl/',
                 ],
             ];
+
+            if ($addIconToItems) {
+                $iconClass = FontAwesomeIconGenerator::getRandomIconClass();
+                $itemDataSet[self::TRANSLATION]['fa_icon_classes_en'] = $iconClass;
+                $itemDataSet[self::TRANSLATION]['fa_icon_classes_nl'] = $iconClass;
+            }
+
+            $dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM][] = $itemDataSet;
         }
 
         {
@@ -262,22 +275,26 @@ class DatabaseSeeder extends Seeder
         //adding items
         foreach ($dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM] as $textImageItem) {
             $textImageItemDataSet = [
-                'id'                 => $textImageItem['id'],
-                'text_image_list_id' => $textImageItem['text_image_list_id'],
-                'position'           => $textImageItem['position'],
+                'id'                 => $textImageItem[self::CORE_FIELDS]['id'],
+                'text_image_list_id' => $textImageItem[self::CORE_FIELDS]['text_image_list_id'],
+                'position'           => $textImageItem[self::CORE_FIELDS]['position'],
                 'created_at'         => Carbon::now(),
                 'updated_at'         => Carbon::now(),
             ];
-            $textImageItemFound = (TextImageItem:where('id', '=', $textImageListDataSet['id'])->get()->count() > 0);
-            if ($textImageListFound) {
-                DB::table('text_image_lists')
-                  ->where('id', '=', $textImageListDataSet['id'])
-                  ->update($textImageListDataSet);
+            $textImageItemFound = (TextImageItem::where('id', '=', $textImageItemDataSet['id'])->get()->count() > 0);
+            if ($textImageItemFound) {
+                DB::table('text_image_items')
+                  ->where('id', '=', $textImageItemDataSet['id'])
+                  ->update($textImageItemDataSet);
             } else {
-                DB::table('text_image_lists')
-                  ->insert($textImageListDataSet);
+                DB::table('text_image_items')
+                  ->insert($textImageItemDataSet);
             }
+            self::addOrUpdateTranslations(
+                $textImageItem[self::TRANSLATION],
+                $textImageItemDataSet['id'],
+                TextImageItem::getSubjecttypeId()
+            );
         }
     }
-
 }

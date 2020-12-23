@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Spacing extends TranslatableModel
 {
-    use canBeTurnedIntoKeyValueCollection;
-    use HasFactory;
-
     const SUBJECTTYPE_ID = 10;
+
+    protected $fillable = [
+        'id',
+        'size_in_rems',
+    ];
 
     public static function getSubjecttypeId()
     {

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Spacing;
 use Illuminate\Database\Seeder;
 
 class BasedataSeeder extends Seeder
@@ -21,5 +22,7 @@ class BasedataSeeder extends Seeder
         $this->call(BlockTypesSeeder::class);
         $this->call(PagesSeeder::class);
         $this->call(PositioningsSeeder::class);
+        $this->call(SpacingsSeeder::class);
+        $this->call(StartPageBlockSeeder::class);
     }
 }

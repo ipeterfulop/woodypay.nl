@@ -15,6 +15,7 @@ class CreateSpacingsTable extends Migration
     {
         Schema::create('spacings', function (Blueprint $table) {
             $table->id();
+            $table->float('size_in_rems');
             $table->timestamps();
         });
     }
