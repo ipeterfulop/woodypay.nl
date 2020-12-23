@@ -139,7 +139,7 @@ class Block extends TranslatableModel
                         'value' => $this->visibility,
                         'action' => 'update',
                         'componentId' => 'vis-'.$this->id,
-                        'valueset' => Visibility::getKeyValueCollection(),
+                        'valueset' => (object)Visibility::getKeyValueCollection()->all(),
                     ],
                 ]
             );
@@ -160,10 +160,67 @@ class Block extends TranslatableModel
 
     public function getItemsLinkAttribute()
     {
-        if ($this->blocktype->allows_items == 0) {
-            return '';
+//        if ($this->blocktype->allows_items == 0) {
+//            return '';
+//        }
+    }
+
+    public function getBlockPageForPageId($pageId)
+    {
+        return BlockPage::where('block_id', '=', $this->id)
+            ->where('page_id', '=', $pageId)
+            ->first();
+    }
+
+    public function exchangePositionWithElement($element)
+    {
+        if ($element === null) {
+            return false;
         }
+        $transactionResult = \DB::transaction(function() use ($element) {
+            $elementBlockPage = BlockPage::where('page_id', '=', $element->page_id)
+                ->where('block_id', '=', $element->id)
+                ->first();
+            $blockPage = BlockPage::where('page_id', '=', $element->page_id)
+                ->where('block_id', '=', $this->id)
+                ->first();
+            $ePosition = $elementBlockPage->position;
+            $elementBlockPage->update(['position' => $blockPage->position]);
+            $blockPage->update(['position' => $ePosition]);
+        });
+
+        return $transactionResult === null;
 
     }
+
+    public function findPreviousElementByPosition()
+    {
+        $block = Block::withPosition()->find($this->id);
+        return self::withPosition()->where($this->buildRestrictions())
+            ->where('position', '<', $block->position)
+            ->orderBy('position', 'desc')
+            ->first();
+    }
+
+    public function findNextElementByPosition()
+    {
+        $block = Block::withPosition()->find($this->id);
+        return self::withPosition()->where($this->buildRestrictions())
+            ->where('position', '>', $block->position)
+            ->orderBy('position', 'desc')
+            ->first();
+    }
+
+    public function buildRestrictions()
+    {
+        $result = [];
+        $block = self::withPosition()->find($this->id);
+        foreach (self::getRestrictingFields() as $field) {
+            $result[$field] = $block->$field;
+        }
+
+        return $result;
+    }
+
 }
 
