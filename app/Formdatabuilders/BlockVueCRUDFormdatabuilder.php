@@ -8,6 +8,7 @@ use App\BlockStyledefinition;
 use App\Helpers\BackgroundColorType;
 use App\Models\Block;
 use App\Models\BlockType;
+use App\Models\IHasItemsContainer;
 use App\Models\Locale;
 use App\Models\Page;
 use App\Models\Positioning;
@@ -38,20 +39,14 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
     protected static function getFields()
     {
         $result = [];
-        if (request()->has('page_id')) {
-            $result['page_id'] = (new StaticVueCRUDFormfield())
-                ->setDefault(request()->get('page_id'))
-                ->setStaticValue('')
-                ->setOnlyWhenCreating(true)
-                ->setContainerClass('col-12 hidden');
-        } else {
-            $result['page_id'] = (new SelectVueCRUDFormfield())
-                ->setLabel('Page')
-                ->setMandatory(true)
-                ->setContainerClass('col-12')
-                ->setOnlyWhenCreating(true)
-                ->setValuesetClass(Page::class);
-        }
+        $result['page_id'] = (new SelectVueCRUDFormfield())
+            ->setLabel('Page')
+            ->setMandatory(true)
+            ->setContainerClass('col-12')
+            ->setDefault(request()->get('page_id'))
+            ->setOnlyWhenCreating(true)
+            ->setValuesetClass(Page::class);
+
         $result['blocktype_id'] = (new SelectVueCRUDFormfield())
             ->setStep(1)
             ->setMandatory(true)
@@ -270,7 +265,17 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         if ($this->subject == null) {
             return null;
         }
-        \Log::info($pieces[1]);
+        if ($this->subject instanceof IHasItemsContainer) {
+
+            if (\Str::startsWith($pieces[1], $this->subject->getItemsContainer()->getTable())) {
+                $newField = str_ireplace(
+                    $this->subject->getItemsContainer()->getTable().'_',
+                    '',
+                    $pieces[1]
+                );
+                return $this->subject->getItemsContainer()->$newField;
+            }
+        }
         return $this->subject->{$pieces[1]};
     }
 

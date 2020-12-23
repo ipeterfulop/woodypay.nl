@@ -46,6 +46,9 @@ abstract class DescendantBlock extends Block
                 ->delete();
             $this->delete();
             $parentblock->delete();
+            if (method_exists($this, 'deleteItemsContainer')) {
+                $this->deleteItemsContainer();
+            }
         }) === null;
     }
 

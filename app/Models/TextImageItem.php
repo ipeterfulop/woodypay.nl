@@ -15,7 +15,7 @@ class TextImageItem extends TranslatableModel
 
     const SUBJECTTYPE_ID = 11;
 
-    const SUBJECT_ID = 'textimageitem';
+    const SUBJECT_SLUG = 'textimageitem';
     const SUBJECT_NAME = 'Text+image item';
     const SUBJECT_NAME_PLURAL = 'Text+image items';
 
@@ -63,7 +63,7 @@ class TextImageItem extends TranslatableModel
         $result = [];
         $result['text_image_list_id'] = new SelectVueCRUDIndexfilter('text_image_list_id', 'Parent list', -1);
         $result['text_image_list_id']->setValueSet(TextImageList::all()->pluck('id', 'id'));
-        $result['text_image_list_id']->setContainerClass('hidden');
+        $result['text_image_list_id']->setContainerClass('hidden-important');
 
         return $result;
     }

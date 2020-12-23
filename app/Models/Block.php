@@ -81,6 +81,7 @@ class Block extends TranslatableModel
         return [
             'block_type_label'  => 'Type',
             'visibility_select' => 'Visibility',
+            'items_link' => 'Items',
         ];
     }
 
@@ -99,7 +100,7 @@ class Block extends TranslatableModel
         $result = [];
         $result['page_id'] = new SelectVueCRUDIndexfilter('page_id', 'Page', 0);
         $result['page_id']->setValueSet(Page::getKeyValueCollection()->all(), 0, 'Select page...');
-
+        $result['page_id']->setContainerClass('hidden-important');
         return $result;
     }
 
@@ -167,9 +168,15 @@ class Block extends TranslatableModel
 
     public function getItemsLinkAttribute()
     {
-//        if ($this->blocktype->allows_items == 0) {
-//            return '';
-//        }
+        $descendant = self::findDescendant($this->id);
+        if ($descendant instanceof IHasItemsContainer) {
+
+            return '<a href="'.route($descendant::getItemsRouteName(), [
+                $descendant::getItemsForeignKey() => $descendant->getItemsContainer()->id
+            ]).'">'.__('Manage items').'</a>';
+        } else {
+            return '';
+        }
     }
 
     public function getBlockPageForPageId($pageId)

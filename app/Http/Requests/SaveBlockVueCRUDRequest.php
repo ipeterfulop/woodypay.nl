@@ -9,6 +9,7 @@ use App\Models\Block;
 use App\Models\BlockPage;
 use App\Models\BlockType;
 use App\Models\HeroBlock;
+use App\Models\IHasItemsContainer;
 use App\Models\Locale;
 use Datalytix\Translations\TranslatableModel;
 use Datalytix\VueCRUD\Requests\VueCRUDRequestBase;
@@ -39,18 +40,14 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
             \DB::transaction(function() use ($dataset, $class, &$subject, $position, $pageId) {
                 if ($this->blockType->item_class != null) {
                     $containerClass = $this->blockType->item_class;
-                    $table = (new $containerClass())->getTable();
+                    $table = $this->blockType->id.'_'.(new $containerClass())->getTable();
                     $itemsContainerDataset = [];
-                    $newDataset = [];
-                    foreach ($dataset as $field => $value) {
+                    foreach ($this->all() as $field => $value) {
                         if (\Str::startsWith($field, $table)) {
-                            $itemsContainerDataset[str_ireplace($table.'_', '')] = $value;
-                        } else {
-                            $newDataset[$field] = $value;
+                            $itemsContainerDataset[str_ireplace($table.'_', '', $field)] = $value;
                         }
                     }
-                    $dataset = $newDataset;
-                    $itemsContainer = $containerClass::create($itemsContainerDataset);
+                    $itemsContainer = $containerClass::createWithTranslations($itemsContainerDataset);
                     $dataset[$class::getItemsContainerIDField()] = $itemsContainer->id;
                 }
                 $subject = $class::createWithTranslations($dataset);
@@ -63,6 +60,17 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
 
         } else {
             $subClass = $class::find($subject->id);
+            if ($subClass instanceof IHasItemsContainer) {
+                unset($dataset[$subClass::getItemsContainerIDField()]);
+                $table = $this->blockType->id.'_'.($subClass->getItemsContainer())->getTable();
+                $itemsContainerDataset = [];
+                foreach ($this->all() as $field => $value) {
+                    if (\Str::startsWith($field, $table)) {
+                        $itemsContainerDataset[str_ireplace($table.'_', '', $field)] = $value;
+                    }
+                }
+                $subClass->getItemsContainer()->updateWithTranslations($itemsContainerDataset);
+            }
             $subClass->updateWithTranslations($dataset);
         }
 
