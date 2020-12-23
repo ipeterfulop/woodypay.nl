@@ -27,9 +27,9 @@ class SaveTextImageItemVueCRUDRequest extends VueCRUDRequestBase
         if ($subject == null) {
             $dataset['position'] = TextImageItem::withoutTranslations()->where(['text_image_list_id' => $this->input('text_image_list_id')])->max('position') + 1;
             $dataset['text_image_list_id'] = $this->input('text_image_list_id');
-            $subject = TextImageItem::createWithTranslations($this->getDataset());
+            $subject = TextImageItem::createWithTranslations($dataset);
         } else {
-            $subject->updateWithTranslations($this->getDataset());
+            $subject->updateWithTranslations($dataset);
         }
 
         return $subject;
