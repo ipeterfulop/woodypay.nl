@@ -37,6 +37,22 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
             $pageId = $dataset['page_id'];
             unset($dataset['page_id']);
             \DB::transaction(function() use ($dataset, $class, &$subject, $position, $pageId) {
+                if ($this->blockType->item_class != null) {
+                    $containerClass = $this->blockType->item_class;
+                    $table = (new $containerClass())->getTable();
+                    $itemsContainerDataset = [];
+                    $newDataset = [];
+                    foreach ($dataset as $field => $value) {
+                        if (\Str::startsWith($field, $table)) {
+                            $itemsContainerDataset[str_ireplace($table.'_', '')] = $value;
+                        } else {
+                            $newDataset[$field] = $value;
+                        }
+                    }
+                    $dataset = $newDataset;
+                    $itemsContainer = $containerClass::create($itemsContainerDataset);
+                    $dataset[$class::getItemsContainerIDField()] = $itemsContainer->id;
+                }
                 $subject = $class::createWithTranslations($dataset);
                 BlockPage::create([
                     'page_id' => $pageId,

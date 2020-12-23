@@ -22,6 +22,7 @@ class SubjecttypesSeeder extends Seeder
             ['id' => 1, 'name' => Block::class],
             ['id' => 2, 'name' => Page::class],
             ['id' => 3, 'name' => TextImageList::class],
+            ['id' => 11, 'name' => TextImageItem::class],
             ['id' => 4, 'name' => BlockType::class],
             ['id' => 5, 'name' => Positioning::class],
             ['id' => 10, 'name' => Spacing::class],
@@ -32,7 +33,9 @@ class SubjecttypesSeeder extends Seeder
             if ($s == null) {
                 \DB::table('translationsubjecttypes')->insert($row);
             } else {
-                \DB::table('translationsubjecttypes')->where('id', '=', $row['id'])->update(collect($row)->except(['id'])->all());
+                \DB::table('translationsubjecttypes')->where('id', '=', $row['id'])->update(
+                    collect($row)->except(['id'])->all()
+                );
             }
         }
     }

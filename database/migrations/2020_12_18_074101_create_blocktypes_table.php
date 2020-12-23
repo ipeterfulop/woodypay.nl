@@ -16,6 +16,7 @@ class CreateBlockTypesTable extends Migration
         Schema::create('blocktypes', function (Blueprint $table) {
             $table->id();
             $table->string('tag');
+            $table->string('layout_class')->nullable()->default(null);
             $table->timestamps();
         });
     }

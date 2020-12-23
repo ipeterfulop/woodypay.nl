@@ -174,6 +174,21 @@ class StartPageBlockSeeder extends Seeder
 
         $dataSet[DatabaseSeeder::BLOCK]['background_color'] = null;
 
+        $faker =  \Faker\Factory::create('en_En');
+
+        $dataSet[DatabaseSeeder::TEXT_IMAGE_LIST][DatabaseSeeder::TEXT_IMAGE_LIST] = [
+            'id' => $blockId*100
+        ];
+        $dataSet[DatabaseSeeder::TEXT_IMAGE_LIST][DatabaseSeeder::TRANSLATION] = [
+            'title_en'       => 'I am a block with a text list and a topic image',
+            'content_en'     => '(Text EN) '.collect($faker->words(15))->join(' '),
+            'topic_image_en' => '/images/assets/sample_image_02.png',
+            'title_nl'       => 'Ik ben een blok met een tekstlijst en een onderwerpafbeelding',
+            'content_nl'     => '(Text NL) '.collect($faker->words(15))->join(' '),
+            'topic_image_nl' => '/images/assets/sample_image_02.png',
+        ];
+
+
         DB::transaction(
             function () use ($dataSet, $position) {
                 DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);

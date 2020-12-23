@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\HeroBlock;
 use App\Models\Locale;
+use App\Models\TextImageList;
 use App\Models\Translation;
 use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +15,10 @@ class DatabaseSeeder extends Seeder
 {
     const BLOCK = 'block';
     const EXTENDED_BLOCK = 'extendedBlock';
-    const TRANSLATION = 'translation';
+    const TRANSLATION = 'Translation';
+    const TEXT_IMAGE_LIST = 'TextImageList';
+    const TEXT_IMAGE_LIST_ITEM = 'TextImageListItem';
+    const CORE_FIELDS = 'BasicFields';
 
     /**
      * Seed the application's database.
@@ -35,39 +40,39 @@ class DatabaseSeeder extends Seeder
     public static function getDefaultBlockDataSet(int $blocktypeId, int $id = null, bool $isDarkTheme = false): array
     {
         $dataSet = [
-            DatabaseSeeder::BLOCK          => [
+            self::BLOCK          => [
                 'id'                                   => $id,
                 'blocktype_id'                         => $blocktypeId,
                 'should_open_button_url_in_new_window' => 1,
                 'created_at'                           => \Carbon\Carbon::now(),
                 'updated_at'                           => \Carbon\Carbon::now(),
             ],
-            DatabaseSeeder::EXTENDED_BLOCK => [
+            self::EXTENDED_BLOCK => [
                 'id'         => $id,
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
-            DatabaseSeeder::TRANSLATION    => [
+            self::TRANSLATION    => [
 
             ],
         ];
 
         if ($isDarkTheme) {
-            $dataSet[DatabaseSeeder::BLOCK]['text_color'] = 'rgba(232, 226, 225, 1)';
-            $dataSet[DatabaseSeeder::BLOCK]['background_color'] = 'rgba(27, 34, 48, 1)';
-            $dataSet[DatabaseSeeder::BLOCK]['background_gradient'] = null;
-            $dataSet[DatabaseSeeder::BLOCK]['button_background_color'] = 'rgba(232, 226, 225, 1)';
-            $dataSet[DatabaseSeeder::BLOCK]['button_text_color'] = 'rgba(232, 226, 225, 1)';
-            $dataSet[DatabaseSeeder::BLOCK]['button_hover_background_color'] = 'rgba(58, 70, 101, 1)';
-            $dataSet[DatabaseSeeder::BLOCK]['button_hover_text_color'] = 'rgba(27, 34, 48, 1)';
+            $dataSet[self::BLOCK]['text_color'] = 'rgba(232, 226, 225, 1)';
+            $dataSet[self::BLOCK]['background_color'] = 'rgba(27, 34, 48, 1)';
+            $dataSet[self::BLOCK]['background_gradient'] = null;
+            $dataSet[self::BLOCK]['button_background_color'] = 'rgba(232, 226, 225, 1)';
+            $dataSet[self::BLOCK]['button_text_color'] = 'rgba(232, 226, 225, 1)';
+            $dataSet[self::BLOCK]['button_hover_background_color'] = 'rgba(58, 70, 101, 1)';
+            $dataSet[self::BLOCK]['button_hover_text_color'] = 'rgba(27, 34, 48, 1)';
         } else {
-            $dataSet[DatabaseSeeder::BLOCK]['text_color'] = '#1B2230';
-            $dataSet[DatabaseSeeder::BLOCK]['background_color'] = '#E2E8E1';
-            $dataSet[DatabaseSeeder::BLOCK]['background_gradient'] = null;
-            $dataSet[DatabaseSeeder::BLOCK]['button_background_color'] = '#1B2230';
-            $dataSet[DatabaseSeeder::BLOCK]['button_text_color'] = '#FFFFFF';
-            $dataSet[DatabaseSeeder::BLOCK]['button_hover_background_color'] = '#3A4665';
-            $dataSet[DatabaseSeeder::BLOCK]['button_hover_text_color'] = '#FFFFFF';
+            $dataSet[self::BLOCK]['text_color'] = '#1B2230';
+            $dataSet[self::BLOCK]['background_color'] = '#E2E8E1';
+            $dataSet[self::BLOCK]['background_gradient'] = null;
+            $dataSet[self::BLOCK]['button_background_color'] = '#1B2230';
+            $dataSet[self::BLOCK]['button_text_color'] = '#FFFFFF';
+            $dataSet[self::BLOCK]['button_hover_background_color'] = '#3A4665';
+            $dataSet[self::BLOCK]['button_hover_text_color'] = '#FFFFFF';
         }
 
         return $dataSet;
@@ -146,7 +151,7 @@ class DatabaseSeeder extends Seeder
             DB::table($extendedBlockTable)->insert($extendedBlockDataSet);
         }
 
-        DatabaseSeeder::addOrUpdateTranslations(
+        self::addOrUpdateTranslations(
             $translationDataSet,
             $extendedBlockDataSet['id'],
             $subjecttypeId
@@ -173,6 +178,105 @@ class DatabaseSeeder extends Seeder
               ->update($blockpageDataSet);
         } else {
             DB::table('block_page')->insert($blockpageDataSet);
+        }
+    }
+
+    /**
+     * @param $textImageListId
+     * @param int $numberOfItems
+     * @param false $addIconToItems
+     * @param false $addImageToItems
+     * @return array
+     */
+    public static function createTextImageListDataSet(
+        $textImageListId,
+        $numberOfItems = 6,
+        $addIconToItems = false,
+        $addImageToItems = false
+    ): array {
+        $faker = Factory::create('en_En');
+        $dataSet = [];
+
+        $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS] = [
+            'id' => $textImageListId,
+        ];
+
+        $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION] = [
+            'title_en'       => 'I am a block with a text list and a topic image',
+            'content_en'     => '(Text EN) ' . collect($faker->words(15))->join(' '),
+            'topic_image_en' => '/images/assets/sample_image_02.png',
+            'title_nl'       => 'Ik ben een blok met een tekstlijst en een onderwerpafbeelding',
+            'content_nl'     => '(Text NL) ' . collect($faker->words(15))->join(' '),
+            'topic_image_nl' => '/images/assets/sample_image_02.png',
+        ];
+
+        $dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM] = [];
+        for ($i = 1; $i < $numberOfItems; $i++) {
+            $dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM][] = [
+                self::CORE_FIELDS => [
+                    'id'                 => $textImageListId + $i,
+                    'text_image_list_id' => $textImageListId,
+                    'position'           => $i,
+                ],
+                self::TRANSLATION => [
+                    'title_en'   => 'I am a list item (' . str_pad($i, 2, '0', STR_PAD_LEFT) . ')',
+                    'content_en' => '(Text EN) ' . collect($faker->words(9))->join(' '),
+                    'url_en'     => 'https://www.apple.com/en/',
+                    'title_nl'   => 'Ik ben een lijstitem (' . str_pad($i, 2, '0') . ')',
+                    'content_nl' => '(Text EN) ' . collect($faker->words(9))->join(' '),
+                    'url_nl'     => 'https://www.apple.com/nl/',
+                ],
+            ];
+        }
+
+        {
+            return $dataSet;
+        }
+    }
+
+    public static function addOrUpdateTextImageList($dataSet)
+    {
+        //adding basic data
+        $textImageListDataSet = [
+            'id'         => $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['id'],
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ];
+        $textImageListFound = (TextImageList::where('id', '=', $textImageListDataSet['id'])->get()->count() > 0);
+        if ($textImageListFound) {
+            DB::table('text_image_lists')
+              ->where('id', '=', $textImageListDataSet['id'])
+              ->update($textImageListDataSet);
+        } else {
+            DB::table('text_image_lists')
+              ->insert($textImageListDataSet);
+        }
+
+        //adding translations
+        self::addOrUpdateTranslations(
+            $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION],
+            $textImageListDataSet['id'],
+            TextImageList::getSubjecttypeId()
+        );
+
+        //adding items
+        foreach ($dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM] as $textImageItem) {
+            $textImageItemDataSet = [
+                'id'                 => $textImageItem['id'],
+                'text_image_list_id' => $textImageItem['text_image_list_id'],
+                'position'           => $textImageItem['position'],
+                'created_at'         => Carbon::now(),
+                'updated_at'         => Carbon::now(),
+            ];
+            $textImageItemFound = (TextImageItem:where('id', '=', $textImageListDataSet['id'])->get()->count() > 0);
+            if ($textImageListFound) {
+                DB::table('text_image_lists')
+                  ->where('id', '=', $textImageListDataSet['id'])
+                  ->update($textImageListDataSet);
+            } else {
+                DB::table('text_image_lists')
+                  ->insert($textImageListDataSet);
+            }
         }
     }
 

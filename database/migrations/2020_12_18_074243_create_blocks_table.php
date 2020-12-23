@@ -18,6 +18,7 @@ class CreateBlocksTable extends Migration
             function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('blocktype_id')->constrained('blocktypes');
+                $table->unsignedInteger('layout')->nullable()->default(null);
 
                 $table->string('text_color', 25)->nullable()->default(null);
                 $table->string('background_color', 25)->nullable()->default(null);
