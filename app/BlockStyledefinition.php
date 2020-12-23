@@ -82,7 +82,7 @@ class BlockStyledefinition
             'color' => $block->text_color,
             'background-color' => $block->background_color,
             'background' => $block->background_gradient,
-            'background-image' => $block->background_image == null ? null : 'url("'.$block->background_image.'")',
+            'background-image' => $block->background_image == null ? null : 'url("/images'.$block->background_image.'")',
             'background-position' => $block->background_image_positioning_id == null ? 'center' : Positioning::find($block->background_image_positioning_id)->code,
         ]);
         $result[$blockClassname.' a.button'] = self::removeEmptyDefinitions([

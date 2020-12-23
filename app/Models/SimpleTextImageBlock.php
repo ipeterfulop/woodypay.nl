@@ -30,4 +30,9 @@ class SimpleTextImageBlock extends DescendantBlock
             'topic_image',
         ];
     }
+
+    public function positioning()
+    {
+        return $this->belongsTo(Positioning::class, 'topic_image_horizontal_positioning_id');
+    }
 }

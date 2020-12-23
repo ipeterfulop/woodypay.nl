@@ -170,6 +170,33 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         return $fields;
     }
 
+    protected static function addFieldsForCTABlock()
+    {
+        $fields = [];
+        $fields['background_image'] = (new ImagePickerVueCRUDFormfield())
+            ->setLabel('Background image')
+            ->setContainerClass('w-full');
+        foreach (Locale::all() as $locale) {
+            $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
+                ->setLabel('Title ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Content ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('button_label')] = (new TextVueCRUDFormfield())
+                ->setLabel('Button label ('.$locale->uppercase_id.')')
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('button_url')] = (new TextVueCRUDFormfield())
+                ->setLabel('Button URL ('.$locale->uppercase_id.')')
+                ->setContainerClass('w-full');
+
+            //->setConditions([['field' => 'projectsupport_type_id', 'value' => CreativeSolution::PROJECTSUPPORT_TYPE_ID]])
+        }
+        return $fields;
+    }
+
     protected static function addFieldsForSimpleTextImageBlock()
     {
         $fields = [];
@@ -181,6 +208,7 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $fields['topic_image_horizontal_positioning_id'] = (new SelectVueCRUDFormfield())
             ->setLabel('Image positioning')
             ->setContainerClass('w-full')
+            ->setDefault(Positioning::findByCode('right')->id)
             ->setValuesetClass(Positioning::class)
             ->setValuesetGetter('getHorizontalPositioningOptions');
         foreach (Locale::all() as $locale) {

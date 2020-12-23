@@ -2,18 +2,11 @@
 
 namespace App\Models;
 
+use App\Helpers\DescendantBlock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TextImageListBlock extends Block
+class TextImageListBlock extends DescendantBlock
 {
     use HasFactory;
-
-    public static function getTranslatedProperties(): array
-    {
-        return [
-            'title',
-            'content',
-        ];
-    }
 }
