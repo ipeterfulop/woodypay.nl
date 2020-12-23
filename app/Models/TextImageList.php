@@ -22,4 +22,19 @@ class TextImageList extends TranslatableModel
     {
         return ['title', 'content', 'topic_image'];
     }
+
+    public function items()
+    {
+        return $this->hasMany(TextImageItem::class);
+    }
+
+    public function remove()
+    {
+        return \DB::transaction(function() {
+            foreach($this->items as $item) {
+                $item->remove();
+            }
+            parent::remove();
+        }) === null;
+    }
 }

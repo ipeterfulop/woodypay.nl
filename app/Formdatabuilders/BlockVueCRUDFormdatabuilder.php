@@ -8,6 +8,7 @@ use App\BlockStyledefinition;
 use App\Helpers\BackgroundColorType;
 use App\Models\Block;
 use App\Models\BlockType;
+use App\Models\IHasItemsContainer;
 use App\Models\Locale;
 use App\Models\Page;
 use App\Models\Positioning;
@@ -270,7 +271,17 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         if ($this->subject == null) {
             return null;
         }
-        \Log::info($pieces[1]);
+        if ($this->subject instanceof IHasItemsContainer) {
+
+            if (\Str::startsWith($pieces[1], $this->subject->getItemsContainer()->getTable())) {
+                $newField = str_ireplace(
+                    $this->subject->getItemsContainer()->getTable().'_',
+                    '',
+                    $pieces[1]
+                );
+                return $this->subject->getItemsContainer()->$newField;
+            }
+        }
         return $this->subject->{$pieces[1]};
     }
 
