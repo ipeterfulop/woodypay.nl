@@ -4,6 +4,7 @@
 namespace App\Formdatabuilders;
 
 
+use App\BlockLayouts\TextImageListLayout;
 use App\BlockStyledefinition;
 use App\Helpers\BackgroundColorType;
 use App\Models\Block;
@@ -166,6 +167,45 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         return $fields;
     }
 
+    protected static function addFieldsForTestimonialBlock()
+    {
+        $fields = [];
+        $fields['person_photo'] = (new ImagePickerVueCRUDFormfield())
+            ->setLabel('Photo')
+            ->setContainerClass('w-full');
+        foreach (Locale::all() as $locale) {
+            $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
+                ->setLabel('Title ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Content ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('person_first_name')] = (new TextVueCRUDFormfield())
+                ->setLabel('First name ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-1/3');
+            $fields[$locale->getTranslatedPropertyName('person_last_name')] = (new TextVueCRUDFormfield())
+                ->setLabel('Last name ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-1/3');
+            $fields[$locale->getTranslatedPropertyName('person_position')] = (new TextVueCRUDFormfield())
+                ->setLabel('Position ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-1/3');
+            $fields[$locale->getTranslatedPropertyName('button_label')] = (new TextVueCRUDFormfield())
+                ->setLabel('Button label ('.$locale->uppercase_id.')')
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('button_url')] = (new TextVueCRUDFormfield())
+                ->setLabel('Button URL ('.$locale->uppercase_id.')')
+                ->setContainerClass('w-full');
+
+            //->setConditions([['field' => 'projectsupport_type_id', 'value' => CreativeSolution::PROJECTSUPPORT_TYPE_ID]])
+        }
+        return $fields;
+    }
+
     protected static function addFieldsForCTABlock()
     {
         $fields = [];
@@ -201,6 +241,12 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
     protected static function addFieldsForTextImageListBlock()
     {
         $fields = [];
+        $fields['layout'] = (new SelectVueCRUDFormfield())
+            ->setMandatory(true)
+            ->setLabel('Layout')
+            ->setDefault(TextImageListLayout::FEATURE_LIST_ID)
+            ->setValuesetClass(TextImageListLayout::class)
+            ->setContainerClass('w-full');
 //        $fields['topic_image'] = (new ImagePickerVueCRUDFormfield())
 //            ->setLabel('Image')
 //            ->setContainerClass('w-full');

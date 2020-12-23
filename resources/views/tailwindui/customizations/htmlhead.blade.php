@@ -10,4 +10,8 @@
     .hidden-important {
         visibility: hidden !important;
     }
+    .model-manager-main-body td a {
+        text-decoration: underline;
+        color: darkblue;
+    }
 </style>

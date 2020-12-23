@@ -18,6 +18,6 @@ class TextImageListCollectionBlock extends Block
 
     public static function getTranslatedProperties(): array
     {
-        return ['title', 'content', 'topic_image'];
+        return ['title', 'content'];
     }
 }

@@ -2,12 +2,21 @@
 
 namespace App\Models;
 
+use App\Helpers\DescendantBlock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TestimonialBlock extends Block
+class TestimonialBlock extends DescendantBlock
 {
     use HasFactory;
+    protected $fillable = [
+        'id',
+        'person_photo'
+    ];
+
+    protected $table = 'testimonial_blocks';
+
+    public $incrementing = false;
 
     public static function getTranslatedProperties(): array
     {

@@ -18,6 +18,7 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
     protected $fillable = [
         'id',
         'tag',
+        'layout_class',
         'item_class',
     ];
 

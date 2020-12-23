@@ -97,6 +97,9 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
             );
         }
         $this->blockType = BlockType::find($result['blocktype_id']);
+        if ($this->has($this->blockType->id.'_layout')) {
+            $result['layout'] = $this->get($this->blockType->id.'_layout');
+        }
         foreach($this->getBlockFields() as $field) {
             $result[$field] = $this->getParsedInputValue($this->blockType->id.'_'.$field);
         }
