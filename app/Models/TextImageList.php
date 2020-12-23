@@ -11,6 +11,8 @@ class TextImageList extends TranslatableModel
 {
     const SUBJECTTYPE_ID = 3;
 
+    protected $table = 'text_image_lists';
+
     public static function getSubjecttypeId()
     {
         return static::SUBJECTTYPE_ID;

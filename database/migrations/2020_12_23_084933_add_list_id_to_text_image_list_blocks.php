@@ -14,7 +14,7 @@ class AddListIdToTextImageListBlocks extends Migration
     public function up()
     {
         Schema::table('text_image_list_blocks', function (Blueprint $table) {
-            $table->foreignId('list_id')->constrained('text_image_list_blocks');
+            $table->foreignId('list_id')->constrained('text_image_lists');
         });
     }
 
@@ -26,7 +26,8 @@ class AddListIdToTextImageListBlocks extends Migration
     public function down()
     {
         Schema::table('text_image_list_blocks', function (Blueprint $table) {
-            //
+            $table->dropForeign('text_image_list_blocks_list_id_foreign');
+            $table->dropColumn('list_id');
         });
     }
 }

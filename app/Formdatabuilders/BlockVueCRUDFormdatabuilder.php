@@ -200,10 +200,19 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
     protected static function addFieldsForTextImageListBlock()
     {
         $fields = [];
-        $fields['topic_image'] = (new ImagePickerVueCRUDFormfield())
-            ->setLabel('Background image')
-            ->setContainerClass('w-full');
-
+//        $fields['topic_image'] = (new ImagePickerVueCRUDFormfield())
+//            ->setLabel('Image')
+//            ->setContainerClass('w-full');
+        foreach (Locale::all() as $locale) {
+            $fields[$locale->getTranslatedPropertyName('text_image_lists_title')] = (new TextVueCRUDFormfield())
+                ->setLabel('Title ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('text_image_lists_content')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Content ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-full');
+        }
         return $fields;
     }
 

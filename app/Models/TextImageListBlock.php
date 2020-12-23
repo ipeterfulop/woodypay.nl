@@ -6,7 +6,7 @@ use App\Helpers\DescendantBlock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TextImageListBlock extends DescendantBlock
+class TextImageListBlock extends DescendantBlock implements IHasItemsContainer
 {
     use HasFactory;
 
@@ -20,5 +20,8 @@ class TextImageListBlock extends DescendantBlock
         'list_id'
     ];
 
-
+    public static function getItemsContainerIDField()
+    {
+        return 'list_id';
+    }
 }
