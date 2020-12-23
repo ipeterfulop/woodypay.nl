@@ -6,6 +6,7 @@ namespace App\Formdatabuilders;
 
 use App\Models\Locale;
 use App\Models\TextImageItem;
+use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\ImagePickerVueCRUDFormfield;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\RichttextQuillVueCRUDFormfield;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\StaticVueCRUDFormfield;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\TextVueCRUDFormfield;
@@ -24,6 +25,12 @@ class TextImageItemVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $result['text_image_list_id'] = (new StaticVueCRUDFormfield())
             ->setDefault(request()->get('text_image_list_id'))
             ->setContainerClass('hidden-important');
+        $result['topic_image'] = (new ImagePickerVueCRUDFormfield())
+            ->setLabel('Image')
+            ->setContainerClass('w-full');
+        $result['fa_icon_classes'] = (new TextVueCRUDFormfield())
+            ->setLabel('FontAwesome icon class')
+            ->setContainerClass('w-full');
         foreach (Locale::all() as $locale) {
             $result[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
                 ->setLabel('Title ('.$locale->uppercase_id.')')

@@ -11,22 +11,10 @@ class AdminMenuSeeder extends MenuitemsSeederBase
     {
         $position = 0;
         $dataset = [
-            100 => [
-                'position'         => ++$position,
-                'label'            => 'Fiókok',
-                'parent_id'        => null,
-                'url'              => null,
-                'routename'        => 'vuecrud_administrator_index',
-                'iconclass'        => 'template',
-                'custom_view_name' => null,
-                'user_gate'        => 'access-admin',
-                'menuitemtype_id'  => 2,
-                'tag'              => null
-            ],
             1 => [
                 'position'         => ++$position,
-                'label'            => 'Adminisztrátorok',
-                'parent_id'        => 100,
+                'label'            => __('Administrators'),
+                'parent_id'        => null,
                 'url'              => null,
                 'routename'        => 'vuecrud_administrator_index',
                 'iconclass'        => 'template',
@@ -37,23 +25,11 @@ class AdminMenuSeeder extends MenuitemsSeederBase
             ],
             2 => [
                 'position'         => ++$position,
-                'label'            => 'Regisztrált felhasználók',
-                'parent_id'        => 100,
+                'label'            => __('Pages'),
+                'parent_id'        => null,
                 'url'              => null,
-                'routename'        => 'vuecrud_member_index',
-                'iconclass'        => 'template',
-                'custom_view_name' => null,
-                'user_gate'        => 'access-admin',
-                'menuitemtype_id'  => 2,
-                'tag'              => null
-            ],
-            3 => [
-                'position'         => ++$position,
-                'label'            => 'Aktivitások',
-                'parent_id'        => 100,
-                'url'              => null,
-                'routename'        => 'vuecrud_useraction_index',
-                'iconclass'        => 'template',
+                'routename'        => 'vuecrud_page_index',
+                'iconclass'        => 'document',
                 'custom_view_name' => null,
                 'user_gate'        => 'access-admin',
                 'menuitemtype_id'  => 2,

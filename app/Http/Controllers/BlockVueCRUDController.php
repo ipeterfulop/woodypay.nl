@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Formdatabuilders\BlockVueCRUDFormdatabuilder;
 use App\Http\Requests\SaveBlockVueCRUDRequest;
 use App\Dataproviders\BlockVueCRUDDataprovider;
+use App\Models\Page;
 use Datalytix\VueCRUD\Interfaces\ICRUDController;
 use App\Models\Block;
 use Datalytix\VueCRUD\Controllers\VueCRUDControllerBase;
@@ -86,5 +87,15 @@ class BlockVueCRUDController extends VueCRUDControllerBase implements ICRUDContr
     public function removePublicPicture()
     {
         return parent::removePublicAttachment();
+    }
+
+    public function getSubjectNamePlural()
+    {
+        $suffix = '';
+        if (request()->has('page_id')) {
+            $suffix = ' - '.Page::find(request()->get('page_id'))->name;
+        }
+
+        return Block::SUBJECT_NAME_PLURAL.$suffix;
     }
 }

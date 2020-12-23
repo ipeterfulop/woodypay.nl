@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Formdatabuilders\TextImageItemVueCRUDFormdatabuilder;
 use App\Http\Requests\SaveTextImageItemVueCRUDRequest;
 use App\Dataproviders\TextImageItemVueCRUDDataprovider;
+use App\Models\TextImageList;
 use Datalytix\VueCRUD\Interfaces\ICRUDController;
 use App\Models\TextImageItem;
 use Datalytix\VueCRUD\Controllers\VueCRUDControllerBase;
@@ -52,6 +53,16 @@ class TextImageItemVueCRUDController extends VueCRUDControllerBase implements IC
         $provider = new TextImageItemVueCRUDDataprovider();
 
         return $provider->getElementsAndCounts();
+    }
+
+    public function getSubjectNamePlural()
+    {
+        $suffix = '';
+        if (request()->has('text_image_list_id')) {
+            $suffix = ' - list: "'.TextImageList::find(request()->get('text_image_list_id'))->title.'"';
+        }
+
+        return TextImageItem::SUBJECT_NAME_PLURAL.$suffix;
     }
 
 }
