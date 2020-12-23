@@ -9,6 +9,8 @@ class TestimonialBlock extends Block
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     public static function getTranslatedProperties(): array
     {
         return [
@@ -17,6 +19,7 @@ class TestimonialBlock extends Block
             'person_first_name',
             'person_last_name',
             'person_position',
+            'person_photo',
             'button_label',
             'button_url',
         ];

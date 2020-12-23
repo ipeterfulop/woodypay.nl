@@ -6,6 +6,7 @@ use App\Models\BlockType;
 use App\Models\CTABlock;
 use App\Models\HeroBlock;
 use App\Models\SimpleTextImageBlock;
+use App\Models\TestimonialBlock;
 use App\Models\TextImageList;
 use App\Models\TextImageListBlock;
 use Illuminate\Database\Seeder;
@@ -29,6 +30,7 @@ class BlockTypesSeeder extends Seeder
                 'tag'        => TextImageListBlock::getBlockTypeTag(),
                 'item_class' => TextImageList::class,
             ],
+            ['id' => 5, 'name_en' => 'Testiomonial block', 'tag' => TestimonialBlock::getBlockTypeTag()],
         ];
 
         foreach ($dataset as $row) {

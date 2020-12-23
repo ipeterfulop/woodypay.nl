@@ -9,8 +9,10 @@ use App\Models\CTABlock;
 use App\Models\HeroBlock;
 use App\Models\Positioning;
 use App\Models\SimpleTextImageBlock;
+use App\Models\TestimonialBlock;
 use App\Models\TextImageList;
 use App\Models\TextImageListBlock;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +23,7 @@ class StartPageBlockSeeder extends Seeder
     const TEXT_IMAGE_LIST_COLLAPSIBLE_BLOCK_ID = 80000;
     const TEXT_IMAGE_LIST_FEATURELIST_BLOCK_ID = 90000;
     const CTA_BLOCK_ID = 30000;
+    const TESTIMONIAL_BLOCK = 40000;
 
 
     /**
@@ -36,24 +39,25 @@ class StartPageBlockSeeder extends Seeder
     private function addOrUpdateBlocks()
     {
         $position = 0;
-        $this->addOrCreateHeroBlock(self::HERO_BLOCK_ID, ++$position);
-        $this->addOrCreateSimpleTextImageBlock(self::TEXT_IMAGE_BLOCK_ID, ++$position);
-        $this->addOrCreateTextImageListBlockWithCollapsibleLayout(
+        $this->addOrUpdateHeroBlock(self::HERO_BLOCK_ID, ++$position);
+        $this->addOrUpdateSimpleTextImageBlock(self::TEXT_IMAGE_BLOCK_ID, ++$position);
+        $this->addOrUpdateTextImageListBlockWithCollapsibleLayout(
             self::TEXT_IMAGE_LIST_COLLAPSIBLE_BLOCK_ID,
             ++$position
         );
-        $this->addOrCreateTextImageListBlockWithFeatureListLayout(
+        $this->addOrUpdateTextImageListBlockWithFeatureListLayout(
             self::TEXT_IMAGE_LIST_FEATURELIST_BLOCK_ID,
             ++$position
         );
-        $this->addOrCreateCTABlock(self::CTA_BLOCK_ID, ++$position);
+        $this->addOrUpdateTestimonialBlock(self::TESTIMONIAL_BLOCK, ++$position);
+        $this->addOrUpdateCTABlock(self::CTA_BLOCK_ID, ++$position);
     }
 
     /**
      * @param int $blockId
      * @param int $position
      */
-    private function addOrCreateHeroBlock(int $blockId, int $position)
+    private function addOrUpdateHeroBlock(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(HeroBlock::getBlockTypeTag()))->id;
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
@@ -99,7 +103,7 @@ class StartPageBlockSeeder extends Seeder
      * @param int $blockId
      * @param int $position
      */
-    private function addOrCreateSimpleTextImageBlock(int $blockId, int $position)
+    private function addOrUpdateSimpleTextImageBlock(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(SimpleTextImageBlock::getBlockTypeTag()))->id;
         $blockId = 20000;
@@ -144,7 +148,7 @@ class StartPageBlockSeeder extends Seeder
         );
     }
 
-    private function addOrCreateCTABlock(int $blockId, int $position)
+    private function addOrUpdateCTABlock(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(CTABlock::getBlockTypeTag()))->id;
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
@@ -177,7 +181,7 @@ class StartPageBlockSeeder extends Seeder
         );
     }
 
-    private function addOrCreateTextImageListBlockWithCollapsibleLayout(int $blockId, int $position)
+    private function addOrUpdateTextImageListBlockWithCollapsibleLayout(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(TextImageListBlock::getBlockTypeTag()))->id;
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
@@ -213,7 +217,7 @@ class StartPageBlockSeeder extends Seeder
         );
     }
 
-    private function addOrCreateTextImageListBlockWithFeatureListLayout(int $blockId, int $position)
+    private function addOrUpdateTextImageListBlockWithFeatureListLayout(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(TextImageListBlock::getBlockTypeTag()))->id;
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
@@ -240,6 +244,53 @@ class StartPageBlockSeeder extends Seeder
                     TextImageListBlock::getSubjecttypeId()
                 );
 
+                DatabaseSeeder::assignBlockToPage(
+                    $dataSet[DatabaseSeeder::BLOCK]['id'],
+                    PagesSeeder::START_PAGE,
+                    $position
+                );
+            }
+        );
+    }
+
+    private function addOrUpdateTestimonialBlock(int $blockId, int $position)
+    {
+        $faker = Factory::create('en_En');
+        $blocktypeId = (BlockType::findByTag(TestimonialBlock::getBlockTypeTag()))->id;
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
+        $dataSet[DatabaseSeeder::BLOCK]['background_gradient'] = null;
+        $dataSet[DatabaseSeeder::BLOCK]['button_background_color'] = null;//transparent
+        $dataSet[DatabaseSeeder::BLOCK]['button_hover_background_color'] = null;
+        $dataSet[DatabaseSeeder::BLOCK]['button_text_color'] = 'rgba(255, 100, 50, 1)';
+        $dataSet[DatabaseSeeder::BLOCK]['button_hover_text_color'] = 'rgba(255, 100, 50, 1)';
+
+        $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['person_photo'] = '/images/assets/person_sample_image.png';
+
+        $dataSet[DatabaseSeeder::TRANSLATION]['title_en'] = 'This is a Vision/Testimonial block';
+        $dataSet[DatabaseSeeder::TRANSLATION]['content_en'] = '(Text EN) ' . collect($faker->words(25))->join(' ');
+        $dataSet[DatabaseSeeder::TRANSLATION]['button_label_en'] = 'I am link to an external page';
+        $dataSet[DatabaseSeeder::TRANSLATION]['button_url_en'] = 'https://www.dutchnews.nl/';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_first_name_en'] = 'John';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_last_name_en'] = 'Smith';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_position_en'] = 'Executive director';
+
+        $dataSet[DatabaseSeeder::TRANSLATION]['title_nl'] = 'Dit is een Vision / Testimonial-blok';
+        $dataSet[DatabaseSeeder::TRANSLATION]['content_nl'] = '(Text NL) ' . collect($faker->words(25))->join(' ');
+        $dataSet[DatabaseSeeder::TRANSLATION]['button_label_nl'] = 'Ik ben een link naar een externe pagina';
+        $dataSet[DatabaseSeeder::TRANSLATION]['button_url_nl'] = 'https://www.telegraaf.nl/';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_first_name_en'] = 'Jan';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_last_name_en'] = 'de Vries';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_position_en'] = 'Uitvoerend directeur';
+
+        DB::transaction(
+            function () use ($dataSet, $position) {
+                DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
+                DatabaseSeeder::addOrUpdateExtendedBlock(
+                    'testimonial_blocks',
+                    $dataSet[DatabaseSeeder::EXTENDED_BLOCK],
+                    $dataSet[DatabaseSeeder::TRANSLATION],
+                    TestimonialBlock::getSubjecttypeId()
+                );
                 DatabaseSeeder::assignBlockToPage(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
                     PagesSeeder::START_PAGE,
