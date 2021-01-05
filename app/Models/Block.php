@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Formdatabuilders\BlockVueCRUDFormdatabuilder;
 use App\Helpers\Visibility;
+use App\Traits\HasPositionThroughPivot;
 use Datalytix\Translations\TranslatableModel;
 use Datalytix\VueCRUD\Indexfilters\SelectVueCRUDIndexfilter;
 use Datalytix\VueCRUD\Traits\hasPosition;
@@ -14,7 +15,7 @@ use ReflectionClass;
 
 class Block extends TranslatableModel
 {
-    use HasFactory, VueCRUDManageable, hasPosition;
+    use HasFactory, VueCRUDManageable, HasPositionThroughPivot;
 
     const SUBJECT_SLUG = 'block';
     const SUBJECT_NAME = 'Block';
@@ -116,17 +117,17 @@ class Block extends TranslatableModel
         return ['page_id'];
     }
 
-    public function scopeWithPosition($query)
-    {
-        return $query->select(
-            $this->getTable() . '.*',
-            \DB::raw('bp.position as position'),
-            \DB::raw('bp.page_id as page_id'),
-            \DB::raw('bp.visibility as visibility')
-        )
-                     ->leftJoinSub(BlockPage::query(), 'bp', 'bp.block_id', '=', $this->getTable() . '.id');
-    }
-
+//    public function scopeWithPosition($query)
+//    {
+//        return $query->select(
+//            $this->getTable() . '.*',
+//            \DB::raw('bp.position as position'),
+//            \DB::raw('bp.page_id as page_id'),
+//            \DB::raw('bp.visibility as visibility')
+//        )
+//                     ->leftJoinSub(BlockPage::query(), 'bp', 'bp.block_id', '=', $this->getTable() . '.id');
+//    }
+//
     public static function getVueCRUDOptionalAjaxFunctions()
     {
         return [
@@ -186,63 +187,27 @@ class Block extends TranslatableModel
                         ->first();
     }
 
-    public function exchangePositionWithElement($element)
-    {
-        if ($element === null) {
-            return false;
-        }
-        $transactionResult = \DB::transaction(
-            function () use ($element) {
-                $elementBlockPage = BlockPage::where('page_id', '=', $element->page_id)
-                                             ->where('block_id', '=', $element->id)
-                                             ->first();
-                $blockPage = BlockPage::where('page_id', '=', $element->page_id)
-                                      ->where('block_id', '=', $this->id)
-                                      ->first();
-                $ePosition = $elementBlockPage->position;
-                $elementBlockPage->update(['position' => $blockPage->position]);
-                $blockPage->update(['position' => $ePosition]);
-            }
-        );
-
-        return $transactionResult === null;
-    }
-
-    public function findPreviousElementByPosition()
-    {
-        $block = Block::withPosition()->find($this->id);
-        return self::withPosition()->where($this->buildRestrictions())
-                   ->where('position', '<', $block->position)
-                   ->orderBy('position', 'desc')
-                   ->first();
-    }
-
-    public function findNextElementByPosition()
-    {
-        $block = Block::withPosition()->find($this->id);
-        return self::withPosition()->where($this->buildRestrictions())
-                   ->where('position', '>', $block->position)
-                   ->orderBy('position', 'desc')
-                   ->first();
-    }
-
-    public function buildRestrictions()
-    {
-        $result = [];
-        $block = self::withPosition()->find($this->id);
-        foreach (self::getRestrictingFields() as $field) {
-            $result[$field] = $block->$field;
-        }
-
-        return $result;
-    }
-
     public function getLayoutName()
     {
         if ($this->blocktype->layout_class == null) {
             return $this->blocktype_id;
         }
         return $this->layout;
+    }
+
+    public static function getPositioningPivotForeignKey()
+    {
+        return 'block_id';
+    }
+
+    public static function getPositioningPivotModelclass()
+    {
+        return BlockPage::class;
+    }
+
+    public static function getPositioningPivotModelFields()
+    {
+        return ['position', 'page_id', 'visibility'];
     }
 }
 

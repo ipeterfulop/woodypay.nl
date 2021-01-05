@@ -15,11 +15,13 @@ abstract class DescendantBlock extends Block
     protected static function booted()
     {
         static::addGlobalScope('withparentdata', function(Builder $builder) {
-            $fields = collect((new Block())->getFillable())->except(['id', 'created_at', 'updated_at'])->transform(function($field) {
+            $blockfields = collect((new Block())->getFillable())->except(['id', 'created_at', 'updated_at']);
+            $fields = $blockfields->map(function($field) {
                 return 'bb.'.$field;
             })->all();
+            $blockfields->push('id');
             return $builder->select()->addSelect($fields)->leftJoinSub(
-                Block::query(),
+                Block::select($blockfields->all()),
                 'bb',
                 'bb.id',
                 '=',
@@ -81,5 +83,10 @@ abstract class DescendantBlock extends Block
     public static function getVueCRUDFormdatabuilderClassname()
     {
         return BlockVueCRUDFormdatabuilder::class;
+    }
+
+    public static function getBaseQuery()
+    {
+        return Block::query();
     }
 }

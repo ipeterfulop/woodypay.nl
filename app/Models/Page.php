@@ -40,18 +40,6 @@ class Page extends TranslatableModel
             .'</a>';
     }
 
-    public function blocks()
-    {
-        return $this->hasManyThrough(
-            Block::class,
-            BlockPage::class,
-            'page_id',
-            'id',
-            'id',
-            'block_id'
-        )->withPosition()->orderBy('position', 'asc');
-    }
-
     public static function getSubjecttypeId()
     {
         return static::SUBJECTTYPE_ID;
@@ -133,7 +121,7 @@ class Page extends TranslatableModel
         $visibility = \Auth::check() && \Auth::user()->isAdmin()
             ? Visibility::ADMIN_ID
             : Visibility::EVERYONE_ID;
-        foreach ($this->blocks as $block) {
+        foreach (Block::where('page_id', '=', $this->id)->orderBy('position', 'asc')->get() as $block) {
             if ($block->visibility >= $visibility) {
                 $result[] = Block::findDescendant($block->id);
             }

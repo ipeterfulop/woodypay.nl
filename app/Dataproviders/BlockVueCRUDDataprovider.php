@@ -12,7 +12,7 @@ class BlockVueCRUDDataprovider extends VueCRUDDataproviderBase implements IVueCR
 
     function getBaseQuery()
     {
-        return Block::withPosition();
+        return Block::query();
     }
 
     function getQuery()

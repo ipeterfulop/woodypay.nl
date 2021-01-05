@@ -14,5 +14,6 @@ class TextImageCollectionList extends Model
     protected $fillable = [
         'text_image_list_collection_block_id',
         'text_image_list_id',
+        'position',
     ];
 }
