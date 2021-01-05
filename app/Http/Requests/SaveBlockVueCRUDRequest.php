@@ -104,6 +104,16 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
             $result[$field] = $this->getParsedInputValue($this->blockType->id.'_'.$field);
         }
 
+        //special cases of blocks
+        if ($this->has('tilcb_backgroundtype')) {
+            if ($this->input('tilcb_backgroundtype') == BackgroundColorType::GRADIENT_ID) {
+                $result['background_gradient_selected_list'] = BlockStyledefinition::getCSSGradientBackgroundDefinition(
+                    $this->input('background_color_selected_list'),
+                    $this->input('second_background_color_selected_list')
+                );
+            }
+        }
+
         return $result;
     }
 

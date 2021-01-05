@@ -37,6 +37,7 @@ Route::middleware(['auth', 'can:access-admin'])->group(function() {
         \App\Models\Page::setVueCRUDRoutes();
         \App\Models\Block::setVueCRUDRoutes();
         \App\Models\TextImageItem::setVueCRUDRoutes();
+        \App\Models\CollectionTextImageList::setVueCRUDRoutes();
 
         Route::post('/blocks/visibility', [BlockVisibilityController::class, 'update'])->name('block_visibility_endpoint');
     });

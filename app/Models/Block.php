@@ -170,6 +170,9 @@ class Block extends TranslatableModel
     public function getItemsLinkAttribute()
     {
         $descendant = self::findDescendant($this->id);
+        if (method_exists($descendant, 'getItemsLink')) {
+            return $descendant->getItemsLink();
+        }
         if ($descendant instanceof IHasItemsContainer) {
 
             return '<a href="'.route($descendant::getItemsRouteName(), [

@@ -4,6 +4,7 @@
 namespace App\Formdatabuilders;
 
 
+use App\BlockLayouts\TextImageListCollectionBlockLayout;
 use App\BlockLayouts\TextImageListLayout;
 use App\BlockStyledefinition;
 use App\Helpers\BackgroundColorType;
@@ -14,6 +15,7 @@ use App\Models\Locale;
 use App\Models\Page;
 use App\Models\Positioning;
 use App\Models\Spacing;
+use App\Models\TextImageListCollectionBlock;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\ColorVueCRUDFormfield;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\ImagePickerVueCRUDFormfield;
 use Datalytix\VueCRUD\Formdatabuilders\Formfieldtypes\RichttextQuillVueCRUDFormfield;
@@ -300,6 +302,60 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         return $fields;
     }
 
+    protected static function addFieldsForTextImageListCollectionBlock()
+    {
+        $fields = [];
+        $fields['layout'] = (new SelectVueCRUDFormfield())
+            ->setMandatory(true)
+            ->setLabel('Layout')
+            ->setDefault(TextImageListCollectionBlockLayout::TABS_ID)
+            ->setValuesetClass(TextImageListCollectionBlockLayout::class)
+            ->setContainerClass('w-full');
+
+        $fields['text_color_selected_list'] = (new ColorVueCRUDFormfield())
+            ->setLabel('Selected list text color')
+            ->setStep(2)
+            ->setContainerClass('w-1/3')
+            ->setPresets(static::getApplicationColorPresets());
+        $fields['backgroundtype'] = (new SelectVueCRUDFormfield())
+            ->setLabel('Background color type')
+            ->setContainerClass('w-full')
+            ->setStep(2)
+            ->setValuesetClass(BackgroundColorType::class)
+            ->setDefault(BackgroundColorType::SOLID_ID);
+        $fields['background_color_selected_list'] = (new ColorVueCRUDFormfield())
+            ->setLabel('Selected list background color')
+            ->setStep(2)
+            ->setContainerClass('w-1/2')
+            ->setPresets(static::getApplicationColorPresets());
+        $fields['second_background_color_selected_list'] = (new ColorVueCRUDFormfield())
+            ->setLabel('Second selected list background color (for gradients)')
+            ->setHideIf([
+                ['$7_backgroundtype', '=', BackgroundColorType::SOLID_ID]
+            ])
+            ->setStep(2)
+            ->setContainerClass('w-1/2')
+            ->setPresets(static::getApplicationColorPresets());
+        foreach (Locale::all() as $locale) {
+            $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
+                ->setLabel('Title ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Content ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setContainerClass('w-full');
+        }
+        return $fields;
+    }
+
+    protected static function addFieldsForFooterBlock()
+    {
+        $fields = [];
+
+        return $fields;
+    }
+
     public function __construct(Block $subject = null, $defaults = [])
     {
         $this->subject = $subject;
@@ -344,6 +400,19 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         return $data['color2'];
     }
 
+    public function get_7_second_background_color_value()
+    {
+        if ($this->subject == null) {
+            return null;
+        }
+        if ($this->subject->background_gradient_selected_list == null) {
+            return null;
+        }
+        $data = BlockStyledefinition::parseGradientCSSDefinition($this->subject->background_gradient_selected_list);
+
+        return $data['color2'];
+    }
+
     public function get_1_background_image_value()
     {
         if (($this->subject == null) || ($this->subject->background_image == null)) {
@@ -358,6 +427,16 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
     }
 
     public function get_backgroundtype_value()
+    {
+        if ($this->subject == null) {
+            return BackgroundColorType::SOLID_ID;
+        }
+        return $this->subject->background_gradient == null
+            ? BackgroundColorType::SOLID_ID
+            : BackgroundColorType::GRADIENT_ID;
+    }
+
+    public function get_7_backgroundtype_value()
     {
         if ($this->subject == null) {
             return BackgroundColorType::SOLID_ID;

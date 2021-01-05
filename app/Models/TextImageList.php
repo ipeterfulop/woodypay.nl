@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class TextImageList extends TranslatableModel
 {
+    const SUBJECT_SLUG = 'textimagelist';
+    const SUBJECT_NAME = 'Text+image list';
+    const SUBJECT_NAME_PLURAL = 'Text+image lists';
     const SUBJECTTYPE_ID = 3;
 
     protected $table = 'text_image_lists';
