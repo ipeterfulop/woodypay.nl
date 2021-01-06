@@ -16,4 +16,11 @@ class TextImageCollectionList extends Model
         'text_image_list_id',
         'position',
     ];
+
+    protected $with = ['list'];
+
+    public function list()
+    {
+        return $this->belongsTo(TextImageList::class, 'text_image_list_id');
+    }
 }

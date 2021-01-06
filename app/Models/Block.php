@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use App\Formdatabuilders\BlockVueCRUDFormdatabuilder;
 use App\Helpers\Visibility;
-use App\Traits\HasPositionThroughPivot;
 use Datalytix\Translations\TranslatableModel;
 use Datalytix\VueCRUD\Indexfilters\SelectVueCRUDIndexfilter;
-use Datalytix\VueCRUD\Traits\hasPosition;
+use Datalytix\VueCRUD\Traits\HasPositionThroughPivot;
 use Datalytix\VueCRUD\Traits\VueCRUDManageable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use ReflectionClass;
 
 class Block extends TranslatableModel

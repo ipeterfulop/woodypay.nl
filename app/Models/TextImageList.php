@@ -16,6 +16,8 @@ class TextImageList extends TranslatableModel
 
     protected $table = 'text_image_lists';
 
+    protected $with = ['items'];
+
     public static function getSubjecttypeId()
     {
         return static::SUBJECTTYPE_ID;
@@ -28,7 +30,7 @@ class TextImageList extends TranslatableModel
 
     public function items()
     {
-        return $this->hasMany(TextImageItem::class);
+        return $this->hasMany(TextImageItem::class, 'text_image_list_id');
     }
 
     public function remove()

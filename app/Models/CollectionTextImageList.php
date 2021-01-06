@@ -4,8 +4,8 @@
 namespace App\Models;
 
 
-use App\Traits\HasPositionThroughPivot;
 use Datalytix\VueCRUD\Indexfilters\TextVueCRUDIndexfilter;
+use Datalytix\VueCRUD\Traits\HasPositionThroughPivot;
 use Datalytix\VueCRUD\Traits\VueCRUDManageable;
 
 class CollectionTextImageList extends TextImageList

@@ -1,10 +1,12 @@
+<style>{!! \App\BlockStyledefinition::getCSSClasses($block) !!}</style>
+
 <div class="w-full max-width-container flex items-start justify-center" x-data="{'currentTab': 0}">
-    <div class="flex flex-col items-start justify-start py-16 px-4" style="{{ $block->styledefinitions->getStyleString() }}; background-size: cover">
+    <div class="flex flex-col items-start justify-start py-16 px-4 {{ $block->getBlockCSSName() }}" style="background-size: cover">
 <h1 class="w-full text-center px-3" style="">{!! $block->title !!}</h1>
 <div class="w-full text-center px-3 py-3" style="">{!! $block->content !!}</div>
-@foreach($block->tabs as $tabIndex => $tab)
+@foreach($block->lists as $tabIndex => $tab)
     @push('tabs-'.$block->id)
-        <div class="w-full w-1/{{ count($block->tabs) }}"
+        <div class="w-full w-1/{{ count($block->lists) }}"
              data-tab-id="{{ $tabIndex }}"
              @click="currentTab = {{ $tabIndex }}"
              class="cursor-pointer"

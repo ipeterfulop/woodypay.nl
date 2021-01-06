@@ -29,13 +29,13 @@ class TextImageListCollectionBlock extends DescendantBlock
     public function lists()
     {
         return $this->hasManyThrough(
-            TextImageList::class,
+            CollectionTextImageList::class,
             TextImageCollectionList::class,
-            'text_image_list_id',
-            'id',
-            'id',
             'text_image_list_collection_block_id',
-        );
+            'id',
+            'id',
+            'text_image_list_id',
+        )->orderBy('_ptr.position', 'asc');
     }
 
 
