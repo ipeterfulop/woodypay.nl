@@ -59,8 +59,7 @@ class TextImageItemVueCRUDController extends VueCRUDControllerBase implements IC
     {
         $suffix = '';
         if (request()->has('text_image_list_id')) {
-            $suffix = ' - list: "'.TextImageList::find(request()->get('text_image_list_id'))->title.'"';
-            $suffix .= ' <span class="white-space-nowrap text-blue-400 text-sm cursor-pointer"><a class="white-space-nowrap" href="'.url()->previous().'">'.__('Back').'</a></span>';
+            $suffix .= ' - list: "'.TextImageList::find(request()->get('text_image_list_id'))->title.'"';
         }
 
         return TextImageItem::SUBJECT_NAME_PLURAL.$suffix;

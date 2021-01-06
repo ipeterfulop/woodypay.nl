@@ -46,7 +46,11 @@ class CollectionTextImageList extends TextImageList
 
     public function getItemsLabelAttribute()
     {
-        return 'Yipp';
+        return '<a href="'.route('vuecrud_textimageitem_index', [
+            'text_image_list_id' => $this->id,
+            'referer' => static::getVueCRUDBackreferenceParameterValue(['text_image_list_collection_block_id']),
+        ]).'">'.__('Manage items').'</a>';
+;
     }
 
     public static function getVueCRUDIndexColumns()
@@ -75,4 +79,16 @@ class CollectionTextImageList extends TextImageList
         return $result;
     }
 
+    public static function getVueCRUDParentIndexLink()
+    {
+        if (request()->has('text_image_list_collection_block_id')) {
+            $block = Block::find(request()->get('text_image_list_collection_block_id'));
+            return [
+                'url' => route('vuecrud_block_index', ['page_id' => $block->page_id]),
+                'label' => __('Back to').' '.mb_strtolower(__('Blocks'))
+            ];
+        }
+
+        return null;
+    }
 }

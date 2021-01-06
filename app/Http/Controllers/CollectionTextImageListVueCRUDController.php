@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Formdatabuilders\CollectionTextImageListVueCRUDFormdatabuilder;
 use App\Http\Requests\SaveCollectionTextImageListVueCRUDRequest;
 use App\Dataproviders\CollectionTextImageListVueCRUDDataprovider;
+use App\Models\Block;
 use Datalytix\VueCRUD\Interfaces\ICRUDController;
 use App\Models\CollectionTextImageList;
 use Datalytix\VueCRUD\Controllers\VueCRUDControllerBase;
@@ -47,6 +48,16 @@ class CollectionTextImageListVueCRUDController extends VueCRUDControllerBase imp
         $provider = new CollectionTextImageListVueCRUDDataprovider();
 
         return $provider->getElementsAndCounts();
+    }
+
+    public function getSubjectNamePlural()
+    {
+        $suffix = '';
+        if (request()->has('text_image_list_collection_block_id')) {
+            $suffix = ' - '.Block::find(request()->get('text_image_list_collection_block_id'))->block_type_label;
+        }
+
+        return CollectionTextImageList::SUBJECT_NAME_PLURAL.$suffix;
     }
 
 }

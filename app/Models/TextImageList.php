@@ -40,4 +40,11 @@ class TextImageList extends TranslatableModel
             parent::remove();
         }) === null;
     }
+
+    public static function modifyModellistButtons($buttons)
+    {
+        unset($buttons['details']);
+
+        return $buttons;
+    }
 }

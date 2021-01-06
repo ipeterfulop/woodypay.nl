@@ -176,7 +176,8 @@ class Block extends TranslatableModel
         if ($descendant instanceof IHasItemsContainer) {
 
             return '<a href="'.route($descendant::getItemsRouteName(), [
-                $descendant::getItemsForeignKey() => $descendant->getItemsContainer()->id
+                $descendant::getItemsForeignKey() => $descendant->getItemsContainer()->id,
+                'referer' => static::getVueCRUDBackreferenceParameterValue(['page_id']),
             ]).'">'.__('Manage items').'</a>';
         } else {
             return '';
@@ -212,5 +213,18 @@ class Block extends TranslatableModel
     {
         return ['position', 'page_id', 'visibility'];
     }
+
+    public static function getVueCRUDParentIndexLink()
+    {
+        if (request()->has('page_id')) {
+            return [
+                'url' => route('vuecrud_page_index'),
+                'label' => __('Back to').' '.mb_strtolower(__('Pages'))
+            ];
+        }
+
+        return null;
+    }
+
 }
 

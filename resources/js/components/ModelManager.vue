@@ -563,7 +563,18 @@
         },
         computed: {
             filtersExist: function() {
-                return !['{}', '[]'].includes(JSON.stringify(this.filters));
+                if (['{}', '[]'].includes(JSON.stringify(this.filters))) {
+                    return false;
+                }
+                if (typeof this.filters === 'object') {
+                    return Object.keys(this.filters).filter((k) => {
+                        return !this.filters[k].containerClass.includes('hidden');
+                    }).length > 0;
+                }
+                return this.filters.filter((f) => {
+                    return !f.containerClass.includes('hidden');
+                }).length > 0;
+
             },
             massOperationsForDropdown: function() {
                 let result = {};

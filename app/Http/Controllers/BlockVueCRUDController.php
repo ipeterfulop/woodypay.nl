@@ -94,7 +94,6 @@ class BlockVueCRUDController extends VueCRUDControllerBase implements ICRUDContr
         $suffix = '';
         if (request()->has('page_id')) {
             $suffix = ' - '.Page::find(request()->get('page_id'))->name;
-            $suffix .= ' <span class="white-space-nowrap text-blue-400 text-sm cursor-pointer"><a class="white-space-nowrap" href="'.route('vuecrud_page_index').'">'.__('Back to pages').'</a></span>';
         }
 
         return Block::SUBJECT_NAME_PLURAL.$suffix;
