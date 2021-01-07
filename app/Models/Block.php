@@ -114,7 +114,7 @@ class Block extends TranslatableModel
     public static function modifyModellistButtons($buttons)
     {
         unset($buttons['details']);
-
+        //$buttons['copy'] =
         return $buttons;
     }
 
@@ -234,5 +234,19 @@ class Block extends TranslatableModel
         return null;
     }
 
+    public function copyToPage($page_id, $visibility = Visibility::ADMIN_ID)
+    {
+        BlockPage::firstOrCreate([
+            'page_id' => $page_id,
+            'block_id' => $this->id,
+            'position' => BlockPage::getFirstAvailablePosition(['page_id' => $page_id]),
+            'visibility' => $visibility,
+        ]);
+    }
+
+    public static function filterDataForPivotModelRestrictions($data)
+    {
+        return ['page_id' => $data['page_id']];
+    }
 }
 

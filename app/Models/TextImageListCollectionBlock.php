@@ -26,6 +26,7 @@ class TextImageListCollectionBlock extends DescendantBlock
         return ['title', 'content'];
     }
 
+    //won't work with global scopes, Laravel feature shortage
     public function lists()
     {
         return $this->hasManyThrough(
@@ -38,6 +39,11 @@ class TextImageListCollectionBlock extends DescendantBlock
         )->orderBy('_ptr.position', 'asc');
     }
 
+    public function getLists()
+    {
+        return CollectionTextImageList::where('text_image_list_collection_block_id', '=', $this->id)->orderBy('_ptr.position')->get();
+    }
+
 
     public function getItemsLink()
     {
@@ -47,5 +53,6 @@ class TextImageListCollectionBlock extends DescendantBlock
             .__('Manage collections')
             .'</a>';
     }
+
 
 }

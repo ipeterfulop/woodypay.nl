@@ -91,4 +91,9 @@ class CollectionTextImageList extends TextImageList
 
         return null;
     }
+
+    public static function filterDataForPivotModelRestrictions($data)
+    {
+        return ['text_image_list_collection_block_id' => $data['text_image_list_collection_block_id']];
+    }
 }

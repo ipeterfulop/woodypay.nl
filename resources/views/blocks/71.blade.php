@@ -4,18 +4,18 @@
     <div class="flex flex-col items-start justify-start py-16 px-4 {{ $block->getBlockCSSName() }}" style="background-size: cover">
 <h1 class="w-full text-center px-3" style="">{!! $block->title !!}</h1>
 <div class="w-full text-center px-3 py-3" style="">{!! $block->content !!}</div>
-@foreach($block->lists as $tabIndex => $tab)
+@foreach($block->getLists() as $tabIndex => $tab)
     @push('tabs-'.$block->id)
-        <div class="w-full w-1/{{ count($block->lists) }}"
+        <div class="cursor-pointer p-6 w-1/{{ count($block->lists) }}"
              data-tab-id="{{ $tabIndex }}"
              @click="currentTab = {{ $tabIndex }}"
-             class="cursor-pointer"
-             x-bind:class="{'opacity-75': currentTab != {{ $tabIndex }}}"
+             x-bind:class="{'active-tab': currentTab == {{ $tabIndex }}, 'inactive-tab': currentTab != {{ $tabIndex }}}"
         >{{ $tab->title }}</div>
     @endpush
     @push('tabcontent-'.$block->id)
         <div class="w-full flex flex-row items-start justify-between p-4"
              x-show="currentTab == {{ $tabIndex }}"
+             x-bind:class="{'active-tab-content': currentTab == {{ $tabIndex }}}"
         >
             <div class="w-1/2 flex flex-col">
                 @foreach($tab->items as $index => $item)
@@ -39,7 +39,7 @@
         </div>
     @endpush
 @endforeach
-<div class="hidden md:flex w-full p-4 flex-row items-between justify-between mt-4">
+<div class="hidden md:flex w-full flex-row items-between justify-between mt-4">
     @stack('tabs-'.$block->id)
 </div>
 <div class="hidden md:flex w-full">

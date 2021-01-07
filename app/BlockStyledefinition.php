@@ -95,6 +95,19 @@ class BlockStyledefinition
             'color' => $block->button_hover_text_color,
             'background-color' => $block->button_hover_background_color,
         ]);
+        $result[$blockClassname.' .active-tab'] = self::removeEmptyDefinitions([
+            'color' => $block->text_color,
+            'background-color' => $block->background_color_selected_list,
+        ]);
+        $result[$blockClassname.' .active-tab-content'] = self::removeEmptyDefinitions([
+            'color' => $block->text_color,
+            'background-color' => $block->background_color_selected_list,
+            'background' => $block->background_gradient_selected_list,
+        ]);
+        $result[$blockClassname.' .inactive-tab'] = self::removeEmptyDefinitions([
+            'color' => $block->text_color,
+            'background-color' => $block->background_color,
+        ]);
         $resultString = '';
         foreach ($result as $name => $items) {
             $resultString .= '.'.$name.' {';
