@@ -6,17 +6,16 @@
 <div class="w-full text-center px-3 py-3" style="">{!! $block->content !!}</div>
 @foreach($block->getLists() as $tabIndex => $tab)
     @push('tabs-'.$block->id)
-        <div class="w-full w-1/{{ count($block->lists) }}"
+        <div class="cursor-pointer p-6 w-1/{{ count($block->lists) }}"
              data-tab-id="{{ $tabIndex }}"
              @click="currentTab = {{ $tabIndex }}"
-             class="cursor-pointer"
-             x-bind:class="{'active-tab': currentTab == {{ $tabIndex }}}"
+             x-bind:class="{'active-tab': currentTab == {{ $tabIndex }}, 'inactive-tab': currentTab != {{ $tabIndex }}}"
         >{{ $tab->title }}</div>
     @endpush
     @push('tabcontent-'.$block->id)
         <div class="w-full flex flex-row items-start justify-between p-4"
              x-show="currentTab == {{ $tabIndex }}"
-             x-bind:class="{'active-tab': currentTab == {{ $tabIndex }}}"
+             x-bind:class="{'active-tab-content': currentTab == {{ $tabIndex }}}"
         >
             <div class="w-1/2 flex flex-col">
                 @foreach($tab->items as $index => $item)
