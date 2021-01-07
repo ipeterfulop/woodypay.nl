@@ -17,9 +17,6 @@ class CreateTextImageListBlocksTable extends Migration
             'text_image_list_blocks',
             function (Blueprint $table) {
                 $table->foreignId('id')->constrained('blocks')->primary();
-
-                $table->string('topic_image')->nullable()->default(null);
-
                 $table->timestamps();
             }
         );

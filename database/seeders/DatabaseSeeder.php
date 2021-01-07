@@ -207,12 +207,12 @@ class DatabaseSeeder extends Seeder
         ];
 
         $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION] = [
-            'title_en'       => 'I am a block with a text list and a topic image',
-            'content_en'     => '(Text EN) ' . collect($faker->words(15))->join(' '),
+            'title_en'       => '(List title EN)I am a block with a text list and a topic image',
+            'content_en'     => '(List content EN) ' . collect($faker->words(15))->join(' '),
             'topic_image_en' => '/images/assets/sample_image_02.png',
 
-            'title_nl'       => 'Ik ben een blok met een tekstlijst en een onderwerpafbeelding',
-            'content_nl'     => '(Text NL) ' . collect($faker->words(15))->join(' '),
+            'title_nl'       => ' (title NL) Ik ben een blok met een tekstlijst en een onderwerpafbeelding',
+            'content_nl'     => '(content NL) ' . collect($faker->words(15))->join(' '),
             'topic_image_nl' => '/images/assets/sample_image_02.png',
         ];
 

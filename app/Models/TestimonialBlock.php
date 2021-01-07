@@ -9,9 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class TestimonialBlock extends DescendantBlock
 {
     use HasFactory;
+
     protected $fillable = [
         'id',
-        'person_photo'
+        'person_first_name',
+        'person_last_name',
+        'person_position',
+        'person_photo',
     ];
 
     protected $table = 'testimonial_blocks';

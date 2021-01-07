@@ -25,7 +25,11 @@ class TextImageList extends TranslatableModel
 
     public static function getTranslatedProperties(): array
     {
-        return ['title', 'content', 'topic_image'];
+        return [
+            'title',
+            'content',
+            'topic_image',
+        ];
     }
 
     public function items()
@@ -35,12 +39,14 @@ class TextImageList extends TranslatableModel
 
     public function remove()
     {
-        return \DB::transaction(function() {
-            foreach($this->items as $item) {
-                $item->remove();
-            }
-            parent::remove();
-        }) === null;
+        return \DB::transaction(
+                function () {
+                    foreach ($this->items as $item) {
+                        $item->remove();
+                    }
+                    parent::remove();
+                }
+            ) === null;
     }
 
     public static function modifyModellistButtons($buttons)

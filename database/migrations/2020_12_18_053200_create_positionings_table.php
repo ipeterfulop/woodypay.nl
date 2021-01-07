@@ -17,6 +17,7 @@ class CreatePositioningsTable extends Migration
             'positionings',
             function (Blueprint $table) {
                 $table->id();
+                $table->string('name');
                 $table->string('code', 2)->unique();
                 $table->string('is_horizontal', 25)->unique();
                 $table->string('is_vertical', 25)->unique();

@@ -13,10 +13,16 @@ class CreateTextImageListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('text_image_lists', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        Schema::create(
+            'text_image_lists',
+            function (Blueprint $table) {
+                $table->id();
+                $table->text('title')->nullable()->default(null);
+                $table->text('content')->nullable()->default(null);
+                $table->text('topic_image')->nullable()->default(null);
+                $table->timestamps();
+            }
+        );
     }
 
     /**

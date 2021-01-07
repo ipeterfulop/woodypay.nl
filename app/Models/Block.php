@@ -23,9 +23,13 @@ class Block extends TranslatableModel
     protected $fillable = [
         'blocktype_id',
         'layout',
+        'title',
+        'content',
         'text_color',
         'background_color',
         'background_gradient',
+        'button_label',
+        'button_url',
         'button_background_color',
         'button_text_color',
         'button_hover_background_color',
@@ -55,7 +59,12 @@ class Block extends TranslatableModel
 
     public static function getTranslatedProperties(): array
     {
-        return [];
+        return [
+            'title',
+            'content',
+            'button_label',
+            'button_url',
+        ];
     }
 
     public static function getBlockTypeTag(): ?string
@@ -79,7 +88,7 @@ class Block extends TranslatableModel
         return [
             'block_type_label'  => 'Type',
             'visibility_select' => 'Visibility',
-            'items_link' => 'Items',
+            'items_link'        => 'Items',
         ];
     }
 
@@ -171,11 +180,13 @@ class Block extends TranslatableModel
             return $descendant->getItemsLink();
         }
         if ($descendant instanceof IHasItemsContainer) {
-
-            return '<a href="'.route($descendant::getItemsRouteName(), [
-                $descendant::getItemsForeignKey() => $descendant->getItemsContainer()->id,
-                'referer' => static::getVueCRUDBackreferenceParameterValue(['page_id']),
-            ]).'">'.__('Manage items').'</a>';
+            return '<a href="' . route(
+                    $descendant::getItemsRouteName(),
+                    [
+                        $descendant::getItemsForeignKey() => $descendant->getItemsContainer()->id,
+                        'referer'                         => static::getVueCRUDBackreferenceParameterValue(['page_id']),
+                    ]
+                ) . '">' . __('Manage items') . '</a>';
         } else {
             return '';
         }
@@ -215,8 +226,8 @@ class Block extends TranslatableModel
     {
         if (request()->has('page_id')) {
             return [
-                'url' => route('vuecrud_page_index'),
-                'label' => __('Back to').' '.mb_strtolower(__('Pages'))
+                'url'   => route('vuecrud_page_index'),
+                'label' => __('Back to') . ' ' . mb_strtolower(__('Pages')),
             ];
         }
 
