@@ -95,6 +95,11 @@ class BlockStyledefinition
             'color' => $block->button_hover_text_color,
             'background-color' => $block->button_hover_background_color,
         ]);
+        $result[$blockClassname.' .active-tab'] = self::removeEmptyDefinitions([
+            'color' => $block->text_color_selected_list,
+            'background-color' => $block->background_color_selected_list,
+            'background' => $block->background_gradient_selected_list,
+        ]);
         $resultString = '';
         foreach ($result as $name => $items) {
             $resultString .= '.'.$name.' {';

@@ -10,12 +10,13 @@
              data-tab-id="{{ $tabIndex }}"
              @click="currentTab = {{ $tabIndex }}"
              class="cursor-pointer"
-             x-bind:class="{'opacity-75': currentTab != {{ $tabIndex }}}"
+             x-bind:class="{'active-tab': currentTab == {{ $tabIndex }}}"
         >{{ $tab->title }}</div>
     @endpush
     @push('tabcontent-'.$block->id)
         <div class="w-full flex flex-row items-start justify-between p-4"
              x-show="currentTab == {{ $tabIndex }}"
+             x-bind:class="{'active-tab': currentTab == {{ $tabIndex }}}"
         >
             <div class="w-1/2 flex flex-col">
                 @foreach($tab->items as $index => $item)
@@ -39,7 +40,7 @@
         </div>
     @endpush
 @endforeach
-<div class="hidden md:flex w-full p-4 flex-row items-between justify-between mt-4">
+<div class="hidden md:flex w-full flex-row items-between justify-between mt-4">
     @stack('tabs-'.$block->id)
 </div>
 <div class="hidden md:flex w-full">
