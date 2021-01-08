@@ -384,9 +384,9 @@ class StartPageBlockSeeder extends Seeder
         $dataSet[DatabaseSeeder::TRANSLATION]['content_nl'] = '(Text NL) ' . collect($faker->words(25))->join(' ');
         $dataSet[DatabaseSeeder::TRANSLATION]['button_label_nl'] = 'Ik ben een link naar een externe pagina';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_url_nl'] = 'https://www.telegraaf.nl/';
-        $dataSet[DatabaseSeeder::TRANSLATION]['person_first_name_en'] = 'Jan';
-        $dataSet[DatabaseSeeder::TRANSLATION]['person_last_name_en'] = 'de Vries';
-        $dataSet[DatabaseSeeder::TRANSLATION]['person_position_en'] = 'Uitvoerend directeur';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_first_name_nl'] = 'Jan';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_last_name_nl'] = 'de Vries';
+        $dataSet[DatabaseSeeder::TRANSLATION]['person_position_nl'] = 'Uitvoerend directeur';
 
         DB::transaction(
             function () use ($dataSet, $position) {

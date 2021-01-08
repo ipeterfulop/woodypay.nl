@@ -16,8 +16,8 @@ class PagesSeeder extends Seeder
     public function run()
     {
         $dataset = [
-            ['id' => self::START_PAGE, 'name_en' => 'Main page', 'url_en' => '/', 'url_nl' => '/', 'tag' => 'main'],
-            ['id' => 2, 'name_en' => 'Privacy policy', 'url_en' => '/privacy', 'url_nl' => '/privacybeleid', 'tag' => 'privacy'],
+            ['id' => self::START_PAGE, 'name' => 'Main page', 'url' => '/', 'url_nl' => '/', 'tag' => 'main'],
+            ['id' => 2, 'name' => 'Privacy policy', 'url' => '/privacy', 'url_nl' => '/privacybeleid', 'tag' => 'privacy'],
         ];
 
         foreach ($dataset as $row) {
