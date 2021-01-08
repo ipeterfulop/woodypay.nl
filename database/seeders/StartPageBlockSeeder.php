@@ -123,7 +123,6 @@ class StartPageBlockSeeder extends Seeder
     private function addOrUpdateSimpleTextRightImageBlock(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(SimpleTextImageBlock::getBlockTypeTag()))->id;
-        $blockId = 20000;
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
 
         $dataSet[DatabaseSeeder::BLOCK]['internal_name'] = 'text_image_block_with_image_on_right';
@@ -180,7 +179,6 @@ class StartPageBlockSeeder extends Seeder
     private function addOrUpdateSimpleTextLeftImageBlock(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(SimpleTextImageBlock::getBlockTypeTag()))->id;
-        $blockId = 20000;
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
 
         $dataSet[DatabaseSeeder::BLOCK]['internal_name'] = 'text_image_block_with_image_on_left';
