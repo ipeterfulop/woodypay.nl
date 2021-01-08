@@ -80,7 +80,7 @@ class Block extends TranslatableModel
 
     public function getBlockTypeLabelAttribute()
     {
-        return optional($this->blocktype)->name;
+        return optional($this->blocktype)->name_translated;
     }
 
     public static function getVueCRUDIndexColumns()

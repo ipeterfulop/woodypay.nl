@@ -2,15 +2,15 @@
 
 <div class="w-full max-width-container flex items-start justify-center" x-data="{'currentTab': 0}">
     <div class="flex flex-col items-start justify-start py-16 px-4 {{ $block->getBlockCSSName() }}" style="background-size: cover">
-<h1 class="w-full text-center px-3" style="">{!! $block->title !!}</h1>
-<div class="w-full text-center px-3 py-3" style="">{!! $block->content !!}</div>
+<h1 class="w-full text-center px-3" style="">{!! $block->title_translated !!}</h1>
+<div class="w-full text-center px-3 py-3" style="">{!! $block->content_translated !!}</div>
 @foreach($block->getLists() as $tabIndex => $tab)
     @push('tabs-'.$block->id)
         <div class="cursor-pointer p-6 w-1/{{ count($block->lists) }}"
              data-tab-id="{{ $tabIndex }}"
              @click="currentTab = {{ $tabIndex }}"
              x-bind:class="{'active-tab': currentTab == {{ $tabIndex }}, 'inactive-tab': currentTab != {{ $tabIndex }}}"
-        >{{ $tab->title }}</div>
+        >{{ $tab->title_translated }}</div>
     @endpush
     @push('tabcontent-'.$block->id)
         <div class="w-full flex flex-row items-start justify-between p-4"
@@ -20,8 +20,8 @@
             <div class="w-1/2 flex flex-col">
                 @foreach($tab->items as $index => $item)
                     <img src="{{ $item->image_url }}" class="h-16">
-                    <h3>{{ $item->title }}</h3>
-                    <div>{!! $item->content !!}</div>
+                    <h3>{{ $item->title_translated }}</h3>
+                    <div>{!! $item->content_translated !!}</div>
                 @endforeach
             </div>
         </div>
@@ -33,8 +33,8 @@
         <div class="w-full flex flex-col">
             @foreach($tab->items as $index => $item)
                 <img src="{{ $item->image_url }}" class="h-16">
-                <h3>{{ $item->title }}</h3>
-                <div>{!! $item->content !!}</div>
+                <h3>{{ $item->title_translated }}</h3>
+                <div>{!! $item->content_translated !!}</div>
             @endforeach
         </div>
     @endpush
