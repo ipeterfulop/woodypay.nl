@@ -91,11 +91,15 @@ class Page extends TranslatableModel
 
     public static function setRoutes()
     {
-        $pages = self::withAllTranslations()->get();
-        foreach (Locale::all() as $locale) {
-            foreach ($pages as $page) {
-                \Route::get($page->getLocaleUrl($locale->id), [PagesController::class, 'resolve']);
+        try {
+            $pages = self::withAllTranslations()->get();
+            foreach (Locale::all() as $locale) {
+                foreach ($pages as $page) {
+                    \Route::get($page->getLocaleUrl($locale->id), [PagesController::class, 'resolve']);
+                }
             }
+        } catch (\Exception $e) {
+
         }
     }
 
