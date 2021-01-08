@@ -26,20 +26,20 @@ class BlockTypesSeeder extends Seeder
     public function run()
     {
         $dataset = [
-            ['id' => 1, 'name_en' => 'Hero block', 'tag' => HeroBlock::getBlockTypeTag()],
-            ['id' => 2, 'name_en' => 'Text + image block', 'tag' => SimpleTextImageBlock::getBlockTypeTag()],
-            ['id' => 3, 'name_en' => 'CTA block', 'tag' => CTABlock::getBlockTypeTag()],
+            ['id' => 1, 'name' => 'Hero block', 'tag' => HeroBlock::getBlockTypeTag()],
+            ['id' => 2, 'name' => 'Text + image block', 'tag' => SimpleTextImageBlock::getBlockTypeTag()],
+            ['id' => 3, 'name' => 'CTA block', 'tag' => CTABlock::getBlockTypeTag()],
             [
                 'id'           => 4,
-                'name_en'      => 'Text + image list block',
+                'name'      => 'Text + image list block',
                 'tag'          => TextImageListBlock::getBlockTypeTag(),
                 'item_class'   => TextImageList::class,
                 'layout_class' => TextImageListLayout::class,
             ],
-            ['id' => 5, 'name_en' => 'Testimonial block', 'tag' => TestimonialBlock::getBlockTypeTag()],
-            ['id' => 6, 'name_en' => 'Footer block', 'tag' => FooterBlock::getBlockTypeTag()],
+            ['id' => 5, 'name' => 'Testimonial block', 'tag' => TestimonialBlock::getBlockTypeTag()],
+            ['id' => 6, 'name' => 'Footer block', 'tag' => FooterBlock::getBlockTypeTag()],
             ['id'      => 7,
-                'name_en' => 'Text + image list collection block',
+                'name' => 'Text + image list collection block',
                 'tag'     => TextImageListCollectionBlock::getBlockTypeTag(),
                 'item_class' => null,
                 'layout_class' => TextImageListCollectionBlockLayout::class,
