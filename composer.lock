@@ -416,12 +416,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:ipeterfulop/vuecrud.package.git",
-                "reference": "76c37956788edd8bd37fe47590ff646bbf8f238a"
+                "reference": "a82223142e4beba189f4f5f2db99ccd46983c628"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ipeterfulop/vuecrud.package/zipball/76c37956788edd8bd37fe47590ff646bbf8f238a",
-                "reference": "76c37956788edd8bd37fe47590ff646bbf8f238a",
+                "url": "https://api.github.com/repos/ipeterfulop/vuecrud.package/zipball/a82223142e4beba189f4f5f2db99ccd46983c628",
+                "reference": "a82223142e4beba189f4f5f2db99ccd46983c628",
                 "shasum": ""
             },
             "require": {
@@ -451,7 +451,7 @@
                 "source": "https://github.com/ipeterfulop/vuecrud.package/tree/master",
                 "issues": "https://github.com/ipeterfulop/vuecrud.package/issues"
             },
-            "time": "2021-01-07T16:57:27+00:00"
+            "time": "2021-01-08T07:00:04+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

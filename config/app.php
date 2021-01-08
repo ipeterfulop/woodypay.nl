@@ -8,7 +8,8 @@ return [
     'localeClass' => \App\Models\Locale::class,
 
     //allow registration routes
-    'allowRegistration' => true,
+    'allowRegistration' => false,
+    'defaultLocale' => env('DEFAULT_LOCALE', 'nl'),
     /*
     |--------------------------------------------------------------------------
     | Application Name
