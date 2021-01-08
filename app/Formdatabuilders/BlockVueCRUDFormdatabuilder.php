@@ -66,6 +66,10 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
 
     protected static function addBaseBlockFields($result)
     {
+        $result['internal_name'] = (new TextVueCRUDFormfield())
+            ->setLabel('Internal name')
+            ->setMandatory(true)
+            ->setContainerClass('w-full');
         $result['text_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Text color')
             ->setStep(2)
@@ -352,7 +356,59 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
     protected static function addFieldsForFooterBlock()
     {
         $fields = [];
-
+        foreach (Locale::all() as $locale) {
+            $fields[$locale->getTranslatedPropertyName('site_logo')] = (new ImagePickerVueCRUDFormfield())
+                ->setLabel('Site logo ('.$locale->uppercase_id.')')
+                ->setContainerClass('w-full');
+            $fields[$locale->getTranslatedPropertyName('row_2_content_1')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Row 2 content block 1 ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setCustomOptions(['cssHeight' => '400px'])
+                ->setProps(['cssHeight' => '120px'])
+                ->setContainerClass('w-1/4');
+            $fields[$locale->getTranslatedPropertyName('row_2_content_2')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Row 2 content block 2 ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setCustomOptions(['cssHeight' => '400px'])
+                ->setProps(['cssHeight' => '120px'])
+                ->setContainerClass('w-1/4');
+            $fields[$locale->getTranslatedPropertyName('row_2_content_3')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Row 2 content block 3 ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setCustomOptions(['cssHeight' => '400px'])
+                ->setProps(['cssHeight' => '120px'])
+                ->setContainerClass('w-1/4');
+            $fields[$locale->getTranslatedPropertyName('row_2_content_4')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Row 2 content block 4 ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setCustomOptions(['cssHeight' => '400px'])
+                ->setProps(['cssHeight' => '120px'])
+                ->setContainerClass('w-1/4');
+            $fields[$locale->getTranslatedPropertyName('row_3_content_1_copyright')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Copyright ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setCustomOptions(['cssHeight' => '400px'])
+                ->setProps(['cssHeight' => '120px'])
+                ->setContainerClass('w-1/4');
+            $fields[$locale->getTranslatedPropertyName('row_3_content_2_imprint')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Imprint ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setCustomOptions(['cssHeight' => '400px'])
+                ->setProps(['cssHeight' => '120px'])
+                ->setContainerClass('w-1/4');
+            $fields[$locale->getTranslatedPropertyName('row_3_content_3_terms_of_use')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Terms of use ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setCustomOptions(['cssHeight' => '400px'])
+                ->setProps(['cssHeight' => '120px'])
+                ->setContainerClass('w-1/4');
+            $fields[$locale->getTranslatedPropertyName('row_3_content_4_privacy')] = (new RichttextQuillVueCRUDFormfield())
+                ->setLabel('Privacy ('.$locale->uppercase_id.')')
+                ->setMandatory(true)
+                ->setCustomOptions(['cssHeight' => '400px'])
+                ->setProps(['cssHeight' => '120px'])
+                ->setContainerClass('w-1/4');
+        }
         return $fields;
     }
 

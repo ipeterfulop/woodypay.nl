@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminMainController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BlockCopyController;
 use App\Http\Controllers\BlockVisibilityController;
 use App\Http\Controllers\PublicMainController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'can:access-admin'])->group(function() {
         \App\Models\CollectionTextImageList::setVueCRUDRoutes();
 
         Route::post('/blocks/visibility', [BlockVisibilityController::class, 'update'])->name('block_visibility_endpoint');
+        Route::post('/blocks/copy', [BlockCopyController::class, 'copy'])->name('copy_block_endpoint');
     });
 });
 Route::middleware(['auth'])->group(function() {

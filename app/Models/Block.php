@@ -35,6 +35,7 @@ class Block extends TranslatableModel
         'button_hover_background_color',
         'button_hover_text_color',
         'should_open_button_url_in_new_window',
+        'internal_name',
     ];
 
     protected $with = ['blocktype'];
@@ -87,6 +88,7 @@ class Block extends TranslatableModel
     {
         return [
             'block_type_label'  => 'Type',
+            'internal_name'  => 'Name',
             'visibility_select' => 'Visibility',
             'items_link'        => 'Items',
         ];
@@ -114,7 +116,12 @@ class Block extends TranslatableModel
     public static function modifyModellistButtons($buttons)
     {
         unset($buttons['details']);
-        //$buttons['copy'] =
+        $buttons['copy'] = [
+            'class' => 'btn',
+            'html' => config('heroicons.solid.clipboard-copy'),
+            'componentName' => 'copyBlockComponent',
+            'props' => ['pages' => Page::all(), 'operationsUrl' => route('copy_block_endpoint')]
+        ];
         return $buttons;
     }
 
