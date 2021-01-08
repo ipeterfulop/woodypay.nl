@@ -16,7 +16,7 @@ class FontAwesomeIconGenerator
         [$usec, $sec] = explode(' ', microtime());
         srand($sec + $usec * 1000000);
 
-        return self::$icons[rand(0, count(self::$icons))];
+        return self::$icons[rand(0, count(self::$icons) - 1)];
     }
 
     private static function initialize()
