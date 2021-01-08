@@ -26,6 +26,7 @@ class StartPageBlockSeeder extends Seeder
     const CTA_BLOCK_ID = 60000;
     const TEXT_IMAGE_LIST_COLLAPSIBLE_BLOCK_ID = 80000;
     const TEXT_IMAGE_LIST_FEATURES_LIST_BLOCK_ID = 90000;
+    const TEXT_IMAGE_LIST_COLLECTION_BLOCK_ID = 70000;
     const FOOTER_BLOCK_ID = 100000;
 
 
@@ -56,6 +57,7 @@ class StartPageBlockSeeder extends Seeder
             ++$position
         );
 
+        $this->addOrUpdateTextImageListCollectionBlock(self::TEXT_IMAGE_LIST_COLLECTION_BLOCK_ID, ++$position);
         $this->addOrUpdateTestimonialBlock(self::TESTIMONIAL_BLOCK, ++$position);
         $this->addOrUpdateCTABlock(self::CTA_BLOCK_ID, ++$position);
         $this->addOrUpdateFooterBlock(self::FOOTER_BLOCK_ID, ++$position);
@@ -287,11 +289,13 @@ class StartPageBlockSeeder extends Seeder
                 DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
                 $addImages = false;
                 $addIcons = false;
+                $addListTitle = false;
                 $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
                     5,
                     $addIcons,
-                    $addImages
+                    $addImages,
+                    $addListTitle
                 );
                 DatabaseSeeder::addOrUpdateTextImageList($textImageListDataSet);
                 $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['list_id'] = $dataSet[DatabaseSeeder::BLOCK]['id'];
@@ -325,11 +329,13 @@ class StartPageBlockSeeder extends Seeder
                 DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
                 $addImages = false;
                 $addIcons = true;
+                $addListTitle = false;
                 $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
                     5,
                     $addIcons,
-                    $addImages
+                    $addImages,
+                    $addListTitle
                 );
                 DatabaseSeeder::addOrUpdateTextImageList($textImageListDataSet);
                 $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['list_id'] = $dataSet[DatabaseSeeder::BLOCK]['id'];
@@ -476,6 +482,11 @@ class StartPageBlockSeeder extends Seeder
                 );
             }
         );
+    }
+
+    private function addOrUpdateTextImageListCollectionBlock(int $blockId, int $position)
+    {
+
     }
 
 }

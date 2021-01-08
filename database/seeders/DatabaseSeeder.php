@@ -197,7 +197,8 @@ class DatabaseSeeder extends Seeder
         $textImageListId,
         $numberOfItems = 6,
         $addIconToItems = false,
-        $addImageToItems = false
+        $addImageToItems = false,
+        $addTitleToTheList = true
     ): array {
         $faker = Factory::create('en_En');
         $dataSet = [];
@@ -206,15 +207,24 @@ class DatabaseSeeder extends Seeder
             'id' => $textImageListId,
         ];
 
-        $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION] = [
-            'title_en'       => '(List title EN)I am a block with a text list and a topic image',
-            'content_en'     => '(List content EN) ' . collect($faker->words(15))->join(' '),
-            'topic_image_en' => '/images/assets/sample_image_02.png',
 
-            'title_nl'       => ' (title NL) Ik ben een blok met een tekstlijst en een onderwerpafbeelding',
-            'content_nl'     => '(content NL) ' . collect($faker->words(15))->join(' '),
+        $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION] = [
+            'topic_image_en' => '/images/assets/sample_image_02.png',
             'topic_image_nl' => '/images/assets/sample_image_02.png',
         ];
+
+        if ($addTitleToTheList) {
+            $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['title'] = '(List title EN)I am a block with '
+                . 'a text list and a topic image';
+            $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['content'] = '(List content EN) '
+                . collect($faker->words(15))->join(' ');
+            $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION]['title_en'] = $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['title'];
+            $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION]['content_en'] = $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['content'];
+            $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION]['title_nl'] = ' (List title NL) Ik ben een blok'
+                . ' met een tekstlijst en een onderwerpafbeelding';
+            $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION]['content_nl'] = '(List content NL) '
+                . collect($faker->words(15))->join(' ');
+        }
 
         $dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM] = [];
         for ($i = 1; $i <= $numberOfItems; $i++) {
