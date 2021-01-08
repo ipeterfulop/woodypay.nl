@@ -100,10 +100,13 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
         if ($this->has($this->blockType->id.'_layout')) {
             $result['layout'] = $this->get($this->blockType->id.'_layout');
         }
+        $mainLocale = Locale::getMainLocale();
         foreach($this->getBlockFields() as $field) {
             $result[$field] = $this->getParsedInputValue($this->blockType->id.'_'.$field);
+            if (\Str::endsWith($field, '_'.$mainLocale->id)) {
+                $result[str_ireplace('_'.$mainLocale->id, '', $field)] = $result[$field];
+            }
         }
-
         //special cases of blocks
         if ($this->has('7_backgroundtype')) {
             if ($this->input('7_backgroundtype') == BackgroundColorType::GRADIENT_ID) {

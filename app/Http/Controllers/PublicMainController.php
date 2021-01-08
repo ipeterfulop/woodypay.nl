@@ -11,7 +11,7 @@ class PublicMainController extends Controller
 {
     public function index()
     {
-        $locale = Locale::getMainLocale();
+        $locale = Locale::find(config('app.defaultLocale'));
 
         return redirect('/'.$locale->id);
     }

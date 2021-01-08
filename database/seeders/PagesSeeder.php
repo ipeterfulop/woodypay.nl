@@ -17,7 +17,7 @@ class PagesSeeder extends Seeder
     {
         $dataset = [
             ['id' => self::START_PAGE, 'name' => 'Main page', 'url' => '/', 'url_nl' => '/', 'tag' => 'main'],
-            ['id' => 2, 'name' => 'Privacy policy', 'url' => '/privacy', 'url_nl' => '/privacybeleid', 'tag' => 'privacy'],
+            ['id' => 2, 'name' => 'Privacy policy', 'url' => 'privacy', 'url_nl' => 'privacybeleid', 'tag' => 'privacy'],
         ];
 
         foreach ($dataset as $row) {
