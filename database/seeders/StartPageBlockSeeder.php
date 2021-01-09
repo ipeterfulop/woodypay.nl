@@ -321,7 +321,7 @@ class StartPageBlockSeeder extends Seeder
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
 
         $faker = Factory::create('en_En');
-        $dataSet[DatabaseSeeder::BLOCK]['layout'] = TextImageListLayout::COLLAPSIBLE_ITEM_LIST_ID;
+        $dataSet[DatabaseSeeder::BLOCK]['layout'] = TextImageListLayout::FEATURE_LIST_ID;
         $dataSet[DatabaseSeeder::BLOCK]['internal_name'] = 'features_text_image_list_on_start_page';
 
         DB::transaction(

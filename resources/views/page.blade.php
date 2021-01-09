@@ -24,7 +24,8 @@
     </style>
     @foreach($blocks as $block)
         <a name="#block-{{ $block->id }}"></a>
-        <div class="block-container block-{{ $block->blocktype_id }}-container">
+        <div class="block-container block-{{ $block->blocktype_id }}-container"
+             @if ($block->blocktype_id == 6)  style="background-color: rgb(58, 70, 101)"  @endif>
             @includeIf('blocks.'.$block->getLayoutName(), ['block' => $block])
         </div>
     @endforeach
