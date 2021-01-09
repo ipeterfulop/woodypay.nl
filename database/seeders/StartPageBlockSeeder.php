@@ -422,7 +422,7 @@ class StartPageBlockSeeder extends Seeder
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
 
         $dataSet[DatabaseSeeder::BLOCK]['internal_name'] = 'footer_section_on_the_start_page';
-        $dataSet[DatabaseSeeder::BLOCK]['background_color'] = 'rgba(27, 34, 48, 0.6)';
+        $dataSet[DatabaseSeeder::BLOCK]['background_color'] = 'rgba(58, 70, 101, 1)';
 
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['site_logo'] = '/images/assets/sample_logo.svg';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['row_2_content_1'] = '<span><strong>Contact</strong><br>'
