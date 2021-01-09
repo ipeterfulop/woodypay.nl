@@ -5,17 +5,17 @@
         <div class="max-w-md w-full">
             <div>
                 @includeIf('tailwindui.customizations.login-window-head')
-                <div class="font-bold text-center w-full">{{ config('app.name') }} - @lang('Adminisztrátori bejelentkezés')</div>
+                <div class="font-bold text-center w-full">{{ config('app.name') }} - @lang('Admin login')</div>
             </div>
             <form class="mt-8" action="{{ route('admin.login_post') }}" method="POST">
                 @csrf
                 <input type="hidden" name="remember" value="true" />
                 <div class="rounded-md shadow-sm">
                     <div>
-                        <input aria-label="@lang('E-mailcím')" name="email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('email') is-invalid @enderror" placeholder="@lang('E-mailcím')" value="{{ old('email') }}"/>
+                        <input aria-label="@lang('Email')" name="email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('email') is-invalid @enderror" placeholder="@lang('Email')" value="{{ old('email') }}"/>
                     </div>
                     <div class="-mt-px">
-                        <input aria-label="@lang('Jelszó')" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('password') is-invalid @enderror" placeholder="@lang('Jelszó')" />
+                        <input aria-label="@lang('Password')" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('password') is-invalid @enderror" placeholder="@lang('Password')" />
                     </div>
                 </div>
 
@@ -39,15 +39,16 @@
                     <div class="flex items-center">
                         <input id="remember_me" type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
                         <label for="remember_me" class="ml-2 block text-sm leading-5 text-gray-900">
-                            @lang('Emlékezzen rám')
+                            @lang('Remember me')
                         </label>
                     </div>
-
+                    @if(false)
                     <div class="text-sm leading-5">
                         <a href="{{ route('admin.password.request') }}" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-                            @lang('Elfelejtette a jelszavát?')
+                            @lang('Forgot your password?')
                         </a>
                     </div>
+                    @endif
                 </div>
 
                 <div class="mt-6">
@@ -57,7 +58,7 @@
               <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
             </svg>
           </span>
-                        @lang('Bejelentkezés')
+                        @lang('Login')
                     </button>
                 </div>
             </form>
