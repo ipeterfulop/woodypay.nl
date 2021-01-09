@@ -6,6 +6,7 @@ use App\Models\Block;
 use App\Models\BlockType;
 use App\Models\Positioning;
 use App\Models\Spacing;
+use App\Models\TextImageCollectionList;
 use App\Models\TextImageList;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +27,7 @@ class SubjecttypesSeeder extends Seeder
             ['id' => 4, 'name' => BlockType::class],
             ['id' => 5, 'name' => Positioning::class],
             ['id' => 10, 'name' => Spacing::class],
+            ['id' => 11, 'name' => TextImageCollectionList::class],
         ];
 
         foreach ($dataset as $row) {

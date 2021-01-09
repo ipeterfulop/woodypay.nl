@@ -11,8 +11,10 @@ use App\Models\HeroBlock;
 use App\Models\Positioning;
 use App\Models\SimpleTextImageBlock;
 use App\Models\TestimonialBlock;
+use App\Models\TextImageCollectionList;
 use App\Models\TextImageList;
 use App\Models\TextImageListBlock;
+use App\Models\TextImageListCollectionBlock;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -484,7 +486,60 @@ class StartPageBlockSeeder extends Seeder
 
     private function addOrUpdateTextImageListCollectionBlock(int $blockId, int $position)
     {
+        $numberOfListsToAdd = 2;
+        $blocktypeId = (BlockType::findByTag(TextImageListCollectionBlock::getBlockTypeTag()))->id;
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
 
+
+        $dataSet[DatabaseSeeder::BLOCK]['internal_name'] = 'collection_of_text_image_list_on_start_page';
+        $dataSet[DatabaseSeeder::BLOCK]['title'] = '(Block title EN) I am a collection of (text+image) lists'
+            . ' organized in tabs';
+        $dataSet[DatabaseSeeder::BLOCK]['topic_image'] = null;
+
+        $dataSet[DatabaseSeeder::TRANSLATION]['title_en'] = '(Block title EN) I am a collection of (text+image) lists'
+            . ' organized in tabs';
+        $dataSet[DatabaseSeeder::TRANSLATION]['title_nl'] = 'Ik ben een verzameling (tekst + afbeelding)'
+            . ' lijsten georganiseerd in tabbladen';
+
+        DB::transaction(
+            function () use ($dataSet, $position, $numberOfListsToAdd) {
+                DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
+                $textImageListDataSetIds = [];
+                for ($i = 1; $i <= $numberOfListsToAdd; $i++) {
+                    $addImages = false;
+                    $addIcons = true;
+                    $addListTitle = true;
+                    $id = $dataSet[DatabaseSeeder::BLOCK]['id'] + $i * 10;
+                    $textImageListDataSetIds[] = $i;
+                    $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
+                        $id,
+                        5,
+                        $addIcons,
+                        $addImages,
+                        $addListTitle
+                    );
+                    DatabaseSeeder::addOrUpdateTextImageList($textImageListDataSet);
+                }
+
+                DatabaseSeeder::addOrUpdateExtendedBlock(
+                    'text_image_list_collection_blocks',
+                    $dataSet[DatabaseSeeder::EXTENDED_BLOCK],
+                    $dataSet[DatabaseSeeder::TRANSLATION],
+                    TextImageListBlock::getSubjecttypeId()
+                );
+
+                DatabaseSeeder::assignTextItemsToCollectionBlock(
+                    $dataSet[DatabaseSeeder::BLOCK]['id'],
+                    $textImageListDataSetIds
+                );
+
+                DatabaseSeeder::assignBlockToPage(
+                    $dataSet[DatabaseSeeder::BLOCK]['id'],
+                    PagesSeeder::START_PAGE,
+                    $position
+                );
+            }
+        );
     }
 
 }
