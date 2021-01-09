@@ -5,6 +5,7 @@ namespace App;
 
 
 use App\Models\Block;
+use App\Models\BlockType;
 use App\Models\Positioning;
 
 class BlockStyledefinition
@@ -74,6 +75,14 @@ class BlockStyledefinition
         return $result;
     }
 
+    public static function getTypeCSSClasses(BlockType $blockType)
+    {
+        $classname = $blockType->getCssName();
+        $result[$classname] = [];
+
+        return self::buildClassDefinition($result);
+    }
+
     public static function getCSSClasses(Block $block)
     {
         $blockClassname = $block->getBlockCSSName();
@@ -82,7 +91,7 @@ class BlockStyledefinition
             'color' => $block->text_color,
             'background-color' => $block->background_color,
             'background' => $block->background_gradient,
-            'background-image' => $block->background_image == null ? null : 'url("/storage/attachments/'.$block->background_image.'")',
+            'background-image' => $block->background_image == null ? null : 'url("/storage/attachments/'.basename($block->background_image).'")',
             'background-position' => $block->background_image_positioning_id == null ? 'center' : Positioning::find($block->background_image_positioning_id)->code,
             'padding-top' => $block->spacing_id == null ? null : $block->spacing->size_in_rems.'rem',
             'padding-bottom' => $block->spacing_id == null ? null : $block->spacing->size_in_rems.'rem',
@@ -108,8 +117,14 @@ class BlockStyledefinition
             'color' => $block->text_color,
             'background-color' => $block->background_color,
         ]);
+
+        return self::buildClassDefinition($result);
+    }
+
+    protected static function buildClassDefinition($classes)
+    {
         $resultString = '';
-        foreach ($result as $name => $items) {
+        foreach ($classes as $name => $items) {
             $resultString .= '.'.$name.' {';
             foreach($items as $field => $value) {
                 $resultString.=$field.': '.$value.';';
@@ -118,6 +133,7 @@ class BlockStyledefinition
         }
 
         return $resultString;
+
     }
 
     protected static function removeEmptyDefinitions(array $definitions)

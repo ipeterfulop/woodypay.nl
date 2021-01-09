@@ -31181,7 +31181,6 @@ body {
 a.button,
 button {
   border-radius: 2rem;
-  font-size: 18px;
 }
 
 a.button, button {
@@ -31189,15 +31188,23 @@ a.button, button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   text-align: center;
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 a.button:hover, button:hover {
-  --tw-bg-opacity: 0.75;
+  opacity: 0.75;
 }
 
 h1 {

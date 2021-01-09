@@ -43,4 +43,9 @@ class BlockType extends TranslatableModel implements IRetrievableByTag
             ? '\\App\\Models\\'.str_ireplace('tag_', '', $this->tag)
             : str_ireplace('tag_', '', $this->tag);
     }
+
+    public function getCssName()
+    {
+        return 'bl-type-'.$this->id;
+    }
 }

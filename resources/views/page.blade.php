@@ -9,12 +9,18 @@
         }
         .max-width-container>:first-child {
             width: 100%;
-            max-width: 970px;
+            max-width: 1430px;
         }
         .slider-slide > div {
             height: 100%;
             flex-grow: 1;
         }
+    </style>
+    <style>
+    @foreach($blocks as $block)
+        {!! \App\BlockStyledefinition::getCSSClasses($block) !!}
+        {!! \App\BlockStyledefinition::getTypeCSSClasses($block->blocktype) !!}
+    @endforeach
     </style>
     @foreach($blocks as $block)
         <a name="#block-{{ $block->id }}"></a>

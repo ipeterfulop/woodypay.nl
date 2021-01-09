@@ -35,4 +35,10 @@ class CTABlock extends DescendantBlock
         return $this->belongsTo(Spacing::class);
     }
 
+    public function spacingCssStyle()
+    {
+        $spacing = $this->spacing == null ? '4' : $this->spacing->size_in_rems;
+        return ' padding-top: '.$spacing.'rem; padding-bottom: '.$spacing.'rem;';
+    }
+
 }
