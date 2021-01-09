@@ -39,8 +39,8 @@ class TextImageItem extends TranslatableModel
     public static function getVueCRUDIndexColumns()
     {
         return [
-            'title' => __('Title'),
-            'content' => __('Content'),
+            'title_translated' => __('Title'),
+            'content_translated' => __('Content'),
         ];
     }
 
@@ -77,5 +77,11 @@ class TextImageItem extends TranslatableModel
     public static function getRestrictingFields()
     {
         return ['text_image_list_id'];
+    }
+
+    public function getImageUrlAttribute()
+    {
+
+        return '/storage/attachments/'.basename($this->topic_image);
     }
 }

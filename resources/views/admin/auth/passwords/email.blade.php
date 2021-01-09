@@ -7,7 +7,7 @@
                 @includeIf('tailwindui.customizations.password-reset-window-head')
 
                 <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-                    @lang('Új jelszó létrehozása - admin')
+                    @lang('Reset password')
                 </h2>
 
             </div>
@@ -21,7 +21,7 @@
 
                 <div class="rounded-md shadow-sm">
                     <div>
-                        <input aria-label="@lang('E-mailcím')" name="email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('email') is-invalid @enderror" placeholder="@lang('E-mailcím')" value="{{ old('email') }}"/>
+                        <input aria-label="@lang('Email')" name="email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('email') is-invalid @enderror" placeholder="@lang('Email')" value="{{ old('email') }}"/>
                     </div>
                 </div>
                 @error('email')
@@ -39,7 +39,7 @@
               <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
             </svg>
           </span>
-                        {{ __('E-mail küldése') }}
+                        {{ __('Send e-mail') }}
                     </button>
                 </div>
             </form>

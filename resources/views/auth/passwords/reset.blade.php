@@ -6,7 +6,7 @@
             <div>
                 @includeIf('tailwindui.customizations.password-reset-window-head')
                 <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-                    @lang('Új jelszó létrehozása')
+                    @lang('Reset password')
                 </h2>
 
             </div>
@@ -15,18 +15,18 @@
                 <input type="hidden" name="token" value="{{ $token }}">
                 <div class="rounded-md shadow-sm">
                     <div>
-                        <input aria-label="@lang('E-mailcím')" name="email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('email') is-invalid @enderror" placeholder="@lang('E-mailcím')" value="{{ $email }}"/>
+                        <input aria-label="@lang('E-mail')" name="email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('email') is-invalid @enderror" placeholder="@lang('E-mail')" value="{{ $email }}"/>
                     </div>
 
                     <div>
-                        <input aria-label="@lang('Jelszó')" name="password" type="password" required
+                        <input aria-label="@lang('Password')" name="password" type="password" required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('password') is-invalid @enderror"
-                               placeholder="@lang('Jelszó')"/>
+                               placeholder="@lang('Password')"/>
                     </div>
                     <div class="-mt-px">
-                        <input aria-label="@lang('Jelszó (még egyszer)')" name="password_confirmation" type="password" required
+                        <input aria-label="@lang('Password (confirm)')" name="password_confirmation" type="password" required
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 @error('password_confirmation') is-invalid @enderror"
-                               placeholder="@lang('Jelszó (még egyszer)')"/>
+                               placeholder="@lang('Password (confirm)')"/>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                     clip-rule="evenodd"/>
             </svg>
           </span>
-                        @lang('Mentés')
+                        @lang('Save')
                     </button>
                 </div>
             </form>
