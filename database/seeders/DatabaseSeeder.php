@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\FontAwesomeIconGenerator;
 use App\Models\HeroBlock;
 use App\Models\Locale;
+use App\Models\TextImageCollectionList;
 use App\Models\TextImageItem;
 use App\Models\TextImageList;
 use App\Models\Translation;
@@ -307,6 +308,13 @@ class DatabaseSeeder extends Seeder
                 $textImageItemDataSet['id'],
                 TextImageItem::getSubjecttypeId()
             );
+        }
+    }
+
+    public static function assignTextItemsToCollectionBlock($blockId, array $textImageListDataSetIds)
+    {
+        foreach ($textImageListDataSetIds as $listId){
+           // $assignmentFound = DB::table(...)
         }
     }
 }
