@@ -52,8 +52,8 @@ class TextImageItem extends TranslatableModel
     public function getVueCRUDDetailsFields()
     {
         return [
-            'title' => __('Title'),
-            'content' => __('Content'),
+            'title_translated' => __('Title'),
+            'content_translated' => __('Content'),
             'url' => __('URL'),
         ];
     }
@@ -83,5 +83,13 @@ class TextImageItem extends TranslatableModel
     {
 
         return '/storage/attachments/'.basename($this->topic_image);
+    }
+
+    public function remove()
+    {
+        return \DB::transaction(function() {
+            $this->updatePositionOfOtherElementsBeforeDelete();
+            $this->delete();
+        }) === null;
     }
 }

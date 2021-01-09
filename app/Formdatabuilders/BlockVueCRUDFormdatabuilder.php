@@ -343,11 +343,9 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         foreach (Locale::all() as $locale) {
             $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
                 ->setLabel('Title ('.$locale->uppercase_id.')')
-                ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Content ('.$locale->uppercase_id.')')
-                ->setMandatory(true)
                 ->setContainerClass('w-full');
         }
         return $fields;

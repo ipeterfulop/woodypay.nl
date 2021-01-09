@@ -38,19 +38,16 @@ abstract class DescendantBlock extends Block
             //$blockPages = BlockPage::where('block_id', '=', $this->id)->get();
             //$position = BlockPage::where('')
             BlockPage::where('block_id', '=', $this->id)->delete();
-            $parentblock = Block::find($this->id);
             $translationClass = config('app.translationClass');
             $translationClass::forModel($this)
                 ->where('subject_id', '=', $this->id)
                 ->delete();
-            $translationClass::forModel($parentblock)
-                ->where('subject_id', '=', $this->id)
-                ->delete();
-            $this->delete();
-            $parentblock->delete();
             if (method_exists($this, 'deleteItemsContainer')) {
                 $this->deleteItemsContainer();
             }
+            $this->updatePositionOfOtherElementsBeforeDelete();
+            $this->delete();
+            \DB::table('blocks')->where('id', '=', $this->id)->delete();
         }) === null;
     }
 

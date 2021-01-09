@@ -30,16 +30,18 @@
 <body>
     <div x-data="{showMenu: false}">
         @if((!isset($showHeader)) || ($showHeader))
-            <div class="bg-gray-100 w-full flex flex-row items-center justify-between z-40 fixed top-0 left-0 h-14 topmenu" id="topmenu">
-                <a href="/" class="py-2">
-                    <img src="/images/assets/logo-ipsum-17.svg" style="height: 100%">
-                </a>
-                <div class="mr-6 ml-auto">
-                    @foreach(\App\Models\Locale::all() as $locale)
-                        <a class="mr-2 font-bold @if($locale->id == \App::getLocale()) opacity-50 @endif" href="/{{$locale->id}}/">{{ mb_strtoupper($locale->id) }}</a>
-                    @endforeach
+            <div  class="bg-gray-100 w-full max-width-container flex items-center justify-center z-40 fixed top-0 left-0 h-14 topmenu"  id="topmenu">
+                <div class="w-full flex flex-row items-center justify-between ">
+                    <a href="/" class="py-2">
+                        <img src="/images/assets/logo-ipsum-17.svg" style="height: 100%">
+                    </a>
+                    <div class="mr-6 ml-auto">
+                        @foreach(\App\Models\Locale::all() as $locale)
+                            <a class="mr-2 font-bold @if($locale->id == \App::getLocale()) opacity-50 @endif" href="/{{$locale->id}}/">{{ mb_strtoupper($locale->id) }}</a>
+                        @endforeach
+                    </div>
+                    <button @click="showMenu = !showMenu" class="focus:outline-none hover:opacity-75 text-3xl">{!! config('heroicons.solid.menu') !!}</button>
                 </div>
-                <button @click="showMenu = !showMenu" class="focus:outline-none hover:opacity-75 text-3xl">{!! config('heroicons.solid.menu') !!}</button>
             </div>
         @endif
         <main class="py-4" id="content">
@@ -64,7 +66,6 @@
 <script>
     let m = document.getElementById('topmenu');
     let o = new IntersectionObserver((entries, observer) => {
-        console.log(entries);
         if (entries[0].intersectionRatio == 0) {
             m.classList.add('h-8');
             m.classList.remove('h-14');

@@ -54,10 +54,17 @@ class CollectionTextImageListVueCRUDController extends VueCRUDControllerBase imp
     {
         $suffix = '';
         if (request()->has('text_image_list_collection_block_id')) {
-            $suffix = ' - '.Block::find(request()->get('text_image_list_collection_block_id'))->block_type_label;
+            $suffix = ' - '.Block::find(request()->get('text_image_list_collection_block_id'))->internal_name;
         }
 
         return CollectionTextImageList::SUBJECT_NAME_PLURAL.$suffix;
+    }
+
+    public function getSubject($id)
+    {
+        $class = static::SUBJECT_CLASS;
+
+        return $class::withAllTranslations()->find($id);
     }
 
 }

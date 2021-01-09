@@ -376,12 +376,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ipeterfulop/translations.git",
-                "reference": "06272072517419fb07ad0b83c6dd7e23e54ed0c5"
+                "reference": "e2d206810c7b544a58396fe78dd1bf3f715e0eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ipeterfulop/translations/zipball/06272072517419fb07ad0b83c6dd7e23e54ed0c5",
-                "reference": "06272072517419fb07ad0b83c6dd7e23e54ed0c5",
+                "url": "https://api.github.com/repos/ipeterfulop/translations/zipball/e2d206810c7b544a58396fe78dd1bf3f715e0eba",
+                "reference": "e2d206810c7b544a58396fe78dd1bf3f715e0eba",
                 "shasum": ""
             },
             "type": "library",
@@ -408,7 +408,7 @@
                 "source": "https://github.com/ipeterfulop/translations/tree/master",
                 "issues": "https://github.com/ipeterfulop/translations/issues"
             },
-            "time": "2021-01-07T10:22:18+00:00"
+            "time": "2021-01-09T12:20:48+00:00"
         },
         {
             "name": "datalytix/vuecrud",
@@ -416,12 +416,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:ipeterfulop/vuecrud.package.git",
-                "reference": "a82223142e4beba189f4f5f2db99ccd46983c628"
+                "reference": "c1e785c775247d63402fa102f49753c9227ea4b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ipeterfulop/vuecrud.package/zipball/a82223142e4beba189f4f5f2db99ccd46983c628",
-                "reference": "a82223142e4beba189f4f5f2db99ccd46983c628",
+                "url": "https://api.github.com/repos/ipeterfulop/vuecrud.package/zipball/c1e785c775247d63402fa102f49753c9227ea4b8",
+                "reference": "c1e785c775247d63402fa102f49753c9227ea4b8",
                 "shasum": ""
             },
             "require": {
@@ -451,7 +451,7 @@
                 "source": "https://github.com/ipeterfulop/vuecrud.package/tree/master",
                 "issues": "https://github.com/ipeterfulop/vuecrud.package/issues"
             },
-            "time": "2021-01-08T07:00:04+00:00"
+            "time": "2021-01-09T11:17:11+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

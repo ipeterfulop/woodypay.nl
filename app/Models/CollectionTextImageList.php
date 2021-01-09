@@ -56,7 +56,7 @@ class CollectionTextImageList extends TextImageList
     public static function getVueCRUDIndexColumns()
     {
         return [
-            'title' => __('Title'),
+            'title_translated' => __('Title'),
             'items_label' => __('Items'),
         ];
     }
