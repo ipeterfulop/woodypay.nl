@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
             $dataSet[self::BLOCK]['background_color'] = 'rgba(27, 34, 48, 1)';
             $dataSet[self::BLOCK]['background_gradient'] = null;
             $dataSet[self::BLOCK]['button_background_color'] = 'rgba(232, 226, 225, 1)';
-            $dataSet[self::BLOCK]['button_text_color'] = 'rgba(232, 226, 225, 1)';
+            $dataSet[self::BLOCK]['button_text_color'] = 'rgba(155, 155, 155, 1)';
             $dataSet[self::BLOCK]['button_hover_background_color'] = 'rgba(58, 70, 101, 1)';
             $dataSet[self::BLOCK]['button_hover_text_color'] = 'rgba(27, 34, 48, 1)';
         } else {
