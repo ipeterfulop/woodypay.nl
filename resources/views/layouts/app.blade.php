@@ -18,25 +18,36 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(27, 34, 48);
+        }
+        .topmenu {
+            transition: height 200ms ease-in-out; color: white; background-color: rgb(7, 13, 48)
+        }
+    </style>
 </head>
 <body>
     <div x-data="{showMenu: false}">
         @if((!isset($showHeader)) || ($showHeader))
-            <div class="bg-gray-100 w-full flex flex-row items-center justify-end z-40 fixed top-0 left-0">
-                <div class="mr-6">
-                    @foreach(\App\Models\Locale::all() as $locale)
-                        <a class="mr-2 font-bold" href="/{{$locale->id}}/">{{ mb_strtoupper($locale->id) }}</a>
-                    @endforeach
+            <div  class="bg-gray-100 w-full max-width-container flex items-center justify-center z-40 fixed top-0 left-0 h-14 topmenu"  id="topmenu">
+                <div class="w-full flex flex-row items-center justify-between ">
+                    <a href="/" class="py-2">
+                        <img src="/images/assets/logo-ipsum-17.svg" style="height: 100%">
+                    </a>
+                    <div class="mr-6 ml-auto">
+                        @foreach(\App\Models\Locale::all() as $locale)
+                            <a class="mr-2 font-bold @if($locale->id == \App::getLocale()) opacity-50 @endif" href="/{{$locale->id}}/">{{ mb_strtoupper($locale->id) }}</a>
+                        @endforeach
+                    </div>
+                    <button @click="showMenu = !showMenu" class="focus:outline-none hover:opacity-75 text-3xl">{!! config('heroicons.solid.menu') !!}</button>
                 </div>
-                <button @click="showMenu = !showMenu" class="focus:outline-none hover:opacity-75 text-3xl">{!! config('heroicons.solid.menu') !!}</button>
             </div>
         @endif
-        <main class="py-4">
+        <main class="py-4" id="content">
+            <a name="top" id="top"></a>
             @yield('content')
         </main>
-        <footer>
-
-        </footer>
         <div id="menu" class="w-0 h-screen z-50 fixed bg-gray-700 bg-opacity-50 right-0 top-0 shadow-xl flex flex-col overflow-hidden transition-opacity duration-100 ease-in-out"
              x-bind:class="{'w-screen opacity-1': showMenu, 'opacity-0': !showMenu}"
              @click.self="showMenu = false"
@@ -52,5 +63,22 @@
         </div>
     </div>
     @include('layouts.partials.notification')
+<script>
+    let m = document.getElementById('topmenu');
+    let o = new IntersectionObserver((entries, observer) => {
+        if (entries[0].intersectionRatio == 0) {
+            m.classList.add('h-8');
+            m.classList.remove('h-14');
+        } else {
+            m.classList.add('h-14');
+            m.classList.remove('h-8');
+        }
+    }, {
+        root: null,
+        rootMargin: '0px',
+        threshold: [1,0]
+    });
+    o.observe(document.getElementById('top'));
+</script>
 </body>
 </html>

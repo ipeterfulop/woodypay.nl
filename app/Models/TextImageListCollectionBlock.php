@@ -54,5 +54,13 @@ class TextImageListCollectionBlock extends DescendantBlock
             .'</a>';
     }
 
-
+    public function deleteItemsContainer()
+    {
+        return \DB::transaction(function() {
+            TextImageCollectionList::where('text_image_list_collection_block_id', '=', $this->id)->delete();
+            foreach($this->getLists() as $list) {
+                $list->remove();
+            }
+        }) === null;
+    }
 }

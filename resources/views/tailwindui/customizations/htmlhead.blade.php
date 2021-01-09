@@ -9,9 +9,18 @@
     }
     .hidden-important {
         visibility: hidden !important;
+        height: 0px !important;
     }
     .model-manager-main-body td a {
         text-decoration: underline;
         color: darkblue;
+    }
+    .vuecrud-internal_name-td {
+        max-width: 8rem;
+        overflow-x: hidden;
+    }
+    .vuecrud-block_type_label-td {
+        max-width: 8rem;
+        white-space: normal !important;
     }
 </style>

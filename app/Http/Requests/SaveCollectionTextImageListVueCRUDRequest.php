@@ -27,7 +27,6 @@ class SaveCollectionTextImageListVueCRUDRequest extends VueCRUDRequestBase
         $dataset = $this->getDataset();
         if ($subject == null) {
             \DB::transaction(function() use ($dataset, &$subject) {
-                \Log::info(serialize($dataset));
                 $subject = CollectionTextImageList::createWithTranslations($dataset);
                 TextImageCollectionList::create([
                     'text_image_list_collection_block_id' => $this->input('text_image_list_collection_block_id'),
@@ -36,7 +35,7 @@ class SaveCollectionTextImageListVueCRUDRequest extends VueCRUDRequestBase
                 ]);
             });
         } else {
-            $subject->update($dataset);
+            $subject->updateWithTranslations($dataset);
         }
 
         return $subject;

@@ -44,6 +44,9 @@ class TextImageList extends TranslatableModel
                     foreach ($this->items as $item) {
                         $item->remove();
                     }
+                    foreach (TextImageCollectionList::where('text_image_list_id', '=', $this->id)->get() as $c) {
+                        $c->remove();
+                    }
                     parent::remove();
                 }
             ) === null;

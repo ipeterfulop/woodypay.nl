@@ -12,7 +12,7 @@ class TextImageListVueCRUDDataprovider extends VueCRUDDataproviderBase implement
 
     function getBaseQuery()
     {
-        return TextImageList::query();
+        return TextImageList::withAllTranslations();
     }
 
     function getQuery()
