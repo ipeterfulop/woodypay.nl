@@ -10,7 +10,7 @@
                     @else
                         <img src="{{ $item->image_url }}" class="h-16">
                     @endif
-                    <h3>{{ $item->title_translated }}</h3>
+                    <h3 class="text-3xl pb-1">{{ $item->title_translated }}</h3>
                     <div>{!! $item->content_translated !!}</div>
                 </div>
             @endforeach
