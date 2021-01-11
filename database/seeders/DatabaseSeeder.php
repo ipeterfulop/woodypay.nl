@@ -207,7 +207,7 @@ class DatabaseSeeder extends Seeder
         $dataSet = [];
 
         $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS] = [
-            'id' => $textImageListId,
+            'id'          => $textImageListId,
             'topic_image' => 'sample_image_02.png',
         ];
 
@@ -240,12 +240,12 @@ class DatabaseSeeder extends Seeder
                     'fa_icon_classes'    => null,
                 ],
                 self::TRANSLATION => [
-                    'title_en'   => str_pad($i, 2, '0', STR_PAD_LEFT). '. I am a list item '
-                    . collect($faker->words(3))->join(' '),
+                    'title_en'   => str_pad($i, 2, '0', STR_PAD_LEFT) . '. I am a list item '
+                        . collect($faker->words(3))->join(' '),
                     'content_en' => '(Text EN) ' . collect($faker->words($numberOfWordsToGenerate + 10))->join(' '),
                     'url_en'     => 'https://www.apple.com/en/',
 
-                    'title_nl'   => str_pad($i, 2, '0', STR_PAD_LEFT). ' Ik ben een lijstitem '
+                    'title_nl'   => str_pad($i, 2, '0', STR_PAD_LEFT) . ' Ik ben een lijstitem '
                         . collect($faker->words(3))->join(' '),
                     'content_nl' => '(Text EN) ' . collect($faker->words(9))->join(' '),
                     'url_nl'     => 'https://www.apple.com/nl/',
@@ -271,9 +271,10 @@ class DatabaseSeeder extends Seeder
     {
         //adding basic data
         $textImageListDataSet = [
-            'id'         => $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['id'],
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'id'          => $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['id'],
+            'topic_image' => $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['topic_image'],
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now(),
         ];
         $textImageListFound = (TextImageList::where('id', '=', $textImageListDataSet['id'])->get()->count() > 0);
         if ($textImageListFound) {
