@@ -293,7 +293,7 @@ class StartPageBlockSeeder extends Seeder
                 $addListTitle = true;
                 $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
-                    5,
+                    8,
                     $addIcons,
                     $addImages,
                     $addListTitle
@@ -333,7 +333,7 @@ class StartPageBlockSeeder extends Seeder
                 $addListTitle = true;
                 $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
-                    5,
+                    8,
                     $addIcons,
                     $addImages,
                     $addListTitle
@@ -514,7 +514,7 @@ class StartPageBlockSeeder extends Seeder
                     $textImageListDataSetIds[] = $i;
                     $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                         $id,
-                        5,
+                        8,
                         $addIcons,
                         $addImages,
                         $addListTitle
