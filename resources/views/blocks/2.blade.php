@@ -13,7 +13,7 @@
             @endif
         </div>
         <div class="w-full md:w-1/2 flex-col items-end justify-center py-16">
-            <div class="overflow-x-hidden w-full h-full flex items-center justify-end pl-2" >
+            <div class="overflow-x-hidden w-full h-full flex items-center justify-end px-2" >
                 <img src="/storage/attachments/{{ basename($block->topic_image_translated) }}" class="object-contain rounded-xl">
             </div>
         </div>
