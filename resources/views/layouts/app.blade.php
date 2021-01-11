@@ -34,7 +34,7 @@
         @if((!isset($showHeader)) || ($showHeader))
             <div  class="bg-gray-100 w-full max-width-container flex items-stretch justify-center z-40 fixed top-0 left-0 h-14 topmenu"  id="topmenu">
                 <div class="w-full flex flex-row items-center justify-between self-stretch">
-                    <a href="/" class="self-stretch ml-4 xl:ml-0">
+                    <a href="/" class="self-stretch ml-2 lg:ml-0">
                         <img src="/images/assets/sample_logo.svg" class="self-stretch h-full" style="min-width: 8rem">
                     </a>
                     <div class="mr-6 ml-auto">

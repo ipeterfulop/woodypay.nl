@@ -1,7 +1,7 @@
 <style>{!! \App\BlockStyledefinition::getCSSClasses($block) !!}</style>
 <div class="w-full max-width-container flex items-start justify-center">
     <div class="flex flex-col items-center justify-start py-16 px-4 {{ $block->getBlockCSSName() }}" style="background-size: cover">
-        <div class="flex flex-row items-start justify-start h-16 w-full mb-4">
+        <div class="flex flex-row items-start justify-center lg:justify-start h-16 w-full mb-4">
             <img src="/storage/attachments/{{ basename($block->site_logo_translated) }}" class="h-full object-contain">
         </div>
         <div class="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-start w-full">
