@@ -91,7 +91,7 @@ class BlockStyledefinition
             'color' => $block->text_color,
             'background-color' => $block->background_color,
             'background' => $block->background_gradient,
-            'background-image' => $block->background_image == null ? null : 'url("/storage/attachments/'.basename($block->background_image).'")',
+            'background-image' => $block->background_image == null ? null : 'url("/storage/attachments/'.basename($block->background_image).'"), '.$block->background_gradient,
             'background-position' => $block->background_image_positioning_id == null ? 'center' : Positioning::find($block->background_image_positioning_id)->code,
             'padding-top' => $block->spacing_id == null ? null : $block->spacing->size_in_rems.'rem',
             'padding-bottom' => $block->spacing_id == null ? null : $block->spacing->size_in_rems.'rem',
