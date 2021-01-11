@@ -18,7 +18,7 @@
                      x-show="currentTab == {{ $tabIndex }}"
                      x-bind:class="{'active-tab-content': currentTab == {{ $tabIndex }}}"
                 >
-                    <div class="w-1/2 flex flex-col">
+                    <div class="w-1/2 flex flex-col pr-12">
                         @foreach($tab->items as $index => $item)
                             @if($item->fa_icon_classes != null)
                                 <i class="fa {{ $item->fa_icon_classes }} mb-4"  style="width: 3rem; height: 3rem"></i>
@@ -28,6 +28,9 @@
                             <h3 class="text-xl lg:text-3xl pb-1">{{ $item->title_translated }}</h3>
                             <div class="font-light tracking-normal mb-16">{!! $item->content_translated !!}</div>
                         @endforeach
+                    </div>
+                    <div class="w-1/2">
+                        <img src="/storage/attachments/{{ basename($tab->topic_image_translated) }}" class="object-contain">
                     </div>
                 </div>
             @endpush
