@@ -290,7 +290,7 @@ class StartPageBlockSeeder extends Seeder
                 DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
                 $addImages = false;
                 $addIcons = false;
-                $addListTitle = false;
+                $addListTitle = true;
                 $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
                     5,
@@ -319,7 +319,7 @@ class StartPageBlockSeeder extends Seeder
     private function addOrUpdateTextImageListBlockWithFeatureListLayout(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(TextImageListBlock::getBlockTypeTag()))->id;
-        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
 
         $faker = Factory::create('en_En');
         $dataSet[DatabaseSeeder::BLOCK]['layout'] = TextImageListLayout::FEATURE_LIST_ID;
@@ -330,7 +330,7 @@ class StartPageBlockSeeder extends Seeder
                 DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
                 $addImages = false;
                 $addIcons = true;
-                $addListTitle = false;
+                $addListTitle = true;
                 $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
                     5,
