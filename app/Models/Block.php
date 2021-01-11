@@ -109,7 +109,7 @@ class Block extends TranslatableModel
     {
         $result = [];
         $result['internal_name'] = new TextVueCRUDIndexfilter('internal_name', 'Name', '');
-        $result['page_id'] = new SelectVueCRUDIndexfilter('page_id', 'Page', 0);
+        $result['page_id'] = new SelectVueCRUDIndexfilter('page_id', 'Page', request()->get('page_id', 0));
         $result['page_id']->setValueSet(Page::getKeyValueCollection()->all(), 0, 'Select page...');
         $result['page_id']->setContainerClass('hidden-important');
         return $result;

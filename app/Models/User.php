@@ -103,7 +103,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     {
         $result = [];
         $fields = ['name', 'email'];
-        $result[TextVueCRUDIndexfilter::buildPropertyName($fields)] = new TextVueCRUDIndexfilter($fields, __('Keresés'), '', '');
+        $result[TextVueCRUDIndexfilter::buildPropertyName($fields)] = new TextVueCRUDIndexfilter($fields, __('Search'), '', '');
 
         return $result;
     }

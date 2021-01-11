@@ -26,7 +26,7 @@ class AdministratorVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
             ->setMandatory(true);
         $result['password'] = (new TextVueCRUDFormfield())
             ->setOnlyWhenCreating(true)
-            ->setLabel('jelszó')
+            ->setLabel(__('Password'))
             ->setMandatory(true);
         return collect($result);
     }
