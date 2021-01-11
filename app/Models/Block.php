@@ -89,7 +89,7 @@ class Block extends TranslatableModel
     {
         return [
             'block_type_label'  => 'Type',
-            'internal_name'  => 'Name',
+            'internal_name'  => 'Internal name',
             'visibility_select' => 'Visibility',
             'items_link'        => 'Items',
         ];
