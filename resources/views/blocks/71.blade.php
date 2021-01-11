@@ -3,11 +3,11 @@
 <div class="w-full max-width-container flex items-start justify-center" x-data="{'currentTab': 0}">
     <div class="flex flex-col items-start justify-start py-16 px-4 {{ $block->getBlockCSSName() }}"
          style="background-size: cover">
-        <h1 class="w-full text-center text-2xl lg:text-5xl py-12" style="">{!! $block->title_translated !!}</h1>
+        <h1 class="w-full text-center text-3xl lg:text-5xl py-12" style="">{!! $block->title_translated !!}</h1>
         <div class="w-full text-center px-3 py-3" style="">{!! $block->content_translated !!}</div>
         @foreach($block->getLists() as $tabIndex => $tab)
             @push('tabs-'.$block->id)
-                <div class="font-bold text-xl lg:text-2xl cursor-pointer p-6 w-1/{{ count($block->lists) }}"
+                <div class="font-bold text-xl lg:text-3xl cursor-pointer p-6 w-1/{{ count($block->lists) }}"
                      data-tab-id="{{ $tabIndex }}"
                      @click="currentTab = {{ $tabIndex }}"
                      x-bind:class="{'active-tab': currentTab == {{ $tabIndex }}, 'inactive-tab': currentTab != {{ $tabIndex }}}"
@@ -25,7 +25,7 @@
                             @else
                                 <img src="/storage/attachments/{{ basename($item->image_url) }}" class="h-16">
                             @endif
-                            <h3 class="text-xl font-bold lg:text-2xl">{{ $item->title_translated }}</h3>
+                            <h3 class="text-xl font-bold lg:text-3xl">{{ $item->title_translated }}</h3>
                             <div class="font-light tracking-normal mb-6">{!! $item->content_translated !!}</div>
                         @endforeach
                     </div>

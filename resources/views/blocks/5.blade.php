@@ -1,7 +1,7 @@
 <style>{!! \App\BlockStyledefinition::getCSSClasses($block) !!}</style>
 <div class="w-full max-width-container flex items-start justify-center">
     <div class="flex flex-col items-center justify-start py-16 lg:py-32 px-4 lg:px-32 {{ $block->getBlockCSSName() }}" style="background-size: cover">
-        <h1 class="w-full text-center text-2xl lg:text-5xl" style="">{!! $block->title_translated !!}</h1>
+        <h1 class="w-full text-center text-3xl lg:text-5xl" style="">{!! $block->title_translated !!}</h1>
         <div class="w-full flex items-center justify-center py-10">
             <div style="height: 2px; width: 6rem" class="bg-gray-900">&nbsp;</div>
         </div>
