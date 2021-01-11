@@ -208,6 +208,7 @@ class DatabaseSeeder extends Seeder
 
         $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS] = [
             'id' => $textImageListId,
+            'topic_image' => 'sample_image_02.png',
         ];
 
 
