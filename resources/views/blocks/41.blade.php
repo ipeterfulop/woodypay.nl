@@ -4,9 +4,9 @@
         <div class="py-4">{!! $block->getItemsContainer()->content_translated !!}</div>
         <div class="p-4 flex flex-row flex-wrap items-start justify-start">
             @foreach($block->getItemsContainer()->items as $index => $item)
-                <div class="w-full md:w-1/2 lg:w-1/3 flex flex-col items-start justify-start p-4">
+                <div class="w-full md:w-1/2 lg:w-1/3 flex flex-col items-start justify-start p-4 mt-4">
                     @if($item->fa_icon_classes != null)
-                        <i class="fa {{ $item->fa_icon_classes }}"></i>
+                        <i class="fa {{ $item->fa_icon_classes }} mb-4"  style="width: 3rem; height: 3rem"></i>
                     @else
                         <img src="{{ $item->image_url }}" class="h-16">
                     @endif

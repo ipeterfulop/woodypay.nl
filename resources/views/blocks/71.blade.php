@@ -20,7 +20,11 @@
                 >
                     <div class="w-1/2 flex flex-col">
                         @foreach($tab->items as $index => $item)
-                            <img src="{{ $item->image_url }}" class="h-16">
+                            @if($item->fa_icon_classes != null)
+                                <i class="fa {{ $item->fa_icon_classes }} mb-4"  style="width: 3rem; height: 3rem"></i>
+                            @else
+                                <img src="{{ $item->image_url }}" class="h-16">
+                            @endif
                             <h3 class="text-xl font-bold lg:text-2xl">{{ $item->title_translated }}</h3>
                             <div class="font-light tracking-normal mb-6">{!! $item->content_translated !!}</div>
                         @endforeach

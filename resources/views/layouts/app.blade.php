@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/all.min.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
     <style>
         body {
             background-color: rgb(27, 34, 48);
@@ -67,11 +69,11 @@
     let m = document.getElementById('topmenu');
     let o = new IntersectionObserver((entries, observer) => {
         if (entries[0].intersectionRatio == 0) {
-            m.classList.add('h-8');
+            m.classList.add('h-10');
             m.classList.remove('h-14');
         } else {
             m.classList.add('h-14');
-            m.classList.remove('h-8');
+            m.classList.remove('h-10');
         }
     }, {
         root: null,
