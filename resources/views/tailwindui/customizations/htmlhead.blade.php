@@ -16,11 +16,16 @@
         color: darkblue;
     }
     .vuecrud-internal_name-td {
-        max-width: 8rem;
+        max-width: 15rem;
         overflow-x: hidden;
     }
     .vuecrud-block_type_label-td {
         max-width: 8rem;
         white-space: normal !important;
+    }
+    .vuecrud-content_translated-td {
+        max-width: 20rem;
+        overflow:hidden;
+        text-overflow: ellipsis;
     }
 </style>

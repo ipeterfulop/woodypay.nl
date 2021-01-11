@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Helpers\Visibility;
 use Datalytix\Translations\TranslatableModel;
 use Datalytix\VueCRUD\Indexfilters\SelectVueCRUDIndexfilter;
+use Datalytix\VueCRUD\Indexfilters\TextVueCRUDIndexfilter;
 use Datalytix\VueCRUD\Traits\HasPositionThroughPivot;
 use Datalytix\VueCRUD\Traits\VueCRUDManageable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -107,6 +108,7 @@ class Block extends TranslatableModel
     public static function getVueCRUDIndexFilters()
     {
         $result = [];
+        $result['internal_name'] = new TextVueCRUDIndexfilter('internal_name', 'Name', '');
         $result['page_id'] = new SelectVueCRUDIndexfilter('page_id', 'Page', 0);
         $result['page_id']->setValueSet(Page::getKeyValueCollection()->all(), 0, 'Select page...');
         $result['page_id']->setContainerClass('hidden-important');
