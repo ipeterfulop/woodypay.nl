@@ -174,6 +174,7 @@ class DatabaseSeeder extends Seeder
             'page_id'    => $pageId,
             'block_id'   => $blockId,
             'position'   => $position,
+            'visibility' => 2,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ];
@@ -202,6 +203,7 @@ class DatabaseSeeder extends Seeder
         $addTitleToTheList = true
     ): array {
         $faker = Factory::create('en_En');
+        $numberOfWordsToGenerate = 25;
         $dataSet = [];
 
         $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS] = [
@@ -218,13 +220,13 @@ class DatabaseSeeder extends Seeder
             $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['title'] = '(List title EN)I am a block with '
                 . 'a text list and a topic image';
             $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['content'] = '(List content EN) '
-                . collect($faker->words(15))->join(' ');
+                . collect($faker->words($numberOfWordsToGenerate))->join(' ');
             $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION]['title_en'] = $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['title'];
             $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION]['content_en'] = $dataSet[self::TEXT_IMAGE_LIST][self::CORE_FIELDS]['content'];
             $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION]['title_nl'] = ' (List title NL) Ik ben een blok'
                 . ' met een tekstlijst en een onderwerpafbeelding';
             $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION]['content_nl'] = '(List content NL) '
-                . collect($faker->words(15))->join(' ');
+                . collect($faker->words($numberOfWordsToGenerate))->join(' ');
         }
 
         $dataSet[self::TEXT_IMAGE_LIST][self::TEXT_IMAGE_LIST_ITEM] = [];
@@ -234,10 +236,11 @@ class DatabaseSeeder extends Seeder
                     'id'                 => 100 * ($textImageListId + $i),
                     'text_image_list_id' => $textImageListId,
                     'position'           => $i,
+                    'fa_icon_classes'    => null,
                 ],
                 self::TRANSLATION => [
                     'title_en'   => 'I am a list item (' . str_pad($i, 2, '0', STR_PAD_LEFT) . ')',
-                    'content_en' => '(Text EN) ' . collect($faker->words(9))->join(' '),
+                    'content_en' => '(Text EN) ' . collect($faker->words($numberOfWordsToGenerate + 10))->join(' '),
                     'url_en'     => 'https://www.apple.com/en/',
 
                     'title_nl'   => 'Ik ben een lijstitem (' . str_pad($i, 2, '0') . ')',
@@ -248,6 +251,7 @@ class DatabaseSeeder extends Seeder
 
             if ($addIconToItems) {
                 $iconClass = FontAwesomeIconGenerator::getRandomIconClass();
+                $itemDataSet[self::CORE_FIELDS]['fa_icon_classes'] = $iconClass;
                 $itemDataSet[self::TRANSLATION]['fa_icon_classes_en'] = $iconClass;
                 $itemDataSet[self::TRANSLATION]['fa_icon_classes_nl'] = $iconClass;
             }
@@ -291,6 +295,7 @@ class DatabaseSeeder extends Seeder
                 'id'                 => $textImageItem[self::CORE_FIELDS]['id'],
                 'text_image_list_id' => $textImageItem[self::CORE_FIELDS]['text_image_list_id'],
                 'position'           => $textImageItem[self::CORE_FIELDS]['position'],
+                'fa_icon_classes'    => $textImageItem[self::CORE_FIELDS]['fa_icon_classes'],
                 'created_at'         => Carbon::now(),
                 'updated_at'         => Carbon::now(),
             ];
@@ -313,8 +318,8 @@ class DatabaseSeeder extends Seeder
 
     public static function assignTextItemsToCollectionBlock($blockId, array $textImageListDataSetIds)
     {
-        foreach ($textImageListDataSetIds as $listId){
-           // $assignmentFound = DB::table(...)
+        foreach ($textImageListDataSetIds as $listId) {
+            // $assignmentFound = DB::table(...)
         }
     }
 }
