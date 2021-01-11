@@ -8,7 +8,7 @@
         <div class="py-8 px-16">{!! $block->content_translated !!}</div>
         <div class="py-4 w-full flex flex-col md:flex-row items-center justify-center px-0 md:px-16 ">
             <div class="w-full md:w-1/3 flex items-center">
-                <img src="{{ $block->person_photo }}" class="w-full object-contain">
+                <img src="/storage/attachments/{{ basename($block->person_photo) }}" class="w-full object-contain">
             </div>
             <div class="w-full md:w-1/3 pt-4 md:pt-0 flex flex-row items-stretch justify-start lg:justify-center pl-8 lg:pl-0">
                 <div class="flex h-full flex-col items-start justify-start pr-3 pt-3 lg:pt-5">

@@ -23,7 +23,7 @@
                             @if($item->fa_icon_classes != null)
                                 <i class="fa {{ $item->fa_icon_classes }} mb-4"  style="width: 3rem; height: 3rem"></i>
                             @else
-                                <img src="{{ $item->image_url }}" class="h-16">
+                                <img src="/storage/attachments/{{ basename($item->image_url) }}" class="h-16">
                             @endif
                             <h3 class="text-xl font-bold lg:text-2xl">{{ $item->title_translated }}</h3>
                             <div class="font-light tracking-normal mb-6">{!! $item->content_translated !!}</div>
@@ -34,7 +34,7 @@
             @push('tabcontent-mobile-'.$block->id)
                 <h4 class="text-2xl font-bold text-center py-8">{{ $tab->title_translated }}</h4>
                 <div class="w-full flex flex-col items-start justify-start p-4 mb-4">
-                    <img class="w-full object-contain" src="{{ $tab->image_url }}">
+                    <img class="w-full object-contain" src="/storage/attachments/{{ basename($tab->image_url) }}">
                 </div>
                 <div class="w-full flex flex-col items-center">
                     @foreach($tab->items as $index => $item)
