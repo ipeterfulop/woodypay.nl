@@ -18,7 +18,7 @@
                      x-show="currentTab == {{ $tabIndex }}"
                      x-bind:class="{'active-tab-content': currentTab == {{ $tabIndex }}}"
                 >
-                    <div class="w-1/2 flex flex-col pr-12">
+                    <div class="w-1/2 flex flex-col px-12">
                         @foreach($tab->items as $index => $item)
                             @if($item->fa_icon_classes != null)
                                 <i class="fa {{ $item->fa_icon_classes }} mb-4"  style="width: 3rem; height: 3rem"></i>
