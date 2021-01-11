@@ -83,7 +83,7 @@ class StartPageBlockSeeder extends Seeder
         $dataSet[DatabaseSeeder::BLOCK]['button_label'] = 'Press me, I am a button';
         $dataSet[DatabaseSeeder::BLOCK]['button_url'] = 'https://www.dutchnews.nl/';
 
-        $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['background_image'] = '/images/assets/hero_image.svg';
+        $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['background_image'] = 'hero_image.svg';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['background_image_positioning_id'] = Positioning::findByCode(
             'left center'
         )->id;
@@ -133,7 +133,7 @@ class StartPageBlockSeeder extends Seeder
             . 'Sollicitudin Tellus Inceptos Etiam, Sollicitudin Tellus Inceptos Etiam.';
         $dataSet[DatabaseSeeder::BLOCK]['button_label'] = 'Click me, I am a button';
         $dataSet[DatabaseSeeder::BLOCK]['button_url'] = 'https://www.dutchnews.nl/';
-        $dataSet[DatabaseSeeder::BLOCK]['topic_image'] = '/images/assets/topic_image.png';
+        $dataSet[DatabaseSeeder::BLOCK]['topic_image'] = 'topic_image.png';
 
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['topic_image_border_color'] = '#3A4665';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['topic_image_horizontal_positioning_id'] = Positioning::findByCode(
@@ -145,7 +145,7 @@ class StartPageBlockSeeder extends Seeder
             . 'Sollicitudin Tellus Inceptos Etiam, Sollicitudin Tellus Inceptos Etiam.';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_label_en'] = 'Click me, I am a button';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_url_en'] = 'https://www.dutchnews.nl/';
-        $dataSet[DatabaseSeeder::TRANSLATION]['topic_image_en'] = '/images/assets/topic_image.png';
+        $dataSet[DatabaseSeeder::TRANSLATION]['topic_image_en'] = 'topic_image.png';
 
 
         $dataSet[DatabaseSeeder::TRANSLATION]['title_nl'] = 'Ik ben de titel van een blok met'
@@ -154,7 +154,7 @@ class StartPageBlockSeeder extends Seeder
             . ' zoals lorem en ipsum.';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_label_nl'] = 'Klik op mij, ik ben een knop';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_url_nl'] = 'https://www.telegraaf.nl/';
-        $dataSet[DatabaseSeeder::TRANSLATION]['topic_image_nl'] = '/images/assets/topic_image.png';
+        $dataSet[DatabaseSeeder::TRANSLATION]['topic_image_nl'] = 'topic_image.png';
 
         DB::transaction(
             function () use ($dataSet, $position) {
@@ -190,7 +190,7 @@ class StartPageBlockSeeder extends Seeder
             . ' this time. Euismod Risus Bibendum Tellus Euismod Risus Bibendum Tellus.';
         $dataSet[DatabaseSeeder::BLOCK]['button_label'] = null;
         $dataSet[DatabaseSeeder::BLOCK]['button_url'] = 'https://www.dutchnews.nl/';
-        $dataSet[DatabaseSeeder::BLOCK]['topic_image'] = '/images/assets/sample_image_02.png';
+        $dataSet[DatabaseSeeder::BLOCK]['topic_image'] = 'sample_image_02.png';
 
 
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['topic_image_border_color'] = '#3A4665';
@@ -204,7 +204,7 @@ class StartPageBlockSeeder extends Seeder
             . ' this time. Euismod Risus Bibendum Tellus Euismod Risus Bibendum Tellus.';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_label_en'] = null;
         $dataSet[DatabaseSeeder::TRANSLATION]['button_url_en'] = 'https://www.dutchnews.nl/';
-        $dataSet[DatabaseSeeder::TRANSLATION]['topic_image_en'] = '/images/assets/sample_image_02.png';
+        $dataSet[DatabaseSeeder::TRANSLATION]['topic_image_en'] = 'sample_image_02.png';
 
 
         $dataSet[DatabaseSeeder::TRANSLATION]['title_nl'] = 'Ik ben de titel van een ander blok met'
@@ -213,7 +213,7 @@ class StartPageBlockSeeder extends Seeder
             . ' zoals lorem en ipsum.';
         $dataSet[DatabaseSeeder::TRANSLATION]['button_label_nl'] = null;
         $dataSet[DatabaseSeeder::TRANSLATION]['button_url_nl'] = null;
-        $dataSet[DatabaseSeeder::TRANSLATION]['topic_image_nl'] = '/images/assets/sample_image_02.png';
+        $dataSet[DatabaseSeeder::TRANSLATION]['topic_image_nl'] = 'sample_image_02.png';
 
         DB::transaction(
             function () use ($dataSet, $position) {
@@ -272,6 +272,7 @@ class StartPageBlockSeeder extends Seeder
 
     private function addOrUpdateTextImageListBlockWithCollapsibleLayout(int $blockId, int $position)
     {
+        $numberOfWordsToGenerate = 25;
         $blocktypeId = (BlockType::findByTag(TextImageListBlock::getBlockTypeTag()))->id;
         $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
 
@@ -280,8 +281,8 @@ class StartPageBlockSeeder extends Seeder
         $dataSet[DatabaseSeeder::BLOCK]['internal_name'] = 'collapsible_text_image_list_on_start_page';
 
         $dataSet[DatabaseSeeder::BLOCK]['title'] = '(Block title EN) I am a block with a text list and a topic image';
-        $dataSet[DatabaseSeeder::BLOCK]['content'] = '(Block content EN) ' . collect($faker->words(15))->join(' ');
-        $dataSet[DatabaseSeeder::BLOCK]['topic_image'] = '/images/assets/sample_image_02.png';
+        $dataSet[DatabaseSeeder::BLOCK]['content'] = '(Block content EN) ' . collect($faker->words($numberOfWordsToGenerate))->join(' ');
+        $dataSet[DatabaseSeeder::BLOCK]['topic_image'] = 'sample_image_02.png';
 
 
         DB::transaction(
@@ -289,7 +290,7 @@ class StartPageBlockSeeder extends Seeder
                 DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
                 $addImages = false;
                 $addIcons = false;
-                $addListTitle = false;
+                $addListTitle = true;
                 $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
                     5,
@@ -318,7 +319,7 @@ class StartPageBlockSeeder extends Seeder
     private function addOrUpdateTextImageListBlockWithFeatureListLayout(int $blockId, int $position)
     {
         $blocktypeId = (BlockType::findByTag(TextImageListBlock::getBlockTypeTag()))->id;
-        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, false);
+        $dataSet = DatabaseSeeder::createDefaultBlockDataSet($blocktypeId, $blockId, true);
 
         $faker = Factory::create('en_En');
         $dataSet[DatabaseSeeder::BLOCK]['layout'] = TextImageListLayout::FEATURE_LIST_ID;
@@ -329,7 +330,7 @@ class StartPageBlockSeeder extends Seeder
                 DatabaseSeeder::addOrUpdateBlock($dataSet[DatabaseSeeder::BLOCK]);
                 $addImages = false;
                 $addIcons = true;
-                $addListTitle = false;
+                $addListTitle = true;
                 $textImageListDataSet = DatabaseSeeder::createTextImageListDataSet(
                     $dataSet[DatabaseSeeder::BLOCK]['id'],
                     5,
@@ -376,7 +377,7 @@ class StartPageBlockSeeder extends Seeder
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['person_first_name'] = 'John';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['person_last_name'] = 'Smith';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['person_position'] = 'Executive director';
-        $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['person_photo'] = '/images/assets/person_sample_image.png';
+        $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['person_photo'] = 'person_sample_image.png';
 
         $dataSet[DatabaseSeeder::TRANSLATION]['title_en'] = 'This is a Vision/Testimonial block';
         $dataSet[DatabaseSeeder::TRANSLATION]['content_en'] = '(Text EN) ' . collect($faker->words(25))->join(' ');
@@ -424,7 +425,7 @@ class StartPageBlockSeeder extends Seeder
         $dataSet[DatabaseSeeder::BLOCK]['internal_name'] = 'footer_section_on_the_start_page';
         $dataSet[DatabaseSeeder::BLOCK]['background_color'] = 'rgba(58, 70, 101, 1)';
 
-        $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['site_logo'] = '/images/assets/sample_logo.svg';
+        $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['site_logo'] = 'sample_logo.svg';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['row_2_content_1'] = '<span><strong>Contact</strong><br>'
             . '<a href="https://www.eurosport.com">This is contact list</a></span>';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['row_2_content_2'] = '<span><strong>Resources</strong><br>'
@@ -438,7 +439,7 @@ class StartPageBlockSeeder extends Seeder
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['row_3_content_3_terms_of_use'] = '<a href="https://www.dutchnews.nl/">Term of use</a>';
         $dataSet[DatabaseSeeder::EXTENDED_BLOCK]['row_3_content_4_privacy'] = '<a href="https://www.dutchnews.nl/">Privacy policy</a>';
 
-        $dataSet[DatabaseSeeder::TRANSLATION]['site_logo_en'] = '/images/assets/sample_logo.svg';
+        $dataSet[DatabaseSeeder::TRANSLATION]['site_logo_en'] = 'sample_logo.svg';
         $dataSet[DatabaseSeeder::TRANSLATION]['row_2_content_1_en'] = '<span><strong>Contact</strong><br>'
             . '<a href="https://www.eurosport.com">This is contact list</a></span>';
         $dataSet[DatabaseSeeder::TRANSLATION]['row_2_content_2_en'] = '<span><strong>Resources</strong><br>'
@@ -452,7 +453,7 @@ class StartPageBlockSeeder extends Seeder
         $dataSet[DatabaseSeeder::TRANSLATION]['row_3_content_3_terms_of_use_en'] = '<a href="https://www.dutchnews.nl/">Term of use</a>';
         $dataSet[DatabaseSeeder::TRANSLATION]['row_3_content_4_privacy_en'] = '<a href="https://www.dutchnews.nl/">Privacy policy</a>';
 
-        $dataSet[DatabaseSeeder::TRANSLATION]['site_logo_nl'] = '/images/assets/sample_logo.svg';
+        $dataSet[DatabaseSeeder::TRANSLATION]['site_logo_nl'] = 'sample_logo.svg';
         $dataSet[DatabaseSeeder::TRANSLATION]['row_2_content_1_nl'] = '<span><strong>Contact</strong><br>'
             . '<a href="https://www.eurosport.com">This is contact list</a></span>';
         $dataSet[DatabaseSeeder::TRANSLATION]['row_2_content_2_nl'] = '<span><strong>Middelen</strong><br>'
