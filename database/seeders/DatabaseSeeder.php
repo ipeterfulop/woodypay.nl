@@ -214,7 +214,7 @@ class DatabaseSeeder extends Seeder
 
         $dataSet[self::TEXT_IMAGE_LIST][self::TRANSLATION] = [
             'topic_image_en' => 'sample_image_02.png',
-            'topic_image_nl' => 'sample_image_02.png',
+            'topic_image_nl' => 'sample_image_03.png',
         ];
 
         if ($addTitleToTheList) {
