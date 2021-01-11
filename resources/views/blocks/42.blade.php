@@ -8,7 +8,7 @@
                     @foreach($block->getItemsContainer()->items as $index => $item)
                         <li class="flex flex-col items-stretch justify-start py-8 border-b border-gray-400 w-full"
                             data-block-id="{{ $index }}"
-                            data-image-url="{{ $item->image_url ?? $block->getItemsContainer()->topic_image_translated }}"
+                            data-image-url="{{ (string)$item->image_url == '' ? $item->image_url :  '/storage/attachments/'.$block->getItemsContainer()->topic_image_translated }}"
                             x-ref="listitem-{{ $block->id.'-'.$index }}"
                         >
                             <h3 class="cursor-pointer text-xl font-bold leading-6" @click="currentItem = {{ $index }}"
