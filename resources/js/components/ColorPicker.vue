@@ -1,7 +1,7 @@
 <template>
     <div style="display: flex; flex-direction: column; width: 100%">
-        <div style="display: flex; flex-direction: row; align-items: center; height: 2.5rem; margin-bottom: .25rem">
-            <input type="color" style="width: 6rem; flex-grow: 0; margin-right: .25rem; cursor:pointer; height: 100%" v-model="internalValue" v-on:change="updatePreset">
+        <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; height: 2.5rem; margin-bottom: .25rem">
+            <input type="color" style="width: 50%; flex-grow: 0; margin-right: .25rem; cursor:pointer; height: 100%" v-model="internalValue" v-on:change="updatePreset">
             <span v-html="valueToEmit" v-bind:style="{'background-color': rgbaString}"></span>
         </div>
         <div class="display: flex; align-items: center;">
@@ -50,12 +50,12 @@
         methods: {
             parseValue: function(value) {
                 if ((value != 'auto') && (value != null) && (value != '')) {
-                    if (new RegExp(/#.{6,8}/).test(value)) {
+                    if (new RegExp(/#.{6}/).test(value)) {
                         return {
                             r: parseInt(value.substr(1, 2), 16),
                             g: parseInt(value.substr(3, 2), 16),
                             b: parseInt(value.substr(5, 2), 16),
-                            a: value.length > 7 ? parseInt(value.substr(7, 2), 16) / 255 : 1,
+                            a: 1,
                             v: '',
                         }
                     }
@@ -111,16 +111,16 @@
                     +this.colorData.b
                     +', '
                     +this.colorData.a
-                +')';
+                    +')';
             },
             hexString: function() {
                 if (this.colorData.v == 'auto') {
                     return 'auto';
                 }
                 return '#'
-                    +this.colorData.r.toString(16).padStart(2, '0')
-                    +this.colorData.g.toString(16).padStart(2, '0')
-                    +this.colorData.b.toString(16).padStart(2, '0');
+                    +this.colorData.r.toString(16)
+                    +this.colorData.g.toString(16)
+                    +this.colorData.b.toString(16);
             },
             valueToEmit: function() {
                 if (this.mode == 'rgba') {
@@ -132,9 +132,7 @@
         },
         watch: {
             internalValue: function() {
-                let colorData = this.parseValue(this.internalValue);
-                colorData.a = this.colorData.a;
-                this.colorData = colorData;
+                this.colorData = this.parseValue(this.internalValue);
                 this.$emit('input', this.valueToEmit);
             },
             rgbaString: function() {

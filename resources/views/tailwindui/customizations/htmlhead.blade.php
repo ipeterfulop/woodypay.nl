@@ -28,4 +28,17 @@
         overflow:hidden;
         text-overflow: ellipsis;
     }
+    .edit-form-group {
+        border: 1px solid lightgray;
+        margin: 1rem;
+        margin-bottom: 3rem;
+    }
+    .edit-form-group-head {
+        background-color: rgb(229, 231, 235);
+        padding: 1rem;
+        font-weight: bold;
+    }
+    .edit-form-group-section {
+        border-left: 1rem solid rgb(229, 231, 235);
+    }
 </style>

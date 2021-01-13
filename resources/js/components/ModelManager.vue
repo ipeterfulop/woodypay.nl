@@ -394,7 +394,7 @@
                             <edit-form
                                     v-bind:data-url="createUrlWithFilters"
                                     v-bind:save-url="storeUrl"
-                                    v-bind:ajax-operations-url="ajaxOperationsUrlWithFilters"
+                                    v-bind:ajax-operations-url="ajaxOperationsUrl"
                                     v-on:submit-success="confirmCreationSuccess"
                                     v-on:editing-canceled="returnToList"
                                     redirect-to-response-on-success="false"
@@ -697,15 +697,6 @@
                 }
 
                 return this.createUrl+suffix;
-            },
-            ajaxOperationsUrlWithFilters: function() {
-                let urlparts = window.location.href.split('?');
-                let suffix = '';
-                if (urlparts.length > 1) {
-                    suffix = '?'+urlparts[1]
-                }
-
-                return this.ajaxOperationsUrl+suffix;
             }
         },
         methods: {
@@ -1027,7 +1018,7 @@
                 this.mode = 'loading';
                 this.currentEditUrl = this.replaceIdParameterWithElementIdInUrl(this.editUrl, elementId);
                 this.currentUpdateUrl = this.replaceIdParameterWithElementIdInUrl(this.updateUrl, elementId);
-                this.currentAjaxOperationsUrl = this.replaceIdParameterWithElementIdInUrl(this.ajaxOperationsUrlWithFilters, elementId);
+                this.currentAjaxOperationsUrl = this.replaceIdParameterWithElementIdInUrl(this.ajaxOperationsUrl, elementId);
                 this.mode = 'edit';
             },
             confirmElementDeletion: function(elementId, elementName, elementIndex) {
@@ -1072,7 +1063,7 @@
             },
             moveElementUp: function(id) {
                 this.elementTableClass = 'element-table-muted';
-                window.axios.post(this.ajaxOperationsUrlWithFilters, {id: id, action: 'move', direction: -1})
+                window.axios.post(this.ajaxOperationsUrl, {id: id, action: 'move', direction: -1})
                     .then((response) => {
                         this.fetchMode = 'update';
                         this.fetchElements(true, true);
@@ -1081,7 +1072,7 @@
             },
             moveElementDown: function(id) {
                 this.elementTableClass = 'element-table-muted';
-                window.axios.post(this.ajaxOperationsUrlWithFilters, {id: id, action: 'move', direction: 1})
+                window.axios.post(this.ajaxOperationsUrl, {id: id, action: 'move', direction: 1})
                     .then((response) => {
                         this.fetchMode = 'update';
                         this.fetchElements(true, true);
@@ -1095,7 +1086,7 @@
                         : window.confirm(this.massOperations[action].confirm);
                     if (proceed) {
                         this.massOperationLoading = true;
-                        window.axios.post(this.ajaxOperationsUrlWithFilters, {
+                        window.axios.post(this.ajaxOperationsUrl, {
                             selectedElements: this.selectedElements,
                             action: action
                         }).then((response) => {
@@ -1134,7 +1125,7 @@
                 filterData['action'] = action;
                 filterData['sorting_field'] = this.sortingColumns[this.currentSortingColumn];
                 filterData['sorting_direction'] = this.currentSortingDirection;
-                window.axios.post(this.ajaxOperationsUrlWithFilters, filterData, {responseType: 'blob'}).then((response) => {
+                window.axios.post(this.ajaxOperationsUrl, filterData, {responseType: 'blob'}).then((response) => {
                     var blob = new Blob([response.data], { type: response.headers['Content-Type'] });
                     var filename = response.headers['filename'];
                     var link = document.createElement('a');
