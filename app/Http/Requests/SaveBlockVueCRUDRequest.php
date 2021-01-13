@@ -80,6 +80,7 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
     public function getDataset()
     {
         $result = [
+            'internal_name' => $this->input('internal_name'),
             'page_id' => $this->input('page_id'),
             'blocktype_id' => $this->input('blocktype_id'),
             'text_color' => $this->input('text_color'),
