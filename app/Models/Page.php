@@ -19,6 +19,8 @@ class Page extends TranslatableModel
     const SUBJECTTYPE_ID = 2;
 
     protected $fillable = [
+        'name',
+        'url',
         'tag',
     ];
 
@@ -109,7 +111,8 @@ class Page extends TranslatableModel
         if ($locale == null) {
             $locale = Locale::getMainLocale()->id;
         }
-        $url = $url = \Str::startsWith($this->url, '/') ? $this->url : '/'.$this->url;
+        $baseUrl = $this->{'url_'.$locale};
+        $url = \Str::startsWith($baseUrl, '/') ? $baseUrl : '/'.$baseUrl;
 
         return '/'.$locale.$url;
     }
@@ -132,5 +135,13 @@ class Page extends TranslatableModel
         }
 
         return collect($result);
+    }
+
+    public function remove()
+    {
+        return \DB::transaction(function() {
+            BlockPage::where('page_id', '=', $this->id)->delete();
+            $this->delete();
+        }) === null;
     }
 }

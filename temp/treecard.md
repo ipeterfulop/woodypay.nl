@@ -1,0 +1,4 @@
+- signup form
+- confirm email
+- misc data
+- success notification

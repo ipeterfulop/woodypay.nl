@@ -17,16 +17,28 @@
             >
                 <div v-bind:class="getClassOverrideOrDefaultClass('edit-form-form-button-container', 'col')"
                 >
-                    <button type="button"
-                            v-bind:class="buttons['save']['class']"
-                            v-on:click="submitForm"
-                            v-bind:disabled="loading"
-                            style="display: flex; align-items: center; justify-content: center"
-                    >
-                        <span v-if="loading" style="margin-right: 4px" class="button-loading-indicator" v-html="spinnerSrc"></span>
-                        <span v-if="currentStep != lastStep" v-html="buttons['proceed']['html']"></span>
-                        <span v-if="currentStep == lastStep" v-html="buttons['save']['html']"></span>
-                    </button>
+                    <div style="display: flex; align-items: center; justify-content: flex-start">
+                        <span v-if="loading" style="margin-right: .5rem" class="button-loading-indicator" v-html="spinnerSrc"></span>
+                        <button type="button"
+                                v-bind:class="buttons['save_and_close']['class']"
+                                v-on:click="submitForm"
+                                v-bind:disabled="loading"
+                                style="display: flex; align-items: center; justify-content: center"
+                        >
+
+                            <span v-if="currentStep != lastStep" v-html="buttons['proceed']['html']"></span>
+                            <span v-if="currentStep == lastStep" v-html="buttons['save_and_close']['html']"></span>
+                        </button>
+                        <button v-if="currentStep == lastStep"
+                                type="button"
+                                v-bind:class="buttons['save_without_closing']['class']"
+                                v-on:click="submitForm(false)"
+                                v-bind:disabled="loading"
+                                style="display: flex; align-items: center; justify-content: center; margin-left: .5rem"
+                        >
+                            <span v-if="currentStep == lastStep" v-html="buttons['save_without_closing']['html']"></span>
+                        </button>
+                    </div>
                 </div>
                 <div v-bind:class="getClassOverrideOrDefaultClass('edit-form-form-button-container', 'col')"
                 >
@@ -57,7 +69,9 @@
                         <span v-html="group"></span>
                         <span class="vuecrud-caret" v-bind:class="{'open': openGroups.includes(group)}">&#9666;</span>
                     </div>
-                    <section v-bind:class="{'edit-form-group-section': groups[step].length > 1}" style="width: 100%">
+                    <section v-bind:class="{'edit-form-group-section': groups[step].length > 1}"
+                             v-show="groups[step].length  == 1 || (groups[step].length > 1 && openGroups.includes(group))"
+                             style="width: 100%">
                         <div class="row" style="position:relative"
                              :data-group="group"
                              v-bind:class="getClassOverrideOrDefaultClass('edit-form-step-body', 'edit-form-step-body')"
@@ -65,7 +79,7 @@
                             <div v-if="currentStep != step" class="disabled-overlay"></div>
                             <div v-for="data, fieldname in stepSubjectDataForGroup(subjectDataForStep(step), group)"
                                  :data-group="group"
-                                 v-show="groups[step].length  == 1 || (groups[step].length > 1 && openGroups.includes(group))"
+
                                  v-bind:style="{height: typeof(data.customOptions['cssHeight']) == 'undefined' ? 'auto' : data.customOptions['cssHeight']}"
                                  v-bind:class="data.containerClass">
                                 <template v-if="!shouldHideField(fieldname)">
@@ -273,16 +287,27 @@
 
             <div v-bind:class="getClassOverrideOrDefaultClass('edit-form-form-button-container', 'col')"
             >
-                <button type="button"
-                        v-bind:class="buttons['save']['class']"
-                        v-on:click="submitForm"
-                        v-bind:disabled="loading"
-                        style="display: flex; align-items: center; justify-content: center"
-                >
+                <div style="display: flex; align-items: center; justify-content: flex-start">
                     <span v-if="loading" style="margin-right: 4px" class="button-loading-indicator" v-html="spinnerSrc"></span>
-                    <span v-if="currentStep != lastStep" v-html="buttons['proceed']['html']"></span>
-                    <span v-if="currentStep == lastStep" v-html="buttons['save']['html']"></span>
-                </button>
+                    <button type="button"
+                            v-bind:class="buttons['save_and_close']['class']"
+                            v-on:click="submitForm"
+                            v-bind:disabled="loading"
+                            style="display: flex; align-items: center; justify-content: center"
+                    >
+                        <span v-if="currentStep != lastStep" v-html="buttons['proceed']['html']"></span>
+                        <span v-if="currentStep == lastStep" v-html="buttons['save_and_close']['html']"></span>
+                    </button>
+                    <button v-if="currentStep == lastStep"
+                            type="button"
+                            v-bind:class="buttons['save_without_closing']['class']"
+                            v-on:click="submitForm(false)"
+                            v-bind:disabled="loading"
+                            style="display: flex; align-items: center; justify-content: center; margin-left: .5rem"
+                    >
+                        <span v-if="currentStep == lastStep" v-html="buttons['save_without_closing']['html']"></span>
+                    </button>
+                </div>
             </div>
             <div v-bind:class="getClassOverrideOrDefaultClass('edit-form-form-button-container', 'col')"
             >
@@ -562,7 +587,8 @@
                     .catch((error) => {
                     });
             },
-            submitForm: function() {
+            submitForm: function(closeAfterSaving) {
+                closeAfterSaving = typeof(closeAfterSaving) == 'undefined' ? true : closeAfterSaving;
                 this.loading = true;
                 this.errors = {};
                 this.$emit('submit-pending', this.formdata);
@@ -575,13 +601,15 @@
                             if (typeof(this.successCallback) != 'undefined') {
                                 window[this.successCallback]();
                             }
-                            this.$emit('submit-success', response.data);
-                            if (this.redirectToResponseOnSuccess == 'true') {
-                                window.location.href = response.data;
+                            if (closeAfterSaving) {
+                                this.$emit('submit-success', response.data);
+                                if (this.redirectToResponseOnSuccess == 'true') {
+                                    window.location.href = response.data;
+                                }
                             }
                             this.resultMessage = this.showResponseMessage
                                 ? response.data
-                                : this.translate('Változások elmentve');
+                                : this.translate('Changes saved');
                             this.resultMessageClass = 'alert-success';
                             setTimeout(() => {this.resultMessage = ''}, 3000);
                         }

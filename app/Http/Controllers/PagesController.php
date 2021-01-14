@@ -18,7 +18,7 @@ class PagesController extends Controller
             $routeParts[] = '/';
         }
         Locale::setValidatedLocale($routeParts[0]);
-        $page = Page::where('url_'.$routeParts[0], '=', $routeParts[1])->first();
+        $page = Page::withAllTranslations()->where('url_'.$routeParts[0], '=', $routeParts[1])->first();
         if ($page == null) {
             abort(404);
         }

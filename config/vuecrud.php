@@ -46,7 +46,7 @@ return [
         'model-manager-table-head' => 'bg-gray-200 text-gray-900',
         'model-manager-edit-window-heading' => 'bg-gray-200 text-gray-900',
         'model-manager-create-window-heading' => 'bg-gray-200 text-gray-900',
-        'edit-form-form-buttons-container' => 'w-full flex justify-between',
+        'edit-form-form-buttons-container' => 'w-full flex justify-between flex-wrap',
     ]
 
 ];

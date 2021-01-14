@@ -49,4 +49,9 @@ class PageVueCRUDController extends VueCRUDControllerBase implements ICRUDContro
         return $provider->getElementsAndCounts();
     }
 
+    public function getSubject($id)
+    {
+        return Page::withAllTranslations()->find($id);
+    }
+
 }
