@@ -81,6 +81,7 @@ class SaveBlockVueCRUDRequest extends VueCRUDRequestBase
     {
         $result = [
             'internal_name' => $this->input('internal_name'),
+            'widthtype' => $this->input('widthtype'),
             'page_id' => $this->input('page_id'),
             'blocktype_id' => $this->input('blocktype_id'),
             'text_color' => $this->input('text_color'),

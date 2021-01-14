@@ -8,6 +8,7 @@ use App\BlockLayouts\TextImageListCollectionBlockLayout;
 use App\BlockLayouts\TextImageListLayout;
 use App\BlockStyledefinition;
 use App\Helpers\BackgroundColorType;
+use App\Helpers\Widthtype;
 use App\Models\Block;
 use App\Models\BlockType;
 use App\Models\IHasItemsContainer;
@@ -88,6 +89,14 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
             ->setMandatory(true)
             ->setStep(2)
             ->setGroup(__('Miscellaneous'))
+            ->setContainerClass('w-full');
+        $result['widthtype'] = (new SelectVueCRUDFormfield())
+            ->setLabel('Width')
+            ->setMandatory(true)
+            ->setStep(2)
+            ->setGroup(__('Formatting'))
+            ->setValuesetClass(Widthtype::class)
+            ->setDefault(Widthtype::CENTERED_ID)
             ->setContainerClass('w-full');
         $result['text_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Text color')

@@ -4,6 +4,7 @@
 namespace App;
 
 
+use App\Helpers\Widthtype;
 use App\Models\Block;
 use App\Models\BlockType;
 use App\Models\Positioning;

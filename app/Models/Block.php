@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Visibility;
+use App\Helpers\Widthtype;
 use Datalytix\Translations\TranslatableModel;
 use Datalytix\VueCRUD\Indexfilters\SelectVueCRUDIndexfilter;
 use Datalytix\VueCRUD\Indexfilters\TextVueCRUDIndexfilter;
@@ -37,6 +38,7 @@ class Block extends TranslatableModel
         'button_hover_text_color',
         'should_open_button_url_in_new_window',
         'internal_name',
+        'widthtype',
     ];
 
     protected $with = ['blocktype'];
@@ -179,7 +181,11 @@ class Block extends TranslatableModel
 
     public function getBlockCSSName()
     {
-        return 'bl-' . $this->id . '-';
+        $result = 'bl-' . $this->id . '-';
+        if ($this->widthtype == Widthtype::FULL_ID) {
+            $result .= ' roadblock';
+        }
+        return $result;
     }
 
     public function getItemsLinkAttribute()
