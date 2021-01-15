@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BlockCopyController;
 use App\Http\Controllers\BlockVisibilityController;
+use App\Http\Controllers\CampaignRegistrationController;
 use App\Http\Controllers\PublicMainController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,5 +57,6 @@ Route::middleware(['auth', 'signed'])->group(function() {
 });
 
 Route::get('/', [PublicMainController::class, 'index'])->name('public_index');
-
+Route::view('/f', 'wlt');
+//Route::post('/wlt', [CampaignRegistrationController::class, 'register'])->name('campaign_registration');
 \App\Models\Page::setRoutes();
