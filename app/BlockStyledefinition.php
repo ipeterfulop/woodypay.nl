@@ -88,6 +88,12 @@ class BlockStyledefinition
     {
         $blockClassname = $block->getBlockCSSName();
         $result = [];
+        if ($block->widthtype == Widthtype::FULL_ID) {
+            $result[$blockClassname.'container'] = self::removeEmptyDefinitions([
+                'background-color' => $block->background_color,
+                'background' => $block->background_gradient,
+            ]);
+        }
         $result[$blockClassname] = self::removeEmptyDefinitions([
             'color' => $block->text_color,
             'background-color' => $block->background_color,

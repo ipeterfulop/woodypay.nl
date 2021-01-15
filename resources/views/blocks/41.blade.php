@@ -1,4 +1,3 @@
-<div class="w-full max-width-container flex items-start justify-center">
     <div class="flex flex-col items-start justify-start py-32 px-4  {{ $block->getBlockCSSName() }} {{ $block->blocktype->getCSSName() }}" style="background-size: cover">
         <h1 class="w-full text-center px-2 lg:px-16  text-3xl lg:text-5xl" style="">{!! $block->getItemsContainer()->title_translated !!}</h1>
         <div class="py-4 px-8 lg:px-48 text-center lg:text-left">{!! $block->getItemsContainer()->content_translated !!}</div>
@@ -16,4 +15,3 @@
             @endforeach
         </div>
     </div>
-</div>

@@ -1,6 +1,4 @@
-<style>{!! \App\BlockStyledefinition::getCSSClasses($block) !!}</style>
-<div class="w-full max-width-container flex items-start justify-center">
-    <div class="flex flex-col-reverse @if($block->positioning->code == 'left') md:flex-row-reverse @else md:flex-row @endif  w-full justify-between  {{ $block->getBlockCSSName() }}"  style="background-size: cover">
+    <div class="flex flex-col-reverse @if($block->positioning->code == 'left') md:flex-row-reverse @else md:flex-row @endif  w-full justify-between  {{ $block->getBlockCSSName() }}  {{ $block->blocktype->getCSSName() }}"  style="background-size: cover">
         <div class="w-full md:w-1/2 flex flex-col items-start justify-center pb-16 pt-2 lg:py-64 px-2 lg:px-32">
             <h1 class="w-full text-center lg:text-left text-3xl lg:text-5xl" style="">{!! $block->title_translated !!}</h1>
             <div class="py-8 leading-6">{!! $block->content_translated !!}</div>
@@ -18,4 +16,3 @@
             </div>
         </div>
     </div>
-</div>

@@ -1,5 +1,4 @@
-<div class="w-full max-width-container flex items-start justify-center">
-    <div class="flex flex-col-reverse md:flex-row w-full justify-between {{ $block->getBlockCSSName() }}"   style="background-size: cover">
+    <div class="flex flex-col-reverse md:flex-row w-full justify-between {{ $block->getBlockCSSName() }} {{ $block->blocktype->getCSSName() }} "   style="background-size: cover">
         <div class="w-full flex flex-col items-start justify-start py-8 lg:py-32 px-4 lg:px-32">
             <h1 class="w-full text-left text-3xl lg:text-5xl" style="">{!! $block->getItemsContainer()->title_translated !!}</h1>
             <div class="py-4">{!! $block->getItemsContainer()->content_translated !!}</div>
@@ -26,7 +25,6 @@
             </div>
         </div>
     </div>
-</div>
 <script>
     function initAccordion{{ $block->id }}() {
         let container{{ $block->id }} = document.getElementById('list-{{ $block->id }}-container')

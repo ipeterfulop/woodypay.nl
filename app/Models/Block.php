@@ -181,11 +181,7 @@ class Block extends TranslatableModel
 
     public function getBlockCSSName()
     {
-        $result = 'bl-' . $this->id . '-';
-        if ($this->widthtype == Widthtype::FULL_ID) {
-            $result .= ' roadblock';
-        }
-        return $result;
+        return 'bl-' . $this->id . '-';
     }
 
     public function getItemsLinkAttribute()

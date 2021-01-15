@@ -26,7 +26,10 @@
         <a name="#block-{{ $block->id }}"></a>
         <div class="block-container block-{{ $block->blocktype_id }}-container"
         >
-            @includeIf('blocks.'.$block->getLayoutName(), ['block' => $block])
+            <div class="w-full max-width-container flex items-start justify-center {{ $block->getBlockCSSName() }}container ">
+                @includeIf('blocks.'.$block->getLayoutName(), ['block' => $block])
+
+            </div>
         </div>
     @endforeach
 @endsection
