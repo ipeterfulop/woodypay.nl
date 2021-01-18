@@ -23,7 +23,7 @@
         <div class="block-container mt-64" style="background-color: white"
         >
             <div class="w-full max-width-container flex items-start justify-center container ">
-                <form method="post" class="flex flex-row items-start justify-start">
+                <form method="post" class="flex flex-row items-start justify-start" >
                     @csrf
                     <div class="form-slide" style="width: 100%" data-step="1">
                         <div class="flex items-start justify-start flex-col p-4">
@@ -54,10 +54,18 @@
             </div>
         </div>
     <script>
-        function proceedTo(index) {
+        function getStep(index) {
             let prev = (index - 1).toString();
-            document.querySelector('.form-slide[data-step="'+prev+'"]').style.width = '0px';
-            document.querySelector('.form-slide[data-step="'+prev+'"]').style.opacity = '0';
+            let prevSlide = document.querySelector('.form-slide[data-step="'+prev+'"]');
+            if (prevSlide != null) {
+                prevSlide.style.width = '0px';
+                prevSlide.style.opacity = '0';
+            }
+            let slide = document.createElement('div');
+            slide.classList.add('form-slide');
+            slide.style.width = '0px';
+            slide.setAttribute('data-step', index);
+
             document.querySelector('.form-slide[data-step="'+index.toString()+'"]').style.width = '100%';
         }
     </script>

@@ -8,6 +8,7 @@ use App\Models\BlockType;
 use App\Models\CTABlock;
 use App\Models\FooterBlock;
 use App\Models\HeroBlock;
+use App\Models\SignupBlock;
 use App\Models\SimpleTextImageBlock;
 use App\Models\TestimonialBlock;
 use App\Models\TextImageCollectionList;

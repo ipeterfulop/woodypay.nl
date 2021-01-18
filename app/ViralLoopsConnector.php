@@ -10,30 +10,33 @@ class ViralLoopsConnector
     const REGISTRATION_URL = 'https://app.viral-loops.com/api/v2/events';
     const VL_GDPR_CONSENT_ID = 2;
 
-    public function __construct()
+    public function __construct($apiToken)
     {
-        $this->apiToken = config('services.viralLoops.token');
+        $this->apiToken = $apiToken;
     }
 
-    public function register($firstname, $lastname, $email, $referralCode = null, $referralSource = null)
+    public function register(ViralLoopsSignup $signup)
     {
         $data = [
             'apiToken' => $this->apiToken,
             'params' => [
                 'event' => 'registration',
                 'user' => [
-                    'firstname' => $firstname,
-                    'lastname' => $lastname,
-                    'email' => $email,
-                    'consents' => [static::VL_GDPR_CONSENT_ID],
+                    'firstname' => $signup->getFirstname(),
+                    'lastname' => $signup->getLastname(),
+                    'email' => $signup->getEmail(),
+                    'consents' => [static::VL_GDPR_CONSENT_ID => true],
                 ]
             ]
         ];
-        if ($referralCode != null) {
-            $data['params']['referrer'] = ['referralCode' => $referralCode];
+        if (count($signup->getAdditionalData()) > 0) {
+            $data['params']['user']['extraData'] = $signup->getAdditionalData();
         }
-        if ($referralSource != null) {
-            $data['params']['refSource'] = $referralSource;
+        if ($signup->getReferralCode() != null) {
+            $data['params']['referrer'] = ['referralCode' => $signup->getReferralCode()];
+        }
+        if ($signup->getReferralSource() != null) {
+            $data['params']['refSource'] = $signup->getReferralSource();
         }
         $response = $this->postRequest(self::REGISTRATION_URL, $data);
         if ($response->successful()) {

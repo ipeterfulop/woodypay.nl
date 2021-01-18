@@ -57,6 +57,6 @@ Route::middleware(['auth', 'signed'])->group(function() {
 });
 
 Route::get('/', [PublicMainController::class, 'index'])->name('public_index');
-Route::view('/f', 'wlt');
-//Route::post('/wlt', [CampaignRegistrationController::class, 'register'])->name('campaign_registration');
+Route::get('/f', [CampaignRegistrationController::class, 'index']);
+Route::post('/wlt', [CampaignRegistrationController::class, 'endpoint'])->name('campaign_registration_endpoint');
 \App\Models\Page::setRoutes();
