@@ -23,7 +23,7 @@
         <div class="block-container mt-64" style="background-color: white"
         >
             <div class="w-full max-width-container flex items-start justify-center container ">
-                <form method="post" class="flex flex-row items-start justify-start" >
+                <form method="post" class="flex flex-row items-start justify-start" id="{{ $formId }}">
                     @csrf
                     <div class="form-slide" style="width: 100%" data-step="1">
                         <div class="flex items-start justify-start flex-col p-4">
@@ -56,17 +56,40 @@
     <script>
         function getStep(index) {
             let prev = (index - 1).toString();
+            let form = document.getElementById('{{ $formId }}');
             let prevSlide = document.querySelector('.form-slide[data-step="'+prev+'"]');
             if (prevSlide != null) {
                 prevSlide.style.width = '0px';
                 prevSlide.style.opacity = '0';
             }
-            let slide = document.createElement('div');
-            slide.classList.add('form-slide');
-            slide.style.width = '0px';
-            slide.setAttribute('data-step', index);
+            let formdata = {};
+            Array.from(form.querySelectorAll('multipart-formelement')).forEach((item) => {
+                formdata[item.id] = item.value;
+            })
+            formdata['step'] = index;
+            fetch('{{ $endpoint }}', {
+                method: 'POST',
+                mode: 'same-origin',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                body: JSON.stringify(formdata),
+            }).then((response) => {
+                if (response.status == 200) {
+                    response.text().then((text) => {
+                        let slide = document.createElement('div');
+                        slide.classList.add('form-slide');
+                        slide.style.width = '0px';
+                        slide.setAttribute('data-step', index);
+                        slide.innerHTML = text;
+                        form.appendChild(slide);
+                        slide.style.width = '100%';
+                    })
+                }
 
+            })
             document.querySelector('.form-slide[data-step="'+index.toString()+'"]').style.width = '100%';
         }
+
+        getStep(1);
     </script>
 @endsection

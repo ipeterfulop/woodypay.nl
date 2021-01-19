@@ -17,6 +17,7 @@ class CampaignRegistrationController extends Controller
     {
         return view($this->view, [
             'form' => $this->getForm(),
+            'formId' => 'registerform',
             'step' => 1,
             'endpoint' => route($this->routeName)
         ]);
