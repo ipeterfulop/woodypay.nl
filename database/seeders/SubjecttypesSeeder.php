@@ -28,6 +28,8 @@ class SubjecttypesSeeder extends Seeder
             ['id' => 5, 'name' => Positioning::class],
             ['id' => 10, 'name' => Spacing::class],
             ['id' => 11, 'name' => TextImageCollectionList::class],
+            ['id' => 101, 'name' => Datatype::class],
+
         ];
 
         foreach ($dataset as $row) {
