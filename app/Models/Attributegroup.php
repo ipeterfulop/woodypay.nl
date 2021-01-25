@@ -10,7 +10,7 @@ class Attributegroup extends TranslatableModel
 {
     use HasFactory;
 
-    const SUBJECTTYPE_ID = 101;
+    const SUBJECTTYPE_ID = 102;
 
     protected $fillable = [
         'id',

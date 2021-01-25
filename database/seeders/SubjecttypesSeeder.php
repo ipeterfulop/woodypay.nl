@@ -9,6 +9,9 @@ use App\Models\Spacing;
 use App\Models\TextImageCollectionList;
 use App\Models\TextImageList;
 use Illuminate\Database\Seeder;
+use App\Models\Datatype;
+use App\Models\Attributegroup;
+
 
 class SubjecttypesSeeder extends Seeder
 {
@@ -28,7 +31,8 @@ class SubjecttypesSeeder extends Seeder
             ['id' => 5, 'name' => Positioning::class],
             ['id' => 10, 'name' => Spacing::class],
             ['id' => 11, 'name' => TextImageCollectionList::class],
-            ['id' => 101, 'name' => Datatype::class],
+            ['id' => Datatype::SUBJECTTYPE_ID, 'name' => Datatype::class],
+            ['id' => Attributegroup::SUBJECTTYPE_ID, 'name' => Attributegroup::class],
 
         ];
 

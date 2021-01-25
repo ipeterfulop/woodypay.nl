@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Helpers\Productfamily;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
