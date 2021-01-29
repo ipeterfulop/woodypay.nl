@@ -25,8 +25,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton('Translation', function() {
-            return new App\Model\Translation();
+            return new App\Models\Translation();
         });
+        app()->bind('translation', \App\Models\Translation::class);
         \View::composer('admin.*', AdminMenuViewComposer::class);
     }
 }
