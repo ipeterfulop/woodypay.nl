@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\DatabaseSeedingAction;
 use App\Models\Attributegroup;
+use App\Models\AttributeValue;
 use App\Models\Datatype;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -276,16 +277,21 @@ class AttributeSeeder extends Seeder
         ];
 
         $table = 'attribute_values';
-        $fieldsToUse = array_keys($attributesValuesDataset[0]);
+        $fieldsToUse = array_diff(array_keys($attributesValuesDataset[0]), ['translations']);
 
         foreach ($attributesValuesDataset as $attributeValueRow) {
             $dataRow = collect($attributeValueRow)->only($fieldsToUse)->all();
             DatabaseSeedingAction::insertOrUpdateRecord($table, $dataRow);
             if (array_key_exists('translations', $attributeValueRow)) {
                 $j = 0;
-                foreach ($attributeValueRow['translations'] as &$translationDataSet) {
-                    $translationDataSet['id'] = $attributeValueRow['id'] * 100 + (++$j);
-                    $translationDataSet['key'] = $attributeValueRow['id'] * 100 + (++$j);
+                foreach ($attributeValueRow['translations'] as &$translationRow) {
+                    $translationId = $attributeValueRow['id'] * 100 + (++$j);
+                    $translationRow['id'] = $translationId;
+                    $translationRow['key'] = $translationId
+                        . '-' . AttributeValue::SUBJECTTYPE_ID .
+                        '-' . $translationRow['field'];
+                    $translationRow['subjecttype_id'] = AttributeValue::SUBJECTTYPE_ID;
+                    DatabaseSeedingAction::insertOrUpdateRecord('translations', $translationRow);
                 }
             }
         }
