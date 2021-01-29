@@ -7,7 +7,6 @@ namespace App;
 class MultiStepForm
 {
     protected $steps = [];
-    const FINAL_STEP_IDENTIFIER = 'final';
 
     public function __construct($steps, $requestData)
     {
@@ -17,9 +16,12 @@ class MultiStepForm
 
     protected function setFormDataFromRequestData($requestData)
     {
-        foreach ($this->steps as $step => $fields) {
-            foreach ($fields as $field => &$data) {
-                $data['value'] = isset($requestData[$field]) ? $requestData[$field] : null;
+        foreach ($this->steps as $step) {
+            foreach ($step->fields as $field => $data) {
+                $step->setValue(
+                    $field,
+                    isset($requestData[$field]) ? $requestData[$field] : $step->getDefaultFieldValue($field)
+                );
             }
         }
 
@@ -28,7 +30,7 @@ class MultiStepForm
 
     public function getStepValidator($step, $data)
     {
-        return \Validator::make($data, $this->steps[$step]['rules'], $this->steps[$step]['messages']);
+        return \Validator::make($data, $this->steps[$step]->getRules(), $this->steps[$step]->getMessages());
     }
 
     public function stepExists($step)
@@ -36,18 +38,25 @@ class MultiStepForm
         return isset($this->steps[$step]);
     }
 
+    public function stepValid($step)
+    {
+        return isset($this->steps[$step]) || $step == count($this->steps) + 1;
+    }
+
     public function isStepFinal($step)
     {
-        return $step == self::FINAL_STEP_IDENTIFIER;
+        return count($this->steps) == $step - 1;
     }
 
     public function upcomingStep($currentStep)
     {
         $next = intval($currentStep) + 1;
-        if (!$this->stepExists($next)) {
-            return self::FINAL_STEP_IDENTIFIER;
-        }
 
         return $next;
+    }
+
+    public function getStep($index)
+    {
+        return $this->steps[$index];
     }
 }
