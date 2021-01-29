@@ -20,6 +20,7 @@ class AttributeSeeder extends Seeder
         $this->addOrUpdateDatatypes();
         $this->addOrUpdateAttributeGroups();
         $this->addOrUpdateAttributes();
+        $this->addOrUpdateAttributeValues();
     }
 
     private function addOrUpdateDatatypes()
@@ -130,7 +131,7 @@ class AttributeSeeder extends Seeder
             [
                 'id'                => 1,
                 'name'              => 'header_height',
-                'label'             => 'Height',
+                'label'             => 'Height in pixels',
                 'datatype_id'       => Datatype::INTEGER_ID,
                 'is_translatable'   => 0,
                 'attributegroup_id' => 1,
@@ -151,13 +152,142 @@ class AttributeSeeder extends Seeder
                 'is_translatable'   => 1,
                 'attributegroup_id' => 1,
             ],
+
+            [
+                'id'                => 4,
+                'name'              => 'registration_title',
+                'label'             => 'Title',
+                'datatype_id'       => Datatype::STRING_ID,
+                'is_translatable'   => 1,
+                'attributegroup_id' => 2,
+            ],
+            [
+                'id'                => 5,
+                'name'              => 'registration_description',
+                'label'             => 'Description',
+                'datatype_id'       => Datatype::TEXT_ID,
+                'is_translatable'   => 1,
+                'attributegroup_id' => 2,
+            ],
+            [
+                'id'                => 6,
+                'name'              => 'registration_background_color',
+                'label'             => 'Background color',
+                'datatype_id'       => Datatype::COLOR_ID,
+                'is_translatable'   => 1,
+                'attributegroup_id' => 2,
+            ],
+
+
         ];
         $table = 'attributes';
+        $attributesDataset[0]['created_at'] = Carbon::now();
+        $attributesDataset[0]['updated_at'] = Carbon::now();
+
         $fieldsToUse = array_keys($attributesDataset[0]);
 
-        foreach ($attributesDataset as $attributeRow) {
+        foreach ($attributesDataset as &$attributeRow) {
+            $attributeRow['created_at'] = Carbon::now();
+            $attributeRow['updated_at'] = Carbon::now();
             $dataRow = collect($attributeRow)->only($fieldsToUse)->all();
             DatabaseSeedingAction::insertOrUpdateRecord($table, $dataRow);
+        }
+    }
+
+    private function addOrUpdateAttributeValues()
+    {
+        $attributesValuesDataset = [
+            [
+                'id'                           => 1001,
+                'attribute_id'                 => 1,
+                'attribute_value_set_value_id' => null,
+                'custom_value'                 => '56',
+                'created_at'                   => Carbon::now(),
+                'updated_at'                   => Carbon::now(),
+            ],
+            [
+                'id'                           => 1002,
+                'attribute_id'                 => 2,
+                'attribute_value_set_value_id' => null,
+                'custom_value'                 => 'rgba(13, 7, 48, 1)',
+                'created_at'                   => Carbon::now(),
+                'updated_at'                   => Carbon::now(),
+            ],
+            [
+                'id'                           => 1002,
+                'attribute_id'                 => 2,
+                'attribute_value_set_value_id' => null,
+                'custom_value'                 => 'rgba(13, 7, 48, 1)',
+                'created_at'                   => Carbon::now(),
+                'updated_at'                   => Carbon::now(),
+            ],
+            [
+                'id'                           => 1003,
+                'attribute_id'                 => 3,
+                'attribute_value_set_value_id' => null,
+                'custom_value'                 => '/media/sample_logo.svg',
+                'created_at'                   => Carbon::now(),
+                'updated_at'                   => Carbon::now(),
+                'translations'                 => [
+                    ['field' => 'custom_value', 'locale_id' => 'en', 'translation' => '/media/sample_logo.svg'],
+                    ['field' => 'custom_value', 'locale_id' => 'nl', 'translation' => '/media/sample_logo.svg'],
+                ],
+            ],
+            [
+                'id'                           => 1004,
+                'attribute_id'                 => 4,
+                'attribute_value_set_value_id' => null,
+                'custom_value'                 => 'Registration form | Woodypay',
+                'created_at'                   => Carbon::now(),
+                'updated_at'                   => Carbon::now(),
+                'translations'                 => [
+                    ['field' => 'custom_value', 'locale_id' => 'en', 'translation' => 'Registration form | Woodypay'],
+                    ['field' => 'custom_value', 'locale_id' => 'nl', 'translation' => 'Inschrijfformulier | Woodypay'],
+                ],
+            ],
+            [
+                'id'                           => 1005,
+                'attribute_id'                 => 5,
+                'attribute_value_set_value_id' => null,
+                'custom_value'                 => 'Please fill in the fields below to get all the news about Woodypay services',
+                'created_at'                   => Carbon::now(),
+                'updated_at'                   => Carbon::now(),
+                'translations'                 => [
+                    [
+                        'field'       => 'custom_value',
+                        'locale_id'   => 'en',
+                        'translation' => 'Please fill in the fields below to get all the news about Woodypay services',
+                    ],
+                    [
+                        'field'       => 'custom_value',
+                        'locale_id'   => 'nl',
+                        'translation' => 'Vul de onderstaande velden in om al het nieuws over Woodypay-services te ontvangen',
+                    ],
+                ],
+            ],
+            [
+                'id'                           => 1006,
+                'attribute_id'                 => 6,
+                'attribute_value_set_value_id' => null,
+                'custom_value'                 => 'rgba(22, 64, 64, 1)',
+                'created_at'                   => Carbon::now(),
+                'updated_at'                   => Carbon::now(),
+            ],
+        ];
+
+        $table = 'attribute_values';
+        $fieldsToUse = array_keys($attributesValuesDataset[0]);
+
+        foreach ($attributesValuesDataset as $attributeValueRow) {
+            $dataRow = collect($attributeValueRow)->only($fieldsToUse)->all();
+            DatabaseSeedingAction::insertOrUpdateRecord($table, $dataRow);
+            if (array_key_exists('translations', $attributeValueRow)) {
+                $j = 0;
+                foreach ($attributeValueRow['translations'] as &$translationDataSet) {
+                    $translationDataSet['id'] = $attributeValueRow['id'] * 100 + (++$j);
+                    $translationDataSet['key'] = $attributeValueRow['id'] * 100 + (++$j);
+                }
+            }
         }
     }
 

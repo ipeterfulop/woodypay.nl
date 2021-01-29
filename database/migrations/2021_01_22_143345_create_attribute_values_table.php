@@ -17,10 +17,13 @@ class CreateAttributeValuesTable extends Migration
             'attribute_values',
             function (Blueprint $table) {
                 $table->id();
+                $table->foreignId('attribute_id')
+                      ->constrained()
+                      ->unique();
                 $table->foreignId('attribute_value_set_value_id')
-                      ->constrained('attribute_value_set_values', 'id')
                       ->nullable()
-                      ->default(null);
+                      ->default(null)
+                      ->constrained('attribute_value_set_values', 'id');
                 $table->text('custom_value')->nullable()->default(null);
                 $table->timestamps();
             }
