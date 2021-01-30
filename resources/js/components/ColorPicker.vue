@@ -55,7 +55,7 @@
                             r: parseInt(value.substr(1, 2), 16),
                             g: parseInt(value.substr(3, 2), 16),
                             b: parseInt(value.substr(5, 2), 16),
-                            a: 1,
+                            a: this.colorData['a'] || 1,
                             v: '',
                         }
                     }
@@ -74,7 +74,7 @@
                             r: parseInt(pieces[0]),
                             g: parseInt(pieces[1]),
                             b: parseInt(pieces[2]),
-                            a: 1,
+                            a: this.colorData['a'] || 1,
                         }
                     }
                 }
@@ -100,7 +100,7 @@
                 })
             },
             rgbaString: function() {
-                if (this.colorData.v == 'auto') {
+                if ((this.colorData['v']) && (this.colorData.v == 'auto')) {
                     return 'auto';
                 }
                 return 'rgba('
@@ -114,13 +114,13 @@
                     +')';
             },
             hexString: function() {
-                if (this.colorData.v == 'auto') {
+                if ((this.colorData['v']) && (this.colorData.v == 'auto')) {
                     return 'auto';
                 }
                 return '#'
-                    +this.colorData.r.toString(16)
-                    +this.colorData.g.toString(16)
-                    +this.colorData.b.toString(16);
+                    +this.colorData.r.toString(16).padStart(2, '0')
+                    +this.colorData.g.toString(16).padStart(2, '0')
+                    +this.colorData.b.toString(16).padStart(2, '0');
             },
             valueToEmit: function() {
                 if (this.mode == 'rgba') {

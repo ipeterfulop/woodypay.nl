@@ -82,22 +82,22 @@ class AttributeSeeder extends Seeder
                     ],
                 ],
             ],
-            [
-                'id'            => 2,
-                'name'          => 'Registration pages (Viral loop)',
-                'variable_name' => 'registration_form',
-                'description'   => 'Settings for the registration pages',
-                'translations'  => [
-                    'en' => [
-                        'name'        => 'Registration pages (Viral loop)',
-                        'description' => 'Settings for the registration pages',
-                    ],
-                    'nl' => [
-                        'name'        => 'Inschrijfformulier (virale lus)',
-                        'description' => 'Instellingen voor de registratiepagina\'s',
-                    ],
-                ],
-            ],
+//            [
+//                'id'            => 2,
+//                'name'          => 'Registration pages (Viral loop)',
+//                'variable_name' => 'registration_form',
+//                'description'   => 'Settings for the registration pages',
+//                'translations'  => [
+//                    'en' => [
+//                        'name'        => 'Registration pages (Viral loop)',
+//                        'description' => 'Settings for the registration pages',
+//                    ],
+//                    'nl' => [
+//                        'name'        => 'Inschrijfformulier (virale lus)',
+//                        'description' => 'Instellingen voor de registratiepagina\'s',
+//                    ],
+//                ],
+//            ],
         ];
 
         $table = 'attributegroups';
@@ -291,6 +291,7 @@ class AttributeSeeder extends Seeder
                         . '-' . AttributeValue::SUBJECTTYPE_ID .
                         '-' . $translationRow['field'];
                     $translationRow['subjecttype_id'] = AttributeValue::SUBJECTTYPE_ID;
+                    $translationRow['subject_id'] = $attributeValueRow['id'];
                     DatabaseSeedingAction::insertOrUpdateRecord('translations', $translationRow);
                 }
             }

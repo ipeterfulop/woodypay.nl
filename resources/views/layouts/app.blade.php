@@ -1,3 +1,4 @@
+@php($siteSettings = \App\Helpers\SiteSettingsFactory::getSiteSettings())
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -32,10 +33,12 @@
 <body>
     <div x-data="{showMenu: false}">
         @if((!isset($showHeader)) || ($showHeader))
-            <div  class="bg-gray-100 w-full max-width-container flex items-stretch justify-center z-40 fixed top-0 left-0 h-14 topmenu"  id="topmenu">
+            <div  class="w-full max-width-container flex items-stretch justify-center z-40 fixed top-0 left-0 topmenu"
+                  style="height: {{ $siteSettings['page_header.header_height'] }}px; background-color: {{ $siteSettings['page_header.header_background_color'] }}"
+                  id="topmenu">
                 <div class="w-full flex flex-row items-center justify-between self-stretch">
                     <a href="/" class="self-stretch ml-2 lg:ml-0">
-                        <img src="/images/assets/sample_logo.svg" class="self-stretch h-full" style="min-width: 8rem">
+                        <img src="{{ $siteSettings['page_header.header_logo'] }}" class="self-stretch h-full" style="min-width: 8rem">
                     </a>
                     <div class="mr-6 ml-auto">
                         @foreach(\App\Models\Locale::all() as $locale)

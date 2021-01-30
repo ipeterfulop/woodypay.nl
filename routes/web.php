@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminMainController;
+use App\Http\Controllers\AttributegroupsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -40,9 +41,12 @@ Route::middleware(['auth', 'can:access-admin'])->group(function() {
         \App\Models\Block::setVueCRUDRoutes();
         \App\Models\TextImageItem::setVueCRUDRoutes();
         \App\Models\CollectionTextImageList::setVueCRUDRoutes();
+        \App\Models\Attributegroup::setVueCRUDRoutes();
 
         Route::post('/blocks/visibility', [BlockVisibilityController::class, 'update'])->name('block_visibility_endpoint');
         Route::post('/blocks/copy', [BlockCopyController::class, 'copy'])->name('copy_block_endpoint');
+
+        Route::post('/attributegroups', [AttributegroupsController::class, 'operations'])->name('attributegroups_endpoint');
     });
 });
 Route::middleware(['auth'])->group(function() {
@@ -57,8 +61,8 @@ Route::middleware(['auth', 'signed'])->group(function() {
 });
 
 Route::get('/', [PublicMainController::class, 'index'])->name('public_index');
-Route::get('/f', [CampaignRegistrationController::class, 'index']);
-Route::view('/t', 'welcome');
-Route::post('/t', [CampaignRegistrationController::class, 'test']);
-Route::post('/wlt', [CampaignRegistrationController::class, 'endpoint'])->name('campaign_registration_endpoint');
+//Route::get('/f', [CampaignRegistrationController::class, 'index']);
+//Route::view('/t', 'welcome');
+//Route::post('/t', [CampaignRegistrationController::class, 'test']);
+//Route::post('/wlt', [CampaignRegistrationController::class, 'endpoint'])->name('campaign_registration_endpoint');
 \App\Models\Page::setRoutes();

@@ -1,4 +1,4 @@
-<div class="flex items-center justify-start flex-col p-4 form-slide" data-step="{{ $currentStep }}">
+<div class="flex items-center justify-start flex-col p-4 form-slide flex-shrink-0" data-step="{{ $currentStep }}">
     <h2 class="text-center w-full font-bold text-2xl">{{ $step->title }}</h2>
     <p class="text-center my-4">{{ $step->description }}</p>
     @foreach($step->fields as $field => $data)

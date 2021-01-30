@@ -35,6 +35,18 @@ class AdminMenuSeeder extends MenuitemsSeederBase
                 'menuitemtype_id'  => 2,
                 'tag'              => null
             ],
+            3 => [
+                'position'         => ++$position,
+                'label'            => __('Settings'),
+                'parent_id'        => null,
+                'url'              => null,
+                'routename'        => 'vuecrud_attributegroup_index',
+                'iconclass'        => 'document',
+                'custom_view_name' => null,
+                'user_gate'        => 'access-admin',
+                'menuitemtype_id'  => 2,
+                'tag'              => null
+            ],
         ];
 
         return $dataset;

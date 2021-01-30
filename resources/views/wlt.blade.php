@@ -16,14 +16,14 @@
             flex-grow: 1;
         }
         .form-slide {
-            overflow-x: hidden;
-            transition: width 300ms ease-in-out, opacity 300ms ease-in-out;
+            overflow: hidden;
+            transition: width 300ms ease-in-out, opacity 300ms ease-in-out, height 300ms ease-in-out;
         }
     </style>
         <div class="block-container mt-64" style="background-color: white"
         >
-            <div class="w-full max-width-container flex items-start justify-center container ">
-                <div class="flex flex-row items-start justify-start" id="{{ $formId }}">
+            <div class="w-full max-width-container flex items-start justify-center container overflow-x-hidden ">
+                <div class="flex flex-row items-start justify-start w-full" style="max-width: 100%; overflow-x: hidden" id="{{ $formId }}">
                 </div>
             </div>
         </div>
@@ -60,17 +60,17 @@
                 if (response.status == 200) {
                     response.text().then((text) => {
                         let slide = document.createElement('div');
-                        slide.classList.add('form-slide');
+                        slide.classList.add('form-slide', 'flex-shrink-0', 'w-full');
                         slide.style.width = '0px';
                         slide.setAttribute('data-step', index);
                         slide.innerHTML = text;
                         form.appendChild(slide);
-                        slide.style.width = '100%';
                         if (prevSlide != null) {
                             prevSlide.style.height = '0px';
                             prevSlide.style.opacity = '0';
                             prevSlide.style.width = '0px';
                         }
+                        slide.style.width = '100%';
                     })
                 }
                 if (response.status == 422) {

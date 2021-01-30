@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,12 +17,29 @@ class Attribute extends Model
         'label',
         'created_at',
         'updated_at',
+        'is_translatable'
     ];
 
+    public function attributevalue()
+    {
+        return $this->hasOne(AttributeValue::class)->withAllTranslations();
+    }
 
     public function attribute_value_set()
     {
         return $this->belongsTo(AttributeValueSet::class);
+    }
+
+    public function getActualValueAttribute()
+    {
+        if ($this->attributevalue->attribute_value_set_value_id != null) {
+            return $this->attributevalue->attributevaluesetvalue->value;
+        }
+
+        return $this->is_translatable
+            ? $this->attributevalue->custom_value_translated
+            : $this->attributevalue->custom_value;
+
     }
 
     /**
@@ -73,6 +90,11 @@ class Attribute extends Model
                                      ->where('label', $label)
                                      ->get()
                                      ->first();
+    }
+
+    public function scopeForGroup($query, $attributegroupId)
+    {
+        return $query->where('attributegroup_id', '=', $attributegroupId);
     }
 
 }
