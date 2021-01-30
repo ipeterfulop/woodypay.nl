@@ -154,30 +154,30 @@ class AttributeSeeder extends Seeder
                 'attributegroup_id' => 1,
             ],
 
-            [
-                'id'                => 4,
-                'name'              => 'registration_title',
-                'label'             => 'Title',
-                'datatype_id'       => Datatype::STRING_ID,
-                'is_translatable'   => 1,
-                'attributegroup_id' => 2,
-            ],
-            [
-                'id'                => 5,
-                'name'              => 'registration_description',
-                'label'             => 'Description',
-                'datatype_id'       => Datatype::TEXT_ID,
-                'is_translatable'   => 1,
-                'attributegroup_id' => 2,
-            ],
-            [
-                'id'                => 6,
-                'name'              => 'registration_background_color',
-                'label'             => 'Background color',
-                'datatype_id'       => Datatype::COLOR_ID,
-                'is_translatable'   => 1,
-                'attributegroup_id' => 2,
-            ],
+//            [
+//                'id'                => 4,
+//                'name'              => 'registration_title',
+//                'label'             => 'Title',
+//                'datatype_id'       => Datatype::STRING_ID,
+//                'is_translatable'   => 1,
+//                'attributegroup_id' => 2,
+//            ],
+//            [
+//                'id'                => 5,
+//                'name'              => 'registration_description',
+//                'label'             => 'Description',
+//                'datatype_id'       => Datatype::TEXT_ID,
+//                'is_translatable'   => 1,
+//                'attributegroup_id' => 2,
+//            ],
+//            [
+//                'id'                => 6,
+//                'name'              => 'registration_background_color',
+//                'label'             => 'Background color',
+//                'datatype_id'       => Datatype::COLOR_ID,
+//                'is_translatable'   => 1,
+//                'attributegroup_id' => 2,
+//            ],
 
 
         ];
@@ -234,46 +234,46 @@ class AttributeSeeder extends Seeder
                     ['field' => 'custom_value', 'locale_id' => 'nl', 'translation' => '/media/sample_logo.svg'],
                 ],
             ],
-            [
-                'id'                           => 1004,
-                'attribute_id'                 => 4,
-                'attribute_value_set_value_id' => null,
-                'custom_value'                 => 'Registration form | Woodypay',
-                'created_at'                   => Carbon::now(),
-                'updated_at'                   => Carbon::now(),
-                'translations'                 => [
-                    ['field' => 'custom_value', 'locale_id' => 'en', 'translation' => 'Registration form | Woodypay'],
-                    ['field' => 'custom_value', 'locale_id' => 'nl', 'translation' => 'Inschrijfformulier | Woodypay'],
-                ],
-            ],
-            [
-                'id'                           => 1005,
-                'attribute_id'                 => 5,
-                'attribute_value_set_value_id' => null,
-                'custom_value'                 => 'Please fill in the fields below to get all the news about Woodypay services',
-                'created_at'                   => Carbon::now(),
-                'updated_at'                   => Carbon::now(),
-                'translations'                 => [
-                    [
-                        'field'       => 'custom_value',
-                        'locale_id'   => 'en',
-                        'translation' => 'Please fill in the fields below to get all the news about Woodypay services',
-                    ],
-                    [
-                        'field'       => 'custom_value',
-                        'locale_id'   => 'nl',
-                        'translation' => 'Vul de onderstaande velden in om al het nieuws over Woodypay-services te ontvangen',
-                    ],
-                ],
-            ],
-            [
-                'id'                           => 1006,
-                'attribute_id'                 => 6,
-                'attribute_value_set_value_id' => null,
-                'custom_value'                 => 'rgba(22, 64, 64, 1)',
-                'created_at'                   => Carbon::now(),
-                'updated_at'                   => Carbon::now(),
-            ],
+//            [
+//                'id'                           => 1004,
+//                'attribute_id'                 => 4,
+//                'attribute_value_set_value_id' => null,
+//                'custom_value'                 => 'Registration form | Woodypay',
+//                'created_at'                   => Carbon::now(),
+//                'updated_at'                   => Carbon::now(),
+//                'translations'                 => [
+//                    ['field' => 'custom_value', 'locale_id' => 'en', 'translation' => 'Registration form | Woodypay'],
+//                    ['field' => 'custom_value', 'locale_id' => 'nl', 'translation' => 'Inschrijfformulier | Woodypay'],
+//                ],
+//            ],
+//            [
+//                'id'                           => 1005,
+//                'attribute_id'                 => 5,
+//                'attribute_value_set_value_id' => null,
+//                'custom_value'                 => 'Please fill in the fields below to get all the news about Woodypay services',
+//                'created_at'                   => Carbon::now(),
+//                'updated_at'                   => Carbon::now(),
+//                'translations'                 => [
+//                    [
+//                        'field'       => 'custom_value',
+//                        'locale_id'   => 'en',
+//                        'translation' => 'Please fill in the fields below to get all the news about Woodypay services',
+//                    ],
+//                    [
+//                        'field'       => 'custom_value',
+//                        'locale_id'   => 'nl',
+//                        'translation' => 'Vul de onderstaande velden in om al het nieuws over Woodypay-services te ontvangen',
+//                    ],
+//                ],
+//            ],
+//            [
+//                'id'                           => 1006,
+//                'attribute_id'                 => 6,
+//                'attribute_value_set_value_id' => null,
+//                'custom_value'                 => 'rgba(22, 64, 64, 1)',
+//                'created_at'                   => Carbon::now(),
+//                'updated_at'                   => Carbon::now(),
+//            ],
         ];
 
         $table = 'attribute_values';
