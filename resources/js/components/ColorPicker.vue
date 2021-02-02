@@ -8,7 +8,7 @@
             <label v-html="translate('Transparency')+':'"></label>
             <input type="range" min="0" max="1" step="0.1" v-model="colorData.a">
         </div>
-        <select v-model="preset" v-on:change="updateInternalvalue" v-if="presets.length > 0">
+        <select v-model="preset" v-on:change="updateInternalvalue" v-if="presets.length > 0" class="form-control">
             <option value="-1" v-html="presetDefault"></option>
             <option v-for="preset in presets"
                     v-html="preset.label"

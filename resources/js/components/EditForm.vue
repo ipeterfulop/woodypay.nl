@@ -714,8 +714,10 @@
     .vuecrud-caret {
         height: 2rem;
         margin-right: .5rem;
-    }
-    .vuecrud-caret {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
         transition: transform 200ms ease-in-out;
         transform-origin: center;
     }

@@ -13,18 +13,18 @@
                                 <div style="width: 40%; display: flex; align-items: flex-start; justify-content: flex-start; flex-direction: column"
                                      v-html="attribute.label+locale.label"
                                      v-bind:class="{'text-danger': attribute.value == null || JSON.stringify(attribute.value) == '[]'}"></div>
-                                <div style="width: 59%;" :data-locale="locale.id">
+                                <div style="width: 59%; display: flex; align-items: center; justify-content: flex-end" :data-locale="locale.id">
                                     <template v-if="attribute.attribute_value_set == null">
                                         <input v-if="attribute.datatype_id == 1"
                                                v-model="attribute['value'+locale.id]"
                                                class="form-control"
                                                type="number"
-                                               style="width: 100%; text-align: right">
+                                               style="width: 100%; text-align: right; max-width: 7rem">
                                         <input v-if="attribute.datatype_id == 2"
                                                v-model="attribute['value'+locale.id]"
                                                class="form-control"
                                                type="number"
-                                               style="width: 100%; text-align: right">
+                                               style="width: 100%; text-align: right; max-width: 7rem">
                                         <input v-if="attribute.datatype_id == 3"
                                                v-model="attribute['value'+locale.id]"
                                                class="form-control"

@@ -111,6 +111,7 @@
     .image-picker-preview-container > img {
         height:6em;
         max-height:6em;
+        object-fit: contain;
     }
     .image-picker-browse-button {
         padding: 3px;

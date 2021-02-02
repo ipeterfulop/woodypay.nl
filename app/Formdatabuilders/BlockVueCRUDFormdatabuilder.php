@@ -73,7 +73,7 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
             }
             $groups[$field->getGroup()][] = $key;
         }
-        foreach (['', 'Miscellaneous', 'Content', 'Formatting'] as $g) {
+        foreach (['', 'Miscellaneous (click to open)', 'Content (click to open)', 'Formatting (click to open)'] as $g) {
             foreach ($groups[$g] as $key) {
                 $newResult[$key] = $result[$key];
             }
@@ -87,33 +87,33 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
             ->setLabel('Internal name')
             ->setMandatory(true)
             ->setStep(2)
-            ->setGroup(__('Miscellaneous'))
+            ->setGroup(__('Miscellaneous (click to open)'))
             ->setContainerClass('w-full');
         $result['widthtype'] = (new SelectVueCRUDFormfield())
             ->setLabel('Width')
             ->setMandatory(true)
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setValuesetClass(Widthtype::class)
             ->setDefault(Widthtype::CENTERED_ID)
             ->setContainerClass('w-full');
         $result['text_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Text color')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/2')
             ->setPresets(static::getApplicationColorPresets());
         $result['backgroundtype'] = (new SelectVueCRUDFormfield())
             ->setLabel('Background color type')
             ->setContainerClass('w-full')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setValuesetClass(BackgroundColorType::class)
             ->setDefault(BackgroundColorType::SOLID_ID);
         $result['background_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Background color')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/2')
             ->setPresets(static::getApplicationColorPresets());
         $result['second_background_color'] = (new ColorVueCRUDFormfield())
@@ -122,38 +122,38 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
             ])
             ->setLabel('Second background color (for gradients)')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/2')
             ->setPresets(static::getApplicationColorPresets());
         $result['should_open_button_url_in_new_window'] = (new YesNoSelectVueCRUDFormfield())
             ->setValuesetClass(YesNoValueset::class)
             ->setLabel('Open button URL in new window (if applicable)')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setDefault(0)
             ->setContainerClass('w-full');
         $result['button_background_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Button background color')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/4')
             ->setPresets(static::getApplicationColorPresets());
         $result['button_text_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Button text color')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/4')
             ->setPresets(static::getApplicationColorPresets());
         $result['button_hover_background_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Button background color (hover)')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/4')
             ->setPresets(static::getApplicationColorPresets());
         $result['button_hover_text_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Button text color (hover)')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/4')
             ->setPresets(static::getApplicationColorPresets());
 
@@ -182,32 +182,32 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $fields = [];
         $fields['background_image'] = (new ImagePickerVueCRUDFormfield())
             ->setLabel('Background image')
-            ->setGroup('Formatting')
+            ->setGroup('Formatting (click to open)')
             ->setContainerClass('w-full');
         $fields['background_image_positioning_id'] = (new SelectVueCRUDFormfield())
             ->setLabel('Background image positioning')
             ->setContainerClass('w-full')
-            ->setGroup('Formatting')
+            ->setGroup('Formatting (click to open)')
             ->setValuesetClass(Positioning::class)
             ->setValuesetGetter('getBackgroundPositioningOptions');
         foreach ($cache['locales'] as $locale) {
             $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
                 ->setLabel('Title ('.$locale->uppercase_id.')')
-                ->setGroup('Content')
+                ->setGroup('Content (click to open)')
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Content ('.$locale->uppercase_id.')')
-                ->setGroup('Content')
+                ->setGroup('Content (click to open)')
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('button_label')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button label ('.$locale->uppercase_id.')')
-                ->setGroup('Content')
+                ->setGroup('Content (click to open)')
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('button_url')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button URL ('.$locale->uppercase_id.')')
-                ->setGroup('Content')
+                ->setGroup('Content (click to open)')
                 ->setContainerClass('w-full');
 
             //->setConditions([['field' => 'projectsupport_type_id', 'value' => CreativeSolution::PROJECTSUPPORT_TYPE_ID]])
@@ -220,41 +220,41 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $fields = [];
         $fields['person_photo'] = (new ImagePickerVueCRUDFormfield())
             ->setLabel('Photo')
-            ->setGroup(__('Content'))
+            ->setGroup(__('Content (click to open)'))
             ->setContainerClass('w-full');
         foreach ($cache['locales'] as $locale) {
             $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
                 ->setLabel('Title ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Content ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('person_first_name')] = (new TextVueCRUDFormfield())
                 ->setLabel('First name ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-1/3');
             $fields[$locale->getTranslatedPropertyName('person_last_name')] = (new TextVueCRUDFormfield())
                 ->setLabel('Last name ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-1/3');
             $fields[$locale->getTranslatedPropertyName('person_position')] = (new TextVueCRUDFormfield())
                 ->setLabel('Position ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-1/3');
             $fields[$locale->getTranslatedPropertyName('button_label')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button label ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('button_url')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button URL ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
 
             //->setConditions([['field' => 'projectsupport_type_id', 'value' => CreativeSolution::PROJECTSUPPORT_TYPE_ID]])
@@ -269,30 +269,30 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
             ->setLabel('Spacing')
             ->setContainerClass('w-full')
             ->setMandatory(true)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setValuesetClass(Spacing::class);
 
         $fields['background_image'] = (new ImagePickerVueCRUDFormfield())
             ->setLabel('Background image')
-            ->setGroup(__('Content'))
+            ->setGroup(__('Content (click to open)'))
             ->setContainerClass('w-full');
         foreach ($cache['locales'] as $locale) {
             $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
                 ->setLabel('Title ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Content ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('button_label')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button label ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('button_url')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button URL ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
 
             //->setConditions([['field' => 'projectsupport_type_id', 'value' => CreativeSolution::PROJECTSUPPORT_TYPE_ID]])
@@ -306,7 +306,7 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $fields['layout'] = (new SelectVueCRUDFormfield())
             ->setMandatory(true)
             ->setLabel('Layout')
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setDefault(TextImageListLayout::FEATURE_LIST_ID)
             ->setValuesetClass(TextImageListLayout::class)
             ->setContainerClass('w-full');
@@ -316,12 +316,12 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         foreach ($cache['locales'] as $locale) {
             $fields[$locale->getTranslatedPropertyName('text_image_lists_title')] = (new TextVueCRUDFormfield())
                 ->setLabel('Title ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('text_image_lists_content')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Content ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
         }
@@ -334,38 +334,38 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $fields['topic_image_border_color'] = (new ColorVueCRUDFormfield())
             ->setLabel('Image border color')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/2')
             ->setPresets(static::getApplicationColorPresets());
         $fields['topic_image_horizontal_positioning_id'] = (new SelectVueCRUDFormfield())
             ->setLabel('Image positioning')
             ->setContainerClass('w-full')
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setDefault(Positioning::findByCode('right')->id)
             ->setValuesetClass(Positioning::class)
             ->setValuesetGetter('getHorizontalPositioningOptions');
         foreach ($cache['locales'] as $locale) {
             $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
                 ->setLabel('Title ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Content ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setMandatory(true)
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('button_label')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button label ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('button_url')] = (new TextVueCRUDFormfield())
                 ->setLabel('Button URL ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('topic_image')] = (new ImagePickerVueCRUDFormfield())
                 ->setLabel('Image ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
 
         }
@@ -378,19 +378,19 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $fields['layout'] = (new SelectVueCRUDFormfield())
             ->setMandatory(true)
             ->setLabel('Layout')
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setDefault(TextImageListCollectionBlockLayout::TABS_ID)
             ->setValuesetClass(TextImageListCollectionBlockLayout::class)
             ->setContainerClass('w-full');
         $fields['text_color_selected_list'] = (new ColorVueCRUDFormfield())
             ->setLabel('Selected list text color')
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setStep(2)
             ->setContainerClass('w-1/3')
             ->setPresets(static::getApplicationColorPresets());
         $fields['backgroundtype'] = (new SelectVueCRUDFormfield())
             ->setLabel('Background color type')
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-full')
             ->setStep(2)
             ->setValuesetClass(BackgroundColorType::class)
@@ -398,7 +398,7 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         $fields['background_color_selected_list'] = (new ColorVueCRUDFormfield())
             ->setLabel('Selected list background color')
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/2')
             ->setPresets(static::getApplicationColorPresets());
         $fields['second_background_color_selected_list'] = (new ColorVueCRUDFormfield())
@@ -407,17 +407,17 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
                 ['$7_backgroundtype', '=', BackgroundColorType::SOLID_ID]
             ])
             ->setStep(2)
-            ->setGroup(__('Formatting'))
+            ->setGroup(__('Formatting (click to open)'))
             ->setContainerClass('w-1/2')
             ->setPresets(static::getApplicationColorPresets());
         foreach ($cache['locales'] as $locale) {
             $fields[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
                 ->setLabel('Title ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('content')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Content ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
         }
         return $fields;
@@ -429,47 +429,47 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
         foreach ($cache['locales'] as $locale) {
             $fields[$locale->getTranslatedPropertyName('site_logo')] = (new ImagePickerVueCRUDFormfield())
                 ->setLabel('Site logo ('.$locale->uppercase_id.')')
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setContainerClass('w-full');
             $fields[$locale->getTranslatedPropertyName('row_2_content_1')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Row 2 content block 1 ('.$locale->uppercase_id.')')
                 ->setMandatory(true)
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setCustomOptions(['cssHeight' => '400px'])
                 ->setProps(['cssHeight' => '120px'])
                 ->setContainerClass('w-1/4');
             $fields[$locale->getTranslatedPropertyName('row_2_content_2')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Row 2 content block 2 ('.$locale->uppercase_id.')')
                 ->setMandatory(true)
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setCustomOptions(['cssHeight' => '400px'])
                 ->setProps(['cssHeight' => '120px'])
                 ->setContainerClass('w-1/4');
             $fields[$locale->getTranslatedPropertyName('row_2_content_3')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Row 2 content block 3 ('.$locale->uppercase_id.')')
                 ->setMandatory(true)
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setCustomOptions(['cssHeight' => '400px'])
                 ->setProps(['cssHeight' => '120px'])
                 ->setContainerClass('w-1/4');
             $fields[$locale->getTranslatedPropertyName('row_2_content_4')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Row 2 content block 4 ('.$locale->uppercase_id.')')
                 ->setMandatory(true)
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setCustomOptions(['cssHeight' => '400px'])
                 ->setProps(['cssHeight' => '120px'])
                 ->setContainerClass('w-1/4');
             $fields[$locale->getTranslatedPropertyName('row_3_content_1_copyright')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Copyright ('.$locale->uppercase_id.')')
                 ->setMandatory(true)
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setCustomOptions(['cssHeight' => '400px'])
                 ->setProps(['cssHeight' => '120px'])
                 ->setContainerClass('w-1/4');
             $fields[$locale->getTranslatedPropertyName('row_3_content_2_imprint')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Imprint ('.$locale->uppercase_id.')')
                 ->setMandatory(true)
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setCustomOptions(['cssHeight' => '400px'])
                 ->setProps(['cssHeight' => '120px'])
                 ->setContainerClass('w-1/4');
@@ -477,13 +477,13 @@ class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
                 ->setLabel('Terms of use ('.$locale->uppercase_id.')')
                 ->setMandatory(true)
                 ->setCustomOptions(['cssHeight' => '400px'])
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setProps(['cssHeight' => '120px'])
                 ->setContainerClass('w-1/4');
             $fields[$locale->getTranslatedPropertyName('row_3_content_4_privacy')] = (new RichttextQuillVueCRUDFormfield())
                 ->setLabel('Privacy ('.$locale->uppercase_id.')')
                 ->setMandatory(true)
-                ->setGroup(__('Content'))
+                ->setGroup(__('Content (click to open)'))
                 ->setCustomOptions(['cssHeight' => '400px'])
                 ->setProps(['cssHeight' => '120px'])
                 ->setContainerClass('w-1/4');

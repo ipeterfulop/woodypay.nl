@@ -47,7 +47,7 @@
 <body class="bg-wp-oxfordblue">
     <div x-data="{showMenu: false}">
         @if((!isset($showHeader)) || ($showHeader))
-            <div  class="w-full max-width-container flex items-stretch justify-center z-40 fixed top-0 left-0 topmenu h-10"
+            <div  class="w-full max-width-container flex items-stretch justify-center z-40 fixed top-0 left-0 topmenu"
                   style="height: {{ $siteSettings['page_header.header_height'] }}px; background-color: {{ $siteSettings['page_header.header_background_color'] }}"
                   data-fullheight="{{ $siteSettings['page_header.header_height'] }}"
                   id="topmenu">
@@ -88,11 +88,11 @@
     let o = new IntersectionObserver((entries, observer) => {
         if (entries[0].intersectionRatio == 0) {
             m.classList.add('menu-shrunk');
-            m.style.removeProperty('height')
+            m.style.height = '{{ $siteSettings['page_header.header_height_minimized'] }}px'
         } else {
             m.classList.add('menu-shrunk');
-            m.style.height = m.getAttribute('data-fullheight')+'px'
-x        }
+            m.style.height = '{{ $siteSettings['page_header.header_height'] }}px'
+        }
     }, {
         root: null,
         rootMargin: '0px',
