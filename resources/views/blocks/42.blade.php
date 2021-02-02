@@ -1,6 +1,6 @@
-    <div class="flex flex-col-reverse md:flex-row w-full justify-between {{ $block->getBlockCSSName() }} {{ $block->blocktype->getCSSName() }} "   style="background-size: cover">
+    <div class="flex flex-col-reverse md:flex-row w-full justify-between {{ $block->getBlockCSSName() }} {{ $block->blocktype->getCSSName() }} @if($block->widthtype == \App\Helpers\Widthtype::FULL_ID) max-width-container @endif"   style="background-size: cover">
         <div class="w-full flex flex-col items-start justify-start py-8 lg:py-32 px-4 lg:px-32">
-            <h1 class="w-full text-left text-3xl lg:text-5xl" style="">{!! $block->getItemsContainer()->title_translated !!}</h1>
+            <h1 class="w-full text-left " style="">{!! $block->getItemsContainer()->title_translated !!}</h1>
             <div class="py-4">{!! $block->getItemsContainer()->content_translated !!}</div>
             <div class="w-full flex flex-col-reverse lg:flex-row">
                 <ul class="w-full lg:w-1/2 flex items-start justify-start flex-col mt-16 opacity-0" id="list-{{ $block->id }}-container">
@@ -9,7 +9,7 @@
                             data-block-id="{{ $index }}"
                             id="listitem-{{ $block->id.'-'.$index }}"
                         >
-                            <h3 class="cursor-pointer text-xl font-bold leading-6"
+                            <h3 class="cursor-pointer font-bold leading-6"
                                 data-image-url="{{ (string)$item->image_url == '' ? $item->image_url :  '/storage/attachments/'.$block->getItemsContainer()->topic_image_translated }}"                            >{{ $item->title_translated }}</h3>
                             <div class="pt-4 overflow-y-hidden"
                                  id="listitem-{{ $block->id.'-'.$index }}-content"

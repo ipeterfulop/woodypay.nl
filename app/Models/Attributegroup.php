@@ -44,7 +44,8 @@ class Attributegroup extends TranslatableModel
                     'componentProps' => [
                         'operationsUrl' => route('attributegroups_endpoint'),
                         'attributegroupId'     => $this->id,
-                        'windowTitle' => __($this->name).' '.__('settings')
+                        'windowTitle' => __($this->name).' '.__('settings'),
+                        'colorPickerPresets' => config('colors'),
                     ],
                 ]
             );

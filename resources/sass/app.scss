@@ -2,40 +2,77 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
-
-body {
-  font-size: 17px;
-  line-height: 24px;
-  font-weight: 400;
-}
-
-@screen lg {
-  font-size: 20px;
-}
-
-a.button,
-button {
-  border-radius: 2rem;
-  @apply cursor-pointer flex items-center justify-center text-center py-5 px-8 text-lg transition-opacity transition-colors;
-}
-
-a.button:hover,
-button:hover {
-  @apply opacity-75;
-}
-
-h1 {
-  @apply text-3xl font-light tracking-tight;
-}
-
-@screen md {
-  h1 {
-    @apply text-5xl;
+@layer base {
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-SemiBold.woff2') format('woff2'),
+    url('/fonts/Inter-SemiBold.woff') format('woff'),
+    url('/fonts/Inter-SemiBold.svg#Inter-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
   }
-}
-@screen lg {
-  h1 {
-    @apply text-7xl;
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-Regular.woff2') format('woff2'),
+    url('/fonts/Inter-Regular.woff') format('woff'),
+    url('/fonts/Inter-Regular.svg#Inter-Regular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
   }
+
+  body {
+    font-family: 'Inter';
+    font-size: 15px;
+    font-weight: 400;
+    @apply tracking-tight leading-130;
+  }
+  @screen md {
+    body {
+      font-size: 17px;
+    }
+  }
+
+  a.button,
+  button {
+    border-radius: 2rem;
+    transition: background-color 200ms ease-in-out, opacity 200ms ease-in-out, color 200ms ease-in-out;
+    @apply cursor-pointer flex items-center justify-center text-center py-5 px-8 text-lg;
+  }
+
+  a.button:hover,
+  button:hover {
+    @apply opacity-75;
+  }
+
+  h1 {
+    @apply tracking-tighter text-2xl leading-normal;
+  }
+  h2 {
+    @apply tracking-tighter text-xl font-bold  leading-normal;
+  }
+  h3 {
+    @apply tracking-tighter text-xl leading-normal;
+  }
+  @screen md {
+    h1 {
+      @apply text-3xl font-normal;
+    }
+    h2 {
+      @apply text-2xl;
+    }
+  }
+  @screen lg {
+    h1 {
+      @apply text-5xl;
+    }
+    h2 {
+      @apply text-3xl;
+    }
+    h3 {
+      @apply text-2xl;
+    }
+  }
+
 }

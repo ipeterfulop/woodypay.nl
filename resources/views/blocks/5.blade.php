@@ -1,9 +1,9 @@
-    <div class="flex flex-col items-center justify-start py-16 lg:py-32 px-4 lg:px-32 {{ $block->getBlockCSSName() }} {{ $block->blocktype->getCSSName() }}" style="background-size: cover">
-        <h1 class="w-full text-center text-3xl lg:text-5xl" style="">{!! $block->title_translated !!}</h1>
+    <div class="flex flex-col items-center justify-start py-16 lg:py-32 px-4 lg:px-32 {{ $block->getBlockCSSName() }} {{ $block->blocktype->getCSSName() }} @if($block->widthtype == \App\Helpers\Widthtype::FULL_ID) max-width-container @endif" style="background-size: cover">
+        <h1 class="w-full text-center">{!! $block->title_translated !!}</h1>
         <div class="w-full flex items-center justify-center py-10">
             <div style="height: 2px; width: 6rem" class="bg-gray-900">&nbsp;</div>
         </div>
-        <div class="py-8 px-16">{!! $block->content_translated !!}</div>
+        <div class="py-8 px-0 lg:px-16">{!! $block->content_translated !!}</div>
         <div class="py-4 w-full flex flex-col md:flex-row items-center justify-center px-0 md:px-16 ">
             <div class="w-full md:w-1/3 flex items-center">
                 <img src="/storage/attachments/{{ basename($block->person_photo) }}" class="w-full object-contain">

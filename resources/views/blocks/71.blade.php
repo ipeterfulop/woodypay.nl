@@ -1,7 +1,7 @@
-    <div class="flex flex-col items-start justify-start px-32 {{ $block->getBlockCSSName() }} {{ $block->blocktype->getCSSName() }} pb-16"
+    <div class="flex flex-col items-start justify-start px-32 {{ $block->getBlockCSSName() }} {{ $block->blocktype->getCSSName() }} pb-16 @if($block->widthtype == \App\Helpers\Widthtype::FULL_ID) max-width-container @endif"
          x-data="{'currentTab': 0}"
          style="background-size: cover">
-        <h1 class="w-full text-center text-3xl lg:text-5xl pb-12" style="">{!! $block->title_translated !!}</h1>
+        <h1 class="w-full text-center pb-12" style="">{!! $block->title_translated !!}</h1>
         <div class="w-full text-center px-3 py-3" style="">{!! $block->content_translated !!}</div>
         @foreach($block->getLists() as $tabIndex => $tab)
             @push('tabs-'.$block->id)
@@ -23,7 +23,7 @@
                             @else
                                 <img src="/storage/attachments/{{ basename($item->image_url) }}" class="h-16">
                             @endif
-                            <h3 class="text-xl lg:text-3xl pb-1">{{ $item->title_translated }}</h3>
+                            <h3 class="pb-1">{{ $item->title_translated }}</h3>
                             <div class="font-light tracking-normal mb-16">{!! $item->content_translated !!}</div>
                         @endforeach
                     </div>
@@ -33,14 +33,14 @@
                 </div>
             @endpush
             @push('tabcontent-mobile-'.$block->id)
-                <h4 class="text-2xl font-bold text-center py-8">{{ $tab->title_translated }}</h4>
+                <h3 class="font-bold text-center py-8">{{ $tab->title_translated }}</h3>
                 <div class="w-full flex flex-col items-start justify-start p-4 mb-4">
                     <img class="w-full object-contain" src="/storage/attachments/{{ basename($tab->image_url) }}">
                 </div>
                 <div class="w-full flex flex-col items-center">
                     @foreach($tab->items as $index => $item)
                         <img src="{{ $item->image_url }}" class="h-16">
-                        <h3 class="text-xl font-bold lg:text-2xl">{{ $item->title_translated }}</h3>
+                        <h3 class="font-bold">{{ $item->title_translated }}</h3>
                         <div class="font-light tracking-normal mb-6">{!! $item->content_translated !!}</div>
                     @endforeach
                 </div>

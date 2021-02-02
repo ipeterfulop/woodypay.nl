@@ -22,30 +22,45 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
     <style>
-        body {
-            background-color: rgb(27, 34, 48);
-        }
         .topmenu {
-            transition: height 200ms ease-in-out; color: white; background-color: rgb(7, 13, 48)
+            transition: height 200ms ease-in-out;
+            color: white;
+        }
+        .menubutton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .menubutton svg {
+            height: 100%;
+        }
+        .topmenu logolink {
+            padding-top: .5rem;
+            padding-bottom: .5rem;
+        }
+        .topmenu.menu-shrunk logolink {
+            padding-top: 1px;
+            padding-bottom: 1px;
         }
     </style>
 </head>
-<body>
+<body class="bg-wp-oxfordblue">
     <div x-data="{showMenu: false}">
         @if((!isset($showHeader)) || ($showHeader))
-            <div  class="w-full max-width-container flex items-stretch justify-center z-40 fixed top-0 left-0 topmenu"
+            <div  class="w-full max-width-container flex items-stretch justify-center z-40 fixed top-0 left-0 topmenu h-10"
                   style="height: {{ $siteSettings['page_header.header_height'] }}px; background-color: {{ $siteSettings['page_header.header_background_color'] }}"
+                  data-fullheight="{{ $siteSettings['page_header.header_height'] }}"
                   id="topmenu">
                 <div class="w-full flex flex-row items-center justify-between self-stretch">
-                    <a href="/" class="self-stretch ml-2 lg:ml-0">
-                        <img src="{{ $siteSettings['page_header.header_logo'] }}" class="self-stretch h-full" style="min-width: 8rem">
+                    <a href="/" class="self-stretch lg:ml-0 logolink">
+                        <img src="{{ $siteSettings['page_header.header_logo'] }}" class="self-stretch h-full object-contain">
                     </a>
-                    <div class="mr-6 ml-auto">
+                    <div class="ml-auto mr-2 md:mr-6 ml-auto flex flex-nowrap items-center justify-end">
                         @foreach(\App\Models\Locale::all() as $locale)
                             <a class="mr-2 font-bold @if($locale->id == \App::getLocale()) opacity-50 @endif" href="/{{$locale->id}}/">{{ mb_strtoupper($locale->id) }}</a>
                         @endforeach
                     </div>
-                    <button @click="showMenu = !showMenu" class="focus:outline-none hover:opacity-75 text-3xl">{!! config('heroicons.solid.menu') !!}</button>
+                    <span @click="showMenu = !showMenu" class="cursor-pointer menubutton py-2 focus:outline-none hover:opacity-75 h-full">{!! config('heroicons.solid-nosize.menu') !!}</span>
                 </div>
             </div>
         @endif
@@ -72,12 +87,12 @@
     let m = document.getElementById('topmenu');
     let o = new IntersectionObserver((entries, observer) => {
         if (entries[0].intersectionRatio == 0) {
-            m.classList.add('h-10');
-            m.classList.remove('h-14');
+            m.classList.add('menu-shrunk');
+            m.style.removeProperty('height')
         } else {
-            m.classList.add('h-14');
-            m.classList.remove('h-10');
-        }
+            m.classList.add('menu-shrunk');
+            m.style.height = m.getAttribute('data-fullheight')+'px'
+x        }
     }, {
         root: null,
         rootMargin: '0px',

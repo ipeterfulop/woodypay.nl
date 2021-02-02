@@ -1,7 +1,7 @@
 @push('buttonstyle-'.$block->id)
     z-20 absolute top-0 h-full bg-gray-700 bg-opacity-0 hover:bg-opacity-75 text-3xl font-bold text-white flex flex-col items-center justify-center focus:outline-none rounded-none
 @endpush
-    <div class="slider relative w-full flex flex-row relative  {{ $block->blocktype->getCSSName() }}  {{ $block->getBlockCSSName() }}"
+    <div class="slider relative w-full flex flex-row relative  {{ $block->blocktype->getCSSName() }}  {{ $block->getBlockCSSName() }} @if($block->widthtype == \App\Helpers\Widthtype::FULL_ID) max-width-container @endif"
          style="{{ $block->styledefinitions->getStyleString() }}"
          id="slider-{{ $block->id }}"
          data-display-duration="{{ ($block->slide_display_duration * 1000) }}"

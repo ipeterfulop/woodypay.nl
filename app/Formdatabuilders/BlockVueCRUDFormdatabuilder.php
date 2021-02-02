@@ -29,10 +29,9 @@ use Datalytix\VueCRUD\Formdatabuilders\VueCRUDFormdatabuilder;
 
 class BlockVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
 {
-    protected static function getApplicationColorPresets()
+    public static function getApplicationColorPresets()
     {
-        //todo, when the design is in
-        return [];
+        return config('colors');
     }
 
     /**

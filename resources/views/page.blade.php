@@ -26,7 +26,7 @@
         <a name="#block-{{ $block->id }}"></a>
         <div class="block-container block-{{ $block->blocktype_id }}-container"
         >
-            <div class="w-full max-width-container flex items-start justify-center {{ $block->getBlockCSSName() }}container ">
+            <div class="w-full @if($block->widthtype != \App\Helpers\Widthtype::FULL_ID) max-width-container @endif flex items-start justify-center {{ $block->getBlockCSSName() }}container ">
                 @includeIf('blocks.'.$block->getLayoutName(), ['block' => $block])
 
             </div>
