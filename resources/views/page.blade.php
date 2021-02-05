@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'pageTitle' => $page->title_translated,
+    'pageDescription' => $page->description_translated
+])
 @section('content')
     <style>
         .max-width-container {

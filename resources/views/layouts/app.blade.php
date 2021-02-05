@@ -7,8 +7,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="{{ $pageDescription ?? config('app.name') }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@if(isset($pageTitle)){{ $pageTitle }}@else{{ config('app.name', 'Laravel') }}@endif</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

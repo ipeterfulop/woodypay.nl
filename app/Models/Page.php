@@ -144,4 +144,11 @@ class Page extends TranslatableModel
             $this->delete();
         }) === null;
     }
+
+    public static function modifyModellistButtons($buttons)
+    {
+        unset($buttons['details']);
+
+        return $buttons;
+    }
 }

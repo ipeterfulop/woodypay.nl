@@ -60,9 +60,13 @@ class SavePageVueCRUDRequest extends VueCRUDRequestBase
         foreach(Locale::all() as $locale) {
             $result[$locale->getTranslatedPropertyName('name')] = $this->input($locale->getTranslatedPropertyName('name'));
             $result[$locale->getTranslatedPropertyName('url')] = $this->input($locale->getTranslatedPropertyName('url'));
+            $result[$locale->getTranslatedPropertyName('title')] = $this->input($locale->getTranslatedPropertyName('title'));
+            $result[$locale->getTranslatedPropertyName('description')] = $this->input($locale->getTranslatedPropertyName('description'));
             if ($locale->id == $mainLocale->id) {
                 $result['name'] = $this->input($locale->getTranslatedPropertyName('name'));
                 $result['url'] = $this->input($locale->getTranslatedPropertyName('url'));
+                $result['title'] = $this->input($locale->getTranslatedPropertyName('title'));
+                $result['description'] = $this->input($locale->getTranslatedPropertyName('description'));
             }
         }
         return $result;

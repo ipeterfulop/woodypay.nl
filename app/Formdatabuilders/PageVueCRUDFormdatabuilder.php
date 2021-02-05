@@ -29,6 +29,14 @@ class PageVueCRUDFormdatabuilder extends VueCRUDFormdatabuilder
                 ->setLabel('Relative URL without language code and starting slash (e.g. privacy) ('.$locale->uppercase_id.')')
                 ->setContainerClass('w-1/2')
                 ->setMandatory(true);
+            $result[$locale->getTranslatedPropertyName('title')] = (new TextVueCRUDFormfield())
+                ->setLabel('Page title ('.$locale->uppercase_id.')')
+                ->setContainerClass('w-full')
+                ->setMandatory(true);
+            $result[$locale->getTranslatedPropertyName('description')] = (new TextVueCRUDFormfield())
+                ->setLabel('Page description (SEO) ('.$locale->uppercase_id.')')
+                ->setContainerClass('w-full')
+                ->setMandatory(true);
         }
         return collect($result);
     }
