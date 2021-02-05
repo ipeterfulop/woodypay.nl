@@ -54,7 +54,7 @@ class Page extends TranslatableModel
 
     public static function getTranslatedProperties(): array
     {
-        return ['name', 'url'];
+        return ['name', 'url', 'title', 'description'];
     }
 
     public static function getVueCRUDIndexColumns()
